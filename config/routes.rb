@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       resources :get_ordenes_abiertas_internas, path: "ordenes_internas"
       resources :get_porcentaje, path: "porcentaje"
       resources :crear_ordenes, path: "crear_ordenes"
+      resources :crear_facturadas, path: "crear_facturadas"
+      resources :valida_app_id, path: "valida_app_id"
 
     end
   end
