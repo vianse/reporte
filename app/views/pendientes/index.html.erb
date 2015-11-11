@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Pendientes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>Tipo</th>
+      <th>Importe</th>
+      <th>Fecha</th>
+      <th>Estatus</th>
+      <th>App</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pendientes.each do |pendiente| %>
+      <tr>
+        <td><%= pendiente.orden %></td>
+        <td><%= pendiente.tipo %></td>
+        <td><%= pendiente.importe %></td>
+        <td><%= pendiente.fecha %></td>
+        <td><%= pendiente.estatus %></td>
+        <td><%= pendiente.app_id %></td>
+        <td><%= link_to 'Show', pendiente %></td>
+        <td><%= link_to 'Edit', edit_pendiente_path(pendiente) %></td>
+        <td><%= link_to 'Destroy', pendiente, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pendiente', new_pendiente_path %>

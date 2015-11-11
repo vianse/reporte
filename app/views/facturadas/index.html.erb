@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Facturadas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden</th>
+      <th>Tipo</th>
+      <th>Importe</th>
+      <th>Fecha</th>
+      <th>Estatus</th>
+      <th>App</th>
+      <th>Factura</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facturadas.each do |facturada| %>
+      <tr>
+        <td><%= facturada.orden %></td>
+        <td><%= facturada.tipo %></td>
+        <td><%= facturada.importe %></td>
+        <td><%= facturada.fecha %></td>
+        <td><%= facturada.estatus %></td>
+        <td><%= facturada.app_id %></td>
+        <td><%= facturada.factura %></td>
+        <td><%= link_to 'Show', facturada %></td>
+        <td><%= link_to 'Edit', edit_facturada_path(facturada) %></td>
+        <td><%= link_to 'Destroy', facturada, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Facturada', new_facturada_path %>

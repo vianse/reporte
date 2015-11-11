@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mes: MyString
+  año: MyString
+  objetivo_real: MyString
+  objetivo_obligado: MyString
+  app_id: MyString
+  user_id: MyString
+
+two:
+  mes: MyString
+  año: MyString
+  objetivo_real: MyString
+  objetivo_obligado: MyString
+  app_id: MyString
+  user_id: MyString

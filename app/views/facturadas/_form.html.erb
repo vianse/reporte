@@ -1,0 +1,45 @@
+<%= form_for(@facturada) do |f| %>
+  <% if @facturada.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facturada.errors.count, "error") %> prohibited this facturada from being saved:</h2>
+
+      <ul>
+      <% @facturada.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :orden %><br>
+    <%= f.text_field :orden %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo %><br>
+    <%= f.text_field :tipo %>
+  </div>
+  <div class="field">
+    <%= f.label :importe %><br>
+    <%= f.text_field :importe %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.date_select :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :estatus %><br>
+    <%= f.text_field :estatus %>
+  </div>
+  <div class="field">
+    <%= f.label :app_id %><br>
+    <%= f.text_field :app_id %>
+  </div>
+  <div class="field">
+    <%= f.label :factura %><br>
+    <%= f.text_field :factura %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

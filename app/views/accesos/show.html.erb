@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @acceso.user %>
+</p>
+
+<p>
+  <strong>App:</strong>
+  <%= @acceso.app_id %>
+</p>
+
+<%= link_to 'Edit', edit_acceso_path(@acceso) %> |
+<%= link_to 'Back', accesos_path %>

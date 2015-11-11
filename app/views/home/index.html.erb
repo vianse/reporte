@@ -1,0 +1,1203 @@
+<script type="text/javascript">
+	function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+				  if (typeof stroke == "undefined" ) {
+					stroke = true;
+				  }
+				  if (typeof radius === "undefined") {
+					radius = 5;
+				  }
+				  
+				  //edge clearing
+				  
+				  var gdest = ctx.globalCompositeOperation;
+				  var fstyle = ctx.fillStyle;
+				  ctx.globalCompositeOperation = "destination-out";			  
+				  ctx.fillStyle = "#FF686B";
+				 
+				  ctx.beginPath();
+				  ctx.moveTo(x, y+radius);
+				  ctx.quadraticCurveTo(x, y, x + radius, y);
+				  ctx.lineTo(x, y);
+				  ctx.lineTo(x, y+radius);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.beginPath();
+				  ctx.moveTo(x, y+height-radius);
+				  ctx.quadraticCurveTo(x, y+height, x + radius, y+height);
+				  ctx.lineTo(x, y+height);
+				  ctx.lineTo(x, y+height-radius);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.beginPath();
+				  ctx.moveTo(x+width-radius, y);
+				  ctx.quadraticCurveTo(x+width, y, x + width, y+radius);
+				  ctx.lineTo(x+width, y);
+				  ctx.lineTo(x+width-radius, y);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.beginPath();
+				  ctx.moveTo(x+width, y+height-radius);
+				  ctx.quadraticCurveTo(x+width, y+height, x+width - radius, y+height);
+				  ctx.lineTo(x+width, y+height);
+				  ctx.lineTo(x+width, y+height-radius);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.fillStyle = fstyle;
+				  ctx.globalCompositeOperation = gdest;
+				  
+
+
+				  
+				  //round rect
+				  ctx.beginPath();
+				  ctx.moveTo(x + radius, y);
+				  ctx.lineTo(x + width - radius, y);
+				  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+				  ctx.lineTo(x + width, y + height - radius);
+				  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+				  ctx.lineTo(x + radius, y + height);
+				  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+				  ctx.lineTo(x, y + radius);
+				  ctx.quadraticCurveTo(x, y, x + radius, y);
+				  ctx.closePath(); 			  
+				  if (stroke) {
+					ctx.stroke();
+				  }
+				  if (fill) {
+					ctx.fill();
+				  } 
+	 
+
+				}
+
+				
+				var ii = 0;		
+				function isNumber(n) 
+				{
+				  return !isNaN(parseFloat(n)) && isFinite(n);
+				}
+				
+				function drawCanvas(percentage, canvasid)
+				{			
+											
+					var error = !isNumber(percentage);
+					
+					if (!error && (percentage < 0 || percentage > 100))
+					{
+						error = true;
+					}
+					
+					percentage = percentage.toString().replace(/[^0-9]/g, '');
+					var canvas = $('#'+canvasid);
+					canvas.clear = true;
+					canvas = document.getElementById('cvs');
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						context.clearRect(0,0,canvas.width,canvas.height);
+						
+						context.fillStyle = "#FFC6C1";
+						context.fillRect(0, 0, canvas.width, canvas.height);
+						
+						var percWidth = Math.round(canvas.width / 100);
+						
+						if (!error)
+						{
+							for (var i = 0; i<= percentage; i++)
+							{						
+								var r,g,b;
+								if (i <= 50)
+								{
+									r = 255;
+									g = Math.round((255*i)/50);
+									b = 0;
+								}
+								else
+								{
+									r = Math.round((255*(100-i))/50);
+									g = 255;
+									b = 0
+								}						
+								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
+								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
+							}
+							
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = percentage + "%";
+						}
+						else
+						{
+							context.fillStyle = "rgb(255,0,0)";
+							context.fillRect(0,0,canvas.width, canvas.height);
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = "Sin Acceso";
+						}
+						
+						context.fillStyle = "#2B2D42";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
+						/*context.fillStyle = "rgb(90,90,90)";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
+						context.fillStyle = "#FFFAFF";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
+						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
+						
+						
+						
+						
+						context.fillStyle = "rgb(0, 0, 0)";					
+						roundRect(context, 0,0,canvas.width,canvas.height,5);
+					}
+					
+				}
+				function drawCanvas1(percentage, canvasid)
+				{			
+											
+					var error = !isNumber(percentage);
+					
+					if (!error && (percentage < 0 || percentage > 100))
+					{
+						error = true;
+					}
+					
+					percentage = percentage.toString().replace(/[^0-9]/g, '');
+					var canvas = $('#'+canvasid);
+					canvas.clear = true;
+					canvas = document.getElementById('ordenes_cero');
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						context.clearRect(0,0,canvas.width,canvas.height);
+						
+						context.fillStyle = "#FFC6C1";
+						context.fillRect(0, 0, canvas.width, canvas.height);
+						
+						var percWidth = Math.round(canvas.width / 100);
+						
+						if (!error)
+						{
+							for (var i = 0; i<= percentage; i++)
+							{						
+								var r,g,b;
+								if (i <= 50)
+								{
+									r = 255;
+									g = Math.round((255*i)/50);
+									b = 0;
+								}
+								else
+								{
+									r = Math.round((255*(100-i))/50);
+									g = 255;
+									b = 0
+								}						
+								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
+								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
+							}
+							
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = percentage + "%";
+						}
+						else
+						{
+							context.fillStyle = "rgb(255,0,0)";
+							context.fillRect(0,0,canvas.width, canvas.height);
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = "Sin Acceso";
+						}
+						
+						context.fillStyle = "#2B2D42";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
+						/*context.fillStyle = "rgb(90,90,90)";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
+						context.fillStyle = "#FFFAFF";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
+						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
+						
+						
+						
+						
+						context.fillStyle = "rgb(0, 0, 0)";					
+						roundRect(context, 0,0,canvas.width,canvas.height,5);
+					}
+					
+				}
+				function drawCanvas2(percentage, canvasid)
+				{			
+											
+					var error = !isNumber(percentage);
+					
+					if (!error && (percentage < 0 || percentage > 100))
+					{
+						error = true;
+					}
+					
+					percentage = percentage.toString().replace(/[^0-9]/g, '');
+					var canvas = $('#'+canvasid);
+					canvas.clear = true;
+					canvas = document.getElementById('objetivo_progress');
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						context.clearRect(0,0,canvas.width,canvas.height);
+						
+						context.fillStyle = "#FFC6C1";
+						context.fillRect(0, 0, canvas.width, canvas.height);
+						
+						var percWidth = Math.round(canvas.width / 100);
+						
+						if (!error)
+						{
+							for (var i = 0; i<= percentage; i++)
+							{						
+								var r,g,b;
+								if (i <= 50)
+								{
+									r = 255;
+									g = Math.round((255*i)/50);
+									b = 0;
+								}
+								else
+								{
+									r = Math.round((255*(100-i))/50);
+									g = 255;
+									b = 0
+								}						
+								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
+								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
+							}
+							
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = percentage + "%";
+						}
+						else
+						{
+							context.fillStyle = "rgb(255,0,0)";
+							context.fillRect(0,0,canvas.width, canvas.height);
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = "Sin Acceso";
+						}
+						
+						context.fillStyle = "#2B2D42";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
+						/*context.fillStyle = "rgb(90,90,90)";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
+						context.fillStyle = "#FFFAFF";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
+						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
+						
+						
+						
+						
+						context.fillStyle = "rgb(0, 0, 0)";					
+						roundRect(context, 0,0,canvas.width,canvas.height,5);
+					}
+					
+				}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
+<script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<style type="text/css">
+ div#empresa{
+
+ 	font-size: 3rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	font-weight: 500;
+	margin-bottom: 15px;
+	margin-left: 3%;
+	color: #7C7C7C;
+
+ }
+ .leyenda{
+	overflow: hidden;
+	width: 100%;
+	margin-left: 3%;
+ }
+  .leyenda-child{
+ 	float: left;
+ 	display: block;
+ 	width: 650px;
+ }
+ div.leyenda1{
+ 	font-size: .9rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	font-weight: 500;
+	margin-bottom: 3.5px;
+	color: #7C7C7C;
+	float: left;
+	content: "\2018 ";
+ }
+  div.internas{
+ 	font-size: .9rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	font-weight: 500;
+	margin-bottom: 3.5px;
+	float: left;
+	color: #7C7C7C;
+ }
+ .internas-color{
+ 	color: #FF686B!important;
+ }
+ .internas-contenedor{
+ 	margin-left: 3%;
+ 	clear: both;
+ 	float: left;
+ 	display: block;
+ 	width: 650px;
+ }
+ .ordenes-abiertas{
+ 	color: #84DCC6!important;
+ }
+ div.moneda{
+ 	font-size: 1rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	font-weight: 500;
+	margin-bottom: 10px;
+	color: #7C7C7C;
+	float: left;
+	margin-right: 1%;
+ }
+ .dato{
+ 	float: left;
+ 	font-size: 1.5rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	margin-left: 1%;
+	color: #7C7C7C;
+	margin-right: 1%;
+ }
+ div#venta_pendiente{
+ 	clear: both;
+ 	font-size: 1.5rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	margin-left: 3%;
+	margin-top: 6%;
+	margin-bottom: 2%;
+	color: #7C7C7C;
+ }
+ .venta_pendiente{
+ 	clear: both;
+ 	font-size: 1.5rem;
+	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	margin-left: 3%;
+	margin-top: 5%;
+	margin-bottom: 1%;
+	color: #7C7C7C;
+ }
+	.leyenda-pronosticos{
+	 	font-size: .9rem;
+		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+		font-weight: 500;
+		margin-bottom: 3.5px;
+		color: #7C7C7C;
+		float: left;
+		margin-right: .5%;
+		margin-left: 3%;
+	 }
+
+	 h2{
+	 	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	 	margin-left: 3%;
+	 }
+	 .float ,.float-1,.float2,.float3 {
+	 	float: left;
+	 	margin-left: .2%;
+	 	margin-right: .5%;
+	 }
+	.subtitle{
+		margin-left: 4%;
+	 	font-size: 2rem;
+		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	 }
+	 .margin-left{
+	 	margin-left: 8%;
+	 }
+	 .margin-left1{
+	 	margin-left: 4%;
+	 }
+	 .margin-left2{
+	 	margin-left: 8%;
+	 	margin-top: 5%;
+	 }
+	 .margin-left3{
+	 	margin-top: 2%;
+	 	margin-bottom: 1%;
+	 }
+	 .page-header {
+	    padding-bottom: 9px;
+	    margin: 10px 0 10px!important;
+	    border-bottom: 1px solid hsl(0, 0%, 93%);
+	}
+	.float-right{
+		margin-right: 30%;
+	}
+	.margin-top-10{
+	 margin-top: 5%;
+	}
+	.margin-left-3{
+	 margin-left: 4%;
+	 font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	}
+	.subtitle-1{
+		font-size: 2rem;
+		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	}
+	.visible{
+		display: none;
+}
+</style>
+<body data-no-turbolink data-no-transition-cache></body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+  				<h1><div id="empresa"></div></h1>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		<div class="panel panel-default">
+  			<div class="panel-body">
+				<div class="leyenda">
+					<div class="float">Tú Objetivo de venta obligado para este mes es de: </div> 
+					<strong><div id="objetivo" class="float-1"></div></strong>
+				</div>
+				<div class="leyenda">
+					<div class="float">Tú Objetivo ideal para este mes es de: </div>
+					<strong><div id="objetivo_real" class="float-1"></div></strong>
+				</div>
+				
+		</div>	
+		</div>
+		</div>	
+	</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="leyenda margin-left subtitle">
+				<strong><div class="float">Venta Pendiente (Sin Facturar)</div></strong>
+			</div>
+			<div class="leyenda margin-left">
+					<div class="float">Al día de hoy tienes</div>
+					<strong><div id="ordenes_abiertas" class="float-1"></div></strong>
+					<div class="float-2">orden(es) de servicio abierta(s)</div>
+			</div>	
+			<div class="leyenda margin-left">
+					<div class="float">Con un costo de </div>
+					<strong><div id="costo" class="float-1"></div> </strong>
+			</div>
+			<div class="leyenda margin-left">
+				<div class="float">Las ordenes <strong class="internas-color">INTERNAS</strong> ascienden a </div>
+				<div id="costo_internas" class="float-2 internas-color"></div> 
+			</div>
+			<div class="leyenda margin-left">
+				<div class="float"> en </div>
+				<div id="ordenes_internas" class="float internas-color"></div>
+				<div class="float-2">orden(es) </div>
+				<div id="detalles"></div>
+			</div>
+
+		</div>
+		<div class="col-md-6">
+			<div class="leyenda margin-left subtitle">
+				<strong><div class="float">Venta Facturada Actual</div></strong>
+			</div>
+			<div class="leyenda margin-left">
+				<div class="float">Total <strong><span id="facturadas"></span></strong> MXN</div>
+			</div>
+				<div class="margin-left">Porcentaje de cumplimiento del objetivo</div>
+				<div id="progress"></div>
+				<canvas id="cvs" class="margin-left" width="200" height="25">
+				</canvas><br><br><br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<strong><div class="subtitle">Pronósticos</div></strong>
+			<div class="leyenda  margin-left-3">
+			<strong><span class="float">Ordenes de servicio Mayores a </span>
+			<div id="o" class="float-1"></div></strong>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="leyenda margin-left1">
+				<strong><div class="float">Estimado concesionario</div></strong> 
+			</div>
+			<div class="leyenda margin-left1">
+				<div class="float">Si usted factura las ordenes de servicio No: </div>
+				<div id="ordenes_recomendadas" class="float-2"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="leyenda margin-left">
+				<strong><div class="margin-left3 margin-top-10 subtitle-1">Venta Pendiente(Sin Facturar)</div></strong>
+			</div>
+			<div class="leyenda margin-left">
+				<div class="float">
+					Le quedarían
+				</div>
+					<strong>
+						<div id="conteo" class="float2"></div>
+					</strong>
+					<div class="float2"> ordenes por cerrar</div>
+		 		<div class="float">equivalentes a un costo de</div> 
+		 		<strong>
+		 			<div id="rest" class="float2"></div>
+		 		</strong>
+		 		MXN
+		 	</div>
+		 	<div class="leyenda margin-left">		      
+				<strong><div>Cumplimiento del objetivo a 0 ordenes</div></strong>
+				<canvas id="ordenes_cero" width="200" height="25">
+				</canvas>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="leyenda margin-left">
+				<strong><div class="float-right margin-top-10 subtitle-1">Venta Sugerida</div></strong>
+				<strong><div id="total_pronostico"></div></strong>
+				<strong><div id="importe_facturado"></div></strong>
+				<canvas id="objetivo_progress" width="200" height="25">
+				</canvas>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	function valor(value){
+		$( "#total_pronostico" ).text("Total: " + value + " MXN");
+		
+	};	
+	function valor1(value){
+		$( "#importe_facturado" ).text("Cumplimiento del objetivo " + value + " MXN");
+	};
+	function valor2(value){
+		$( "#conteo" ).text(value);
+		
+	};	
+	function valor3(value){
+		$( "#rest" ).text(value);
+	};
+	function valor4(value){
+		$( "#o" ).text(value + " días");
+	};
+	
+	$( "#ver" ).click(function() {
+  		$( "#detalles" ).toggle( "slow", function() {
+    // Animation complete.
+  });
+});
+
+</script>
+
+<script type="text/jsx">
+/*
+ *  Title
+ */
+	var Empresa = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+			var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	        },
+	        render: function() {   
+	          return (
+	            <span>
+	             {this.state.data}     
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <Empresa source="api/v1/empresa" />,
+	      document.getElementById('empresa')
+	 );
+	/*
+	 *  Porcentaje
+	 */
+	
+	var Porcentaje = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+
+	        },
+	        consulta: function(){
+			var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	        },
+	        render: function() { 
+	        	var self = this     	
+	            drawCanvas(this.state.data ,'cvs');   
+	          return (
+	            <span>
+	               
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <Porcentaje source="api/v1/porcentaje" />,
+	      document.getElementById('progress')
+	 );
+/*
+ * Modulo Objetivo Real
+ */
+		var ObjetivoReal = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+			 var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          
+	        },
+	        render: function() { 
+	        var self = this 
+	        var valor = this.state.data.objetivo
+	          return (
+	            <span>
+	             {valor} MXN 
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <ObjetivoReal source="api/v1/objetivo_real" />,
+	      document.getElementById('objetivo_real')
+	 );
+/*
+ * Modulo Objetivo Obligado
+ */
+		var Objetivo = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+			 var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          
+	        },
+	        render: function() { 
+	        var self = this 
+	        var valor = this.state.data.objetivo
+	          return (
+	            <span>
+	             {valor} MXN 
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <Objetivo source="api/v1/get_objetivo" />,
+	      document.getElementById('objetivo')
+	 );
+
+/*
+ * Modulo Detalles
+ */
+	var Detalles = React.createClass({
+	onClick: function() {
+		$.ajax({
+	        url: "/api/v1/ordenes_internas" ,
+	        dataType: 'json',
+	        success: function(data) {
+	          this.setState({data: data});
+	        }.bind(this)
+		});
+		this.setState({boton_cancelar: <div id="ver" className="btn btn-warning" onClick={this.close}>Ocultar</div>});
+		this.setState({button: ""});
+		this.setState({visible: "table table-bordered table-hover"});
+
+
+	},
+	close: function(){
+		this.setState({data: []});
+		this.setState({boton_cancelar: ""});
+		this.setState({button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>});
+		this.setState({visible: "table table-bordered table-hover visible"});
+
+	},
+
+	
+	getInitialState: function() {
+	          return {
+	          	data: [],
+	         	button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>,
+	         	boton_cancelar:"",
+	         	visible: "table table-bordered table-hover visible"
+	     
+	            };	       
+	        },
+	
+	render: function() {   
+			var contador = this.state.contar
+			var subir = items
+			var url = "unirs/new?event="
+			
+					var items = this.state.data.map(function(object){
+						return <tr>
+							     <td><strong>{object.orden}</strong></td>
+							     <td>{object.importe} MXN</td>
+						       </tr>
+						});
+							
+		 			return <div>
+		 					{this.state.button}{this.state.boton_cancelar}
+							<table className={this.state.visible}>
+								<thead>
+								<tr>
+								<th>Número de Orden</th>
+								<th>Importe</th>
+								</tr>
+								</thead>
+								<tbody>
+								{items}
+								</tbody>
+						 	</table>
+							</div>
+		
+		 		}
+	});
+	
+	React.render(
+	     	<Detalles />,
+	 document.getElementById('detalles')
+	 );
+
+
+/*
+ *  Ordenes Recomendadas
+ */
+	var OrdenesRecomendadas = React.createClass({
+	componentDidMount: function() {
+		$.ajax({
+	        url: "api/v1/pronostico",
+	        dataType: 'json',
+	        success: function(data) {
+	          this.setState({data: data});
+	          this.setState({importe: this.state.data[0].total});
+	          this.setState({conteo:  this.state.data[0].totalordenes});
+	          this.setState({resta:  this.state.data[0].resta});  
+	          this.setState({porcentaje:  this.state.data[0].porcentaje}); 
+	          this.setState({importe_facturado:  this.state.data[0].importe_facturado});
+	          this.setState({total:  this.state.data[0].importe_venta});
+	          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
+	          this.setState({dias:  this.state.data[0].dias});
+	        }.bind(this)
+		});
+		setInterval(this.consulta, 60000);  
+	},
+	consulta: function(){
+	$.ajax({
+	        url: "api/v1/pronostico",
+	        dataType: 'json',
+	        success: function(data) {
+	          this.setState({data: data});
+	          this.setState({importe: this.state.data[0].total}); 
+	          this.setState({conteo:  this.state.data[0].totalordenes});
+	          this.setState({resta:  this.state.data[0].resta});
+	          this.setState({porcentaje:  this.state.data[0].porcentaje});
+	          this.setState({importe_facturado:  this.state.data[0].importe_facturado});
+	          this.setState({total:  this.state.data[0].importe_venta});
+	          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
+	          this.setState({dias:  this.state.data[0].dias});
+	        }.bind(this)
+		});
+	},
+	getInitialState: function() {
+	          return {
+	          	data: [],
+	          	importe: "",
+	          	conteo: "",
+	          	resta:"",
+	          	porcentaje: "",
+	          	importe_facturado: "",
+	          	total: "",
+	          	porcentaje_venta:"",
+	          	dias: ""
+	            };	       
+	        },
+
+	render: function() {  
+				var por = this.state.porcentaje
+				var por1 = this.state.porcentaje_venta
+				drawCanvas1(por ,'ordenes_cero'); 
+				drawCanvas2(por1 ,'objetivo_progress');
+				var val = this.state.total
+				valor(val);
+				var val1 = this.state.importe_facturado
+				valor1(val1);
+				var imp  = this.state.importe
+				var cont = this.state.conteo
+				valor2(cont);
+				var rest = this.state.resta
+				valor3(rest);
+				var i = this.state.total
+				var dias = this.state.dias
+				valor4(dias);
+				var items = this.state.data.map(function(object){
+					var comillaInicio = '"'
+					var comillaFin = '"'
+					return 	<span><strong>{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
+					});
+		 			return <span> 					
+		 			       <div> {items} con un valor de <strong>{imp}</strong> MXN, este seria su pronóstico.</div>	
+		 			       </span>
+		 		}
+
+});	
+
+	React.render(
+	     	<OrdenesRecomendadas />,
+	 document.getElementById('ordenes_recomendadas')
+	 );
+
+/*
+ *  Conteo Ordenes
+ */
+	var Conteo = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+	        	var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	      },
+	        render: function() {   
+	          return (
+	            <span>
+	             {this.state.data}     
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <Conteo source="api/v1/abiertas" />,
+	      document.getElementById('ordenes_abiertas')
+	 );
+	/*
+	 *  Costo Ordenes Abiertas
+	 */
+	var Costo = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+	        var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	        },
+	        render: function() {   
+	          return (
+	            <span>
+	             {this.state.data} MXN     
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <Costo source="api/v1/costo" />,
+	      document.getElementById('costo')
+	 );
+	/*
+	 *  Costo Ordenes Facturadas
+	 */
+	var Facturadas = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+	        	var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	      },
+	        render: function() {   
+	          return (
+	            <span>
+	             {this.state.data}     
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <Facturadas source="api/v1/facturadas" />,
+	      document.getElementById('facturadas')
+	 );
+	 /*
+	 *  Costo Ordenes Internas
+	 */
+	var CostoInternas = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	          setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+	        var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));		
+	        },
+	        render: function() {   
+	          return (
+	            <span>
+	             {this.state.data} MXN    
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <CostoInternas source="api/v1/internas" />,
+	      document.getElementById('costo_internas')
+	 );
+	 	 /*
+	 *  Conteo Ordenes Internas
+	 */
+	var ConteoInternas = React.createClass({
+	       getInitialState: function() {
+	          return {
+	            data: ""
+	          };
+	        },
+	      
+	        componentDidMount: function() {
+	          var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	           setInterval(this.consulta, 10000);
+	        },
+	        consulta: function(){
+	        	 var self = this;
+	          $.get(this.props.source, function(result) {
+	            var collection = result;
+	            if (this.isMounted()) {
+	              this.setState({
+	                data: collection
+	              });
+	            }
+	          }.bind(this));
+	     	 },
+	        render: function() {   
+	          return (
+	            <span>
+	             {this.state.data}     
+	            </span>
+	          );
+	        }
+	      });
+
+	     React.render(
+	    <ConteoInternas source="api/v1/conteo_internas" />,
+	      document.getElementById('ordenes_internas')
+	 );
+</script>

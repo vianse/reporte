@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Orden:</strong>
+  <%= @facturada.orden %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @facturada.tipo %>
+</p>
+
+<p>
+  <strong>Importe:</strong>
+  <%= @facturada.importe %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @facturada.fecha %>
+</p>
+
+<p>
+  <strong>Estatus:</strong>
+  <%= @facturada.estatus %>
+</p>
+
+<p>
+  <strong>App:</strong>
+  <%= @facturada.app_id %>
+</p>
+
+<p>
+  <strong>Factura:</strong>
+  <%= @facturada.factura %>
+</p>
+
+<%= link_to 'Edit', edit_facturada_path(@facturada) %> |
+<%= link_to 'Back', facturadas_path %>

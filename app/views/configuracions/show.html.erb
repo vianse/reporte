@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Abiertas:</strong>
+  <%= @configuracion.abiertas %>
+</p>
+
+<p>
+  <strong>Facturadas:</strong>
+  <%= @configuracion.facturadas %>
+</p>
+
+<p>
+  <strong>Internas:</strong>
+  <%= @configuracion.internas %>
+</p>
+
+<p>
+  <strong>Dias:</strong>
+  <%= @configuracion.dias %>
+</p>
+
+<p>
+  <strong>App:</strong>
+  <%= @configuracion.app_id %>
+</p>
+
+<%= link_to 'Edit', edit_configuracion_path(@configuracion) %> |
+<%= link_to 'Back', configuracions_path %>

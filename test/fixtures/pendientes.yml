@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  orden: MyString
+  tipo: MyString
+  importe: MyString
+  fecha: 2015-10-31
+  estatus: MyString
+  app_id: MyString
+
+two:
+  orden: MyString
+  tipo: MyString
+  importe: MyString
+  fecha: 2015-10-31
+  estatus: MyString
+  app_id: MyString
