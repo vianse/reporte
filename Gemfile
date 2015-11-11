@@ -28,6 +28,12 @@ gem 'devise'
 group :development, :test do
 	gem 'pg'
 end
+group :production do 
+	gem 'pg'
+	gem 'rails_12factor'
+	gem 'mailgun-ruby'
+	gem 'rest-client'
+end 
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
