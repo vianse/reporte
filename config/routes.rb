@@ -37,6 +37,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+  get 'settings' => 'configuracions#index', as: :settings
+  get 'periodos' => 'catalogos#index', as: :periodos
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

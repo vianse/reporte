@@ -1,0 +1,28 @@
+<%= form_for(@configuracion) do |f| %>
+  <% if @configuracion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@configuracion.errors.count, "error") %> prohibited this configuracion from being saved:</h2>
+
+      <ul>
+      <% @configuracion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :internas %><br>
+    <%= f.text_field :internas %>
+  </div>
+  <div class="field">
+    <%= f.label :dias %><br>
+    <%= f.text_field :dias %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :app_id%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -5,8 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Abiertas</th>
-      <th>Facturadas</th>
       <th>Internas</th>
       <th>Dias</th>
       <th>App</th>
@@ -17,8 +15,6 @@
   <tbody>
     <% @configuracions.each do |configuracion| %>
       <tr>
-        <td><%= configuracion.abiertas %></td>
-        <td><%= configuracion.facturadas %></td>
         <td><%= configuracion.internas %></td>
         <td><%= configuracion.dias %></td>
         <td><%= configuracion.app_id %></td>
