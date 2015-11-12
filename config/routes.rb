@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       resources :crear_ordenes, path: "crear_ordenes"
       resources :crear_facturadas, path: "crear_facturadas"
       resources :valida_app_id, path: "valida_app_id"
+      resources :get_ordenes_mayores, path: "mayores"
 
     end
   end

@@ -365,8 +365,8 @@
  	display: block;
  	width: 650px;
  }
- .ordenes-abiertas{
- 	color: #84DCC6!important;
+ .verde{
+ 	color: #00A896!important;
  }
  div.moneda{
  	font-size: 1rem;
@@ -464,6 +464,13 @@
 	.visible{
 		display: none;
 }
+	.normal{
+		font-size: 1.5rem;
+		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
+	}
+table th tr{
+width: auto !important;
+}
 </style>
 <body data-no-turbolink data-no-transition-cache></body>
 <div class="container-fluid">
@@ -523,7 +530,7 @@
 				<strong><div class="float">Venta Facturada Actual</div></strong>
 			</div>
 			<div class="leyenda margin-left">
-				<div class="float">Total <strong><span id="facturadas"></span></strong> MXN</div>
+				<div class="float">Total <strong><span id="facturadas" class="verde"></span></strong> MXN</div>
 			</div>
 				<div class="margin-left">Porcentaje de cumplimiento del objetivo</div>
 				<div id="progress"></div>
@@ -535,8 +542,9 @@
 		<div class="col-md-12">
 			<strong><div class="subtitle">Pronósticos</div></strong>
 			<div class="leyenda  margin-left-3">
-			<strong><span class="float">Ordenes de servicio Mayores a </span>
+			<strong><div id="contador" class="float-1"></div><span class="float">ordenes de servicio mayores a </span>
 			<div id="o" class="float-1"></div></strong>
+			<div id="detalles_mayores"></div>
 			</div>
 		</div>
 	</div>
@@ -578,7 +586,7 @@
 		</div>
 		<div class="col-md-6">
 			<div class="leyenda margin-left">
-				<strong><div class="float-right margin-top-10 subtitle-1">Venta Sugerida</div></strong>
+				<div class="float-right margin-top-10 subtitle-1"><strong>Venta Sugerida</strong> (<span class="normal">La suma de los valores en </span><span class="verde normal">verde</span>)</div>
 				<strong><div id="total_pronostico"></div></strong>
 				<strong><div id="importe_facturado"></div></strong>
 				<canvas id="objetivo_progress" width="200" height="25">
@@ -605,6 +613,10 @@
 	};
 	function valor4(value){
 		$( "#o" ).text(value + " días");
+	};
+
+	function valor5(value){
+		$( "#contador" ).text(value);
 	};
 	
 	$( "#ver" ).click(function() {
@@ -811,7 +823,7 @@
 	 );
 
 /*
- * Modulo Detalles
+ * Modulo Detalles Internas
  */
 	var Detalles = React.createClass({
 	onClick: function() {
@@ -882,7 +894,88 @@
 	 document.getElementById('detalles')
 	 );
 
+/*
+ * Modulo Detalles Mayores
+ */
+	var DetallesMayores = React.createClass({
+	onClick: function() {
+		$.ajax({
+	        url: "/api/v1/mayores" ,
+	        dataType: 'json',
+	        success: function(data) {
+	          this.setState({data: data});
+	        }.bind(this)
+		});
+		this.setState({boton_cancelar: <div id="ver" className="btn btn-warning" onClick={this.close}>Ocultar</div>});
+		this.setState({button: ""});
+		this.setState({visible: "table table-bordered table-hover"});
 
+
+	},
+	close: function(){
+		this.setState({data: []});
+		this.setState({boton_cancelar: ""});
+		this.setState({button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>});
+		this.setState({visible: "table table-bordered table-hover visible"});
+
+	},
+
+	
+	getInitialState: function() {
+	          return {
+	          	data: [],
+	         	button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>,
+	         	boton_cancelar:"",
+	         	visible: "table table-bordered table-hover visible"
+	     
+	            };	       
+	        },
+	
+	render: function() {   	
+					var items = this.state.data.map(function(object){
+						if (object.dias <= 15){
+						return <tr className="warning"> 
+							     <td><strong>{object.orden}</strong></td>
+							     <td>{object.importe} MXN</td>
+							     <td>{object.fecha}</td>
+							     <td><strong>{object.dias}</strong></td>
+						       </tr>
+							}	
+							else
+							{
+							return	<tr className="danger">
+							     <td><strong>{object.orden}</strong></td>
+							     <td>{object.importe} MXN</td>
+							     <td>{object.fecha}</td>
+							     <td><strong>{object.dias}</strong></td>
+						       </tr>
+							}
+						 });
+							
+		 			return <div>
+		 					{this.state.button}{this.state.boton_cancelar}
+							<table className={this.state.visible}>
+								<thead>
+								<tr>
+								<th>Número de Orden</th>
+								<th>Importe</th>
+								<th>Fecha Alta</th>
+								<th>Total de Días</th>
+								</tr>
+								</thead>
+								<tbody>
+								{items}
+								</tbody>
+						 	</table>
+							</div>
+		
+		 		}
+	});
+	
+	React.render(
+	     	<DetallesMayores />,
+	 document.getElementById('detalles_mayores')
+	 );
 /*
  *  Ordenes Recomendadas
  */
@@ -901,6 +994,7 @@
 	          this.setState({total:  this.state.data[0].importe_venta});
 	          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
 	          this.setState({dias:  this.state.data[0].dias});
+	          this.setState({contador:  this.state.data[0].contador});
 	        }.bind(this)
 		});
 		setInterval(this.consulta, 60000);  
@@ -919,6 +1013,7 @@
 	          this.setState({total:  this.state.data[0].importe_venta});
 	          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
 	          this.setState({dias:  this.state.data[0].dias});
+	          this.setState({contador:  this.state.data[0].contador});
 	        }.bind(this)
 		});
 	},
@@ -932,7 +1027,8 @@
 	          	importe_facturado: "",
 	          	total: "",
 	          	porcentaje_venta:"",
-	          	dias: ""
+	          	dias: "",
+	          	contador:""
 	            };	       
 	        },
 
@@ -953,13 +1049,15 @@
 				var i = this.state.total
 				var dias = this.state.dias
 				valor4(dias);
+				var contar = this.state.contador
+				valor5(contar);
 				var items = this.state.data.map(function(object){
 					var comillaInicio = '"'
 					var comillaFin = '"'
 					return 	<span><strong>{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
 					});
 		 			return <span> 					
-		 			       <div> {items} con un valor de <strong>{imp}</strong> MXN, este seria su pronóstico.</div>	
+		 			       <div> {items} con un valor de <strong className="verde">{imp}</strong> MXN, este seria su pronóstico.</div>	
 		 			       </span>
 		 		}
 
