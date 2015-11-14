@@ -4,8 +4,17 @@ class ConfiguracionsController < ApplicationController
   # GET /configuracions
   # GET /configuracions.json
   def index
-    @acceso = Acceso.select("app_id").where(:user_id => current_user.id)
-    @configuracions = Configuracion.where(:app_id => @acceso[0].app_id)
+    @acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
+    if @acceso.nil?
+      render json: {
+          :codigo_error =>  "1000",
+          :message => "No tienes acceso, verifica con el departamento de sistemas"
+        } 
+    else
+      @acceso = Acceso.where(:user_id => current_user.id).pluck(:app_id).first
+      @app = App.select("api_key").where(:api_key => @acceso).first
+      @configuracions = Configuracion.where(:app_id => @acceso)   
+     end
   end
 
   # GET /configuracions/1
@@ -16,7 +25,7 @@ class ConfiguracionsController < ApplicationController
   # GET /configuracions/new
   def new
     @configuracion = Configuracion.new
-    @acceso = Acceso.select("app_id").where(:user_id => current_user.id)
+    @acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
   end
 
   # GET /configuracions/1/edit
@@ -30,7 +39,7 @@ class ConfiguracionsController < ApplicationController
 
     respond_to do |format|
       if @configuracion.save
-        format.html { redirect_to @configuracion, notice: 'Configuracion was successfully created.' }
+        format.html { redirect_to "/settings", notice: 'Configuracion was successfully created.' }
         format.json { render :show, status: :created, location: @configuracion }
       else
         format.html { render :new }
@@ -44,7 +53,7 @@ class ConfiguracionsController < ApplicationController
   def update
     respond_to do |format|
       if @configuracion.update(configuracion_params)
-        format.html { redirect_to @configuracion, notice: 'Configuracion was successfully updated.' }
+        format.html { redirect_to "/settings", notice: 'Configuracion was successfully updated.' }
         format.json { render :show, status: :ok, location: @configuracion }
       else
         format.html { render :edit }

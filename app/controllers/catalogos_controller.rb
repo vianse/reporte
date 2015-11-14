@@ -4,7 +4,8 @@ class CatalogosController < ApplicationController
   # GET /catalogos
   # GET /catalogos.json
   def index
-    @catalogos = Catalogo.all
+    @acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
+    @catalogos = Catalogo.where(:app_id => @acceso.app_id)
   end
 
   # GET /catalogos/1
@@ -14,6 +15,8 @@ class CatalogosController < ApplicationController
 
   # GET /catalogos/new
   def new
+    @acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
+    @app = App.select("api_key").where(:api_key => @acceso).first
     @catalogo = Catalogo.new
   end
 
@@ -28,7 +31,7 @@ class CatalogosController < ApplicationController
 
     respond_to do |format|
       if @catalogo.save
-        format.html { redirect_to @catalogo, notice: 'Catalogo was successfully created.' }
+        format.html { redirect_to "/objetivos", notice: 'Catalogo was successfully created.' }
         format.json { render :show, status: :created, location: @catalogo }
       else
         format.html { render :new }
@@ -42,7 +45,7 @@ class CatalogosController < ApplicationController
   def update
     respond_to do |format|
       if @catalogo.update(catalogo_params)
-        format.html { redirect_to @catalogo, notice: 'Catalogo was successfully updated.' }
+        format.html { redirect_to "/objetivos", notice: 'Catalogo was successfully updated.' }
         format.json { render :show, status: :ok, location: @catalogo }
       else
         format.html { render :edit }

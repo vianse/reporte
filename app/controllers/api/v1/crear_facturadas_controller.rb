@@ -18,6 +18,8 @@ class Api::V1::CrearFacturadasController <ApplicationController
       :fecha => params[:fecha],
       :estatus => params[:estatus],
       :factura => params[:factura],
+      :mes => params[:mes],
+      :año => params[:año],
       :app_id => params[:app_id]
       )
       if @crear_facturadas.save

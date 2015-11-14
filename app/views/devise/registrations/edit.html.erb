@@ -1,0 +1,42 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Seguridad</h3>
+        </div>
+          <div class="panel-body">
+       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+                <fieldset>
+                <div class="form-group">
+                  <%= f.email_field :email, autofocus: true, :class => "form-control",:placeholder => "ejemplo@example.com" %>
+              </div>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+              <% end %>
+              <div class="form-group">
+                 <%= f.label :password %> <i>(dejar en blanco si no desea cambiarlo)</i><br />
+                 <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
+              </div>
+              <div class="form-group">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
+              </div>
+              <div class="form-group">
+              <%= f.label :current_password %> <i>(necesitamos su contraseña actual para confirmar los cambios)</i><br />
+              <%= f.password_field :current_password, autocomplete: "off", :class => "form-control" %>
+              </div>
+              <div class="actions">
+                 <%= f.submit "Actualizar", :class => "btn btn-lg btn-success btn-block" %>
+              </div>
+            </fieldset>
+            <% end -%>
+              <hr/>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'inicio/index'
+
+  devise_for :supers
+  devise_for :sistemas
   resources :pagos
   resources :configuracions
   resources :facturadas
@@ -36,9 +40,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'control#index'
   get 'settings' => 'configuracions#index', as: :settings
-  get 'periodos' => 'catalogos#index', as: :periodos
+  get 'objetivos' => 'catalogos#index', as: :objetivos
+  get 'home' => 'home#index', as: :home
+  get 'inicio' => 'inicio#index', as: :inicio
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
