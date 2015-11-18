@@ -1,3 +1,344 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Pronostic</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+  <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+  <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+  <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+  <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735472/jquery.gritter.css" rel="stylesheet" />  
+  <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+    
+  <!-- ================== BEGIN BASE JS ================== -->
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735628/pace.min.js"></script>
+  <!-- ================== END BASE JS ================== -->
+
+	
+	<!--[if lt IE 9]>
+	    <script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+</head>
+<style type="text/css">
+.visible{
+    display: none;
+}
+a.font{
+	font-size: 16px;
+}
+.font{
+	font-size: 16px;
+}
+.verde{
+	color: #00A896;
+}
+</style>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="page-loader fade in"><span class="spinner">Loading...</span></div>
+	<!-- end #page-loader -->
+
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-container page-header-fixed page-sidebar-fixed page-with-two-sidebar page-with-footer">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<!-- begin container-fluid -->
+			<div class="container-fluid">
+				<!-- begin mobile sidebar expand / collapse button -->
+				<div class="navbar-header">
+					<a href="index.html" class="navbar-brand">Pronostic</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- end mobile sidebar expand / collapse button -->
+				
+				<!-- begin navbar-right -->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="hidden-xs"><%= current_user.email %></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="/users/edit">Seguridad</a></li>
+							<li class="divider"></li>
+							<li><%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete  %></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- end navbar-right -->
+			</div>
+			<!-- end container-fluid -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar nav -->
+				<ul class="nav">
+					<li class="nav-header">Navegación</li>
+					<li class="has-sub active">
+						<a href="javascript:;">
+						    <b class="caret pull-right"></b>
+						    <i class="fa fa-home"></i>
+						    <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
+					    </a>
+					    <ul class="sub-menu">
+					        <li class="active"><a href="index.html">Reporte</a></li>
+					        <li><a href="/settings">Configuración <i class="fa fa-wrench text-theme m-l-3"></i></a></li>
+					        <li><a href="#">Periodos y objetivos <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+					    </ul>
+					</li>
+				</ul>
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li><a href="javascript:;">Home</a></li>
+				<li class="active">Dashboard</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header"><span id="empresa"></span> <small id="fecha"></small></h1>
+			<!-- end page-header -->
+			<div class="panel panel-white overflow-hidden m-b-10">
+                <div class="panel-heading">
+                     <h4 class="panel-title">Tú objetivo de venta obligado para este mes es de: <strong><span id="objetivo"></span></strong></h4>
+                     <h4 class="panel-title">Tú objetivo ideal para este mes es de:  <strong><span id="objetivo_real"></span></strong></h4>
+                </div>
+            </div>
+              
+            
+            <!-- begin row -->
+            <div class="row">
+                <!-- begin col-6 -->
+                <div class="col-md-6">
+                    <!-- begin widget -->
+                    <div class="panel">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Pendiente (Sin Facturar)</a></li>
+                            </ul>
+                            <div class="tab-content m-b-0">
+                                <div class="tab-pane fade active in" id="default-tab-1">
+                                    <p class="lead m-b-10 font">
+                                        Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un costo de <strong><span id="costo"></span> </strong>
+                                    </p>
+                                    <p class="m-b-20">
+                                        
+										Las ordenes INTERNAS ascienden a
+										<strong><span id="costo_internas"></span></strong> 
+										en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
+										orden(es) 
+                                    </p>
+                                    <div class="text-left">
+                                        <div id="detalles"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    <!-- end widget -->
+                </div>
+                <!-- end col-6 -->
+                <!-- begin col-6 -->
+                <div class="col-md-6">
+                    <!-- begin widget -->
+                    <div class="panel">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Facturada Actual</a></li>
+                            </ul>
+                            <div class="tab-content m-b-0">
+                                <div class="tab-pane fade active in" id="default-tab-1">
+                                    <p class="lead m-b-10">
+                                        Total <strong><span id="facturadas" class="verde"></span></strong> MXN
+                                    </p>
+                                    <p class="m-b-20">
+                                        Porcentaje de cumplimiento del objetivo 
+                                    </p>
+                                    <div class="text-left">
+                                        <div id="progress"></div>
+										<canvas id="cvs" class="margin-left" width="200" height="25">
+										</canvas><br><br><br>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    <!-- end widget -->
+                </div>
+                <!-- end col-6 -->
+            </div>
+            <!-- end row -->
+
+            			<div class="panel">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#" class="font" data-toggle="tab">Pronósticos</a></li>
+                            </ul>
+                            <div class="tab-content m-b-0">
+                                <div class="tab-pane fade active in" id="default-tab-1">
+                                    <p class="lead m-b-10 font">
+                                        <span id="contador" class="float-1"></span> orden(es) de servicio mayor(es) a <span id="o"></span>
+                                    </p>
+                                    <div class="text-left">
+                                        <div id="detalles_mayores"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="panel panel-white overflow-hidden m-b-10">
+			                <div class="panel-heading">
+			                     <h2 class="panel-title font">Estimado concesionario</h2>
+			                     <h4 class="panel-title">Si usted factura la(s) orden(es) de servicio No:
+									<span id="ordenes_recomendadas" class="float-2"></span></h4>
+			                </div>
+			            </div>
+
+              <!-- begin row -->
+            <div class="row">
+                <!-- begin col-6 -->
+                  <div class="col-md-6">
+                    <!-- begin widget -->
+                    <div class="panel">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Sugerida <span class="verde">(Es suma de los valores en verde)</span></a></li>
+                            </ul>
+                            <div class="tab-content m-b-0">
+                                <div class="tab-pane fade active in" id="default-tab-1">
+                                    <p class="lead m-b-10">
+                                         <strong><span id="total_pronostico"></span></strong>
+                                    </p>
+                                    <p class="m-b-20">
+                                      <strong><span id="importe_facturado"></span></strong>
+                                    </p>
+                                    <div class="text-left">
+										<canvas id="objetivo_progress" width="200" height="25">
+										</canvas>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    <!-- end widget -->
+                </div>
+                
+                <!-- end col-6 -->
+                <!-- begin col-6 -->
+              <div class="col-md-6">
+                    <!-- begin widget -->
+                    <div class="panel">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Pendiente(Sin Facturar)</a></li>
+                            </ul>
+                            <div class="tab-content m-b-0">
+                                <div class="tab-pane fade active in" id="default-tab-1">
+                                    <p class="lead m-b-10 font">
+                                        Le quedarían <strong><span id="conteo"></span></strong> ordenes por cerrar equivalentes a un costo de <strong>
+									 				<span id="rest"></span>
+		 										</strong> MXN
+                                    </p>
+                                    <p class="m-b-20">
+                                       Cumplimiento del objetivo a 0 ordenes
+                                    </p>
+                                    <div class="text-left">
+                                        <canvas id="ordenes_cero" width="200" height="25"></canvas>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    <!-- end widget -->
+                </div>
+                <!-- end col-6 -->
+            </div>
+            <!-- end row -->
+
+
+			<!-- begin row -->
+
+            <!-- end row -->
+            
+            <!-- begin row -->
+
+            <!-- end row -->
+			
+            <!-- begin #footer -->
+            <div id="footer" class="footer">
+                <span class="pull-right">
+                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
+                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
+                    </a>
+                </span>
+                &copy; 2015 <b>Pronostic</b> All Right Reserved
+            </div>
+            <!-- end #footer -->
+		</div>
+		<!-- end #content -->
+		
+		<!-- begin #sidebar-right -->
+		
+		<!-- end #sidebar-right -->
+	</div>
+	<!-- end page container -->
+	
+    <!-- begin theme-panel -->
+    <!-- end theme-panel -->
+<!-- ================== BEGIN BASE JS ================== -->
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733159/jquery-ui.min.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733251/bootstrap.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="assets/crossbrowserjs/html5shiv.js"></script>
+    <script src="assets/crossbrowserjs/respond.min.js"></script>
+  <![endif]-->
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733386/jquery.slimscroll.min.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733489/jquery.cookie.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733913/bootstrap_calendar.min.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733996/jquery.sparkline.min.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734296/jquery.gritter.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+		    App.init();
+		    Demo.init();
+		    //PageDemo.init();
+		});
+	</script>
+</body data-no-turbolink data-no-transition-cache>
+</html>
+
 <script type="text/javascript">
 	function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
 				  if (typeof stroke == "undefined" ) {
@@ -312,289 +653,6 @@
 <script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
 <script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-<style type="text/css">
- div#empresa{
-
- 	font-size: 3rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	font-weight: 500;
-	margin-bottom: 15px;
-	margin-left: 3%;
-	color: #7C7C7C;
-
- }
- .leyenda{
-	overflow: hidden;
-	width: 100%;
-	margin-left: 3%;
- }
-  .leyenda-child{
- 	float: left;
- 	display: block;
- 	width: 650px;
- }
- div.leyenda1{
- 	font-size: .9rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	font-weight: 500;
-	margin-bottom: 3.5px;
-	color: #7C7C7C;
-	float: left;
-	content: "\2018 ";
- }
-  div.internas{
- 	font-size: .9rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	font-weight: 500;
-	margin-bottom: 3.5px;
-	float: left;
-	color: #7C7C7C;
- }
- .internas-color{
- 	color: #FF686B!important;
- }
- .internas-contenedor{
- 	margin-left: 3%;
- 	clear: both;
- 	float: left;
- 	display: block;
- 	width: 650px;
- }
- .verde{
- 	color: #00A896!important;
- }
- div.moneda{
- 	font-size: 1rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	font-weight: 500;
-	margin-bottom: 10px;
-	color: #7C7C7C;
-	float: left;
-	margin-right: 1%;
- }
- .dato{
- 	float: left;
- 	font-size: 1.5rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	margin-left: 1%;
-	color: #7C7C7C;
-	margin-right: 1%;
- }
- div#venta_pendiente{
- 	clear: both;
- 	font-size: 1.5rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	margin-left: 3%;
-	margin-top: 6%;
-	margin-bottom: 2%;
-	color: #7C7C7C;
- }
- .venta_pendiente{
- 	clear: both;
- 	font-size: 1.5rem;
-	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	margin-left: 3%;
-	margin-top: 5%;
-	margin-bottom: 1%;
-	color: #7C7C7C;
- }
-	.leyenda-pronosticos{
-	 	font-size: .9rem;
-		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-		font-weight: 500;
-		margin-bottom: 3.5px;
-		color: #7C7C7C;
-		float: left;
-		margin-right: .5%;
-		margin-left: 3%;
-	 }
-
-	 h2{
-	 	font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	 	margin-left: 3%;
-	 }
-	 .float ,.float-1,.float2,.float3 {
-	 	float: left;
-	 	margin-left: .2%;
-	 	margin-right: .5%;
-	 }
-	.subtitle{
-		margin-left: 4%;
-	 	font-size: 2rem;
-		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	 }
-	 .margin-left{
-	 	margin-left: 8%;
-	 }
-	 .margin-left1{
-	 	margin-left: 4%;
-	 }
-	 .margin-left2{
-	 	margin-left: 8%;
-	 	margin-top: 5%;
-	 }
-	 .margin-left3{
-	 	margin-top: 2%;
-	 	margin-bottom: 1%;
-	 }
-	 .page-header {
-	    padding-bottom: 9px;
-	    margin: 10px 0 10px!important;
-	    border-bottom: 1px solid hsl(0, 0%, 93%);
-	}
-	.float-right{
-		margin-right: 30%;
-	}
-	.margin-top-10{
-	 margin-top: 5%;
-	}
-	.margin-left-3{
-	 margin-left: 4%;
-	 font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	}
-	.subtitle-1{
-		font-size: 2rem;
-		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	}
-	.visible{
-		display: none;
-}
-	.normal{
-		font-size: 1.5rem;
-		font-family: "Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",sans-serif;
-	}
-table th tr{
-width: auto !important;
-}
-</style>
-<body data-no-turbolink data-no-transition-cache></body>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="page-header">
-  				<h1><div id="empresa"></div></h1>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-		<div class="panel panel-default">
-  			<div class="panel-body">
-				<div class="leyenda">
-					<div class="float">Tú Objetivo de venta obligado para este mes es de: </div> 
-					<strong><div id="objetivo" class="float-1"></div></strong>
-				</div>
-				<div class="leyenda">
-					<div class="float">Tú Objetivo ideal para este mes es de: </div>
-					<strong><div id="objetivo_real" class="float-1"></div></strong>
-				</div>
-				
-		</div>	
-		</div>
-		</div>	
-	</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="leyenda margin-left subtitle">
-				<strong><div class="float">Venta Pendiente (Sin Facturar)</div></strong>
-			</div>
-			<div class="leyenda margin-left">
-					<div class="float">Al día de hoy tienes</div>
-					<strong><div id="ordenes_abiertas" class="float-1"></div></strong>
-					<div class="float-2">orden(es) de servicio abierta(s)</div>
-			</div>	
-			<div class="leyenda margin-left">
-					<div class="float">Con un costo de </div>
-					<strong><div id="costo" class="float-1"></div> </strong>
-			</div>
-			<div class="leyenda margin-left">
-				<div class="float">Las ordenes <strong class="internas-color">INTERNAS</strong> ascienden a </div>
-				<div id="costo_internas" class="float-2 internas-color"></div> 
-			</div>
-			<div class="leyenda margin-left">
-				<div class="float"> en </div>
-				<div id="ordenes_internas" class="float internas-color"></div>
-				<div class="float-2">orden(es) </div>
-				<div id="detalles"></div>
-			</div>
-
-		</div>
-		<div class="col-md-6">
-			<div class="leyenda margin-left subtitle">
-				<strong><div class="float">Venta Facturada Actual</div></strong>
-			</div>
-			<div class="leyenda margin-left">
-				<div class="float">Total <strong><span id="facturadas" class="verde"></span></strong> MXN</div>
-			</div>
-				<div class="margin-left">Porcentaje de cumplimiento del objetivo</div>
-				<div id="progress"></div>
-				<canvas id="cvs" class="margin-left" width="200" height="25">
-				</canvas><br><br><br>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<strong><div class="subtitle">Pronósticos</div></strong>
-			<div class="leyenda  margin-left-3">
-			<strong><div id="contador" class="float-1"></div><span class="float">ordenes de servicio mayores a </span>
-			<div id="o" class="float-1"></div></strong>			
-				<div id="detalles_mayores"></div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<div class="leyenda margin-left1">
-				<strong><div class="float">Estimado concesionario</div></strong> 
-			</div>
-			<div class="leyenda margin-left1">
-				<div class="float">Si usted factura las ordenes de servicio No: </div>
-				<div id="ordenes_recomendadas" class="float-2"></div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="leyenda margin-left">
-				<strong><div class="margin-left3 margin-top-10 subtitle-1">Venta Pendiente(Sin Facturar)</div></strong>
-			</div>
-			<div class="leyenda margin-left">
-				<div class="float">
-					Le quedarían
-				</div>
-					<strong>
-						<div id="conteo" class="float2"></div>
-					</strong>
-					<div class="float2"> ordenes por cerrar</div>
-		 		<div class="float">equivalentes a un costo de</div> 
-		 		<strong>
-		 			<div id="rest" class="float2"></div>
-		 		</strong>
-		 		MXN
-		 	</div>
-		 	<div class="leyenda margin-left">		      
-				<strong><div>Cumplimiento del objetivo a 0 ordenes</div></strong>
-				<canvas id="ordenes_cero" width="200" height="25">
-				</canvas>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="leyenda margin-left">
-				<div class="float-right margin-top-10 subtitle-1"><strong>Venta Sugerida</strong> (<span class="normal">Es suma de los valores en </span><span class="verde normal">verde</span>)</div>
-				<strong><div id="total_pronostico"></div></strong>
-				<strong><div id="importe_facturado"></div></strong>
-				<canvas id="objetivo_progress" width="200" height="25">
-				</canvas>
-			</div>
-		</div>
-	</div>
-</div>
 
 <script type="text/javascript">
 	function valor(value){
@@ -623,679 +681,711 @@ width: auto !important;
   		$( "#detalles" ).toggle( "slow", function() {
     // Animation complete.
   });
-});
-
+	});
 </script>
 
 <script type="text/jsx">
-/*
- *  Title
- */
-	var Empresa = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-			var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	        },
-	        render: function() {   
-	          return (
-	            <span>
-	             {this.state.data}     
-	            </span>
-	          );
-	        }
-	      });
-
-	     React.render(
-	    <Empresa source="api/v1/empresa" />,
-	      document.getElementById('empresa')
-	 );
 	/*
-	 *  Porcentaje
+	 *  Title
 	 */
-	
-	var Porcentaje = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
+		var Empresa = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
 
-	        },
-	        consulta: function(){
-			var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	        },
-	        render: function() { 
-	        	var self = this     	
-	            drawCanvas(this.state.data ,'cvs');   
-	          return (
-	            <span>
-	               
-	            </span>
-	          );
-	        }
-	      });
+		     React.render(
+		    <Empresa source="api/v1/empresa" />,
+		      document.getElementById('empresa')
+		 );
+		/*
+		 *  Porcentaje
+		 */
+		
+		var Porcentaje = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
 
-	     React.render(
-	    <Porcentaje source="api/v1/porcentaje" />,
-	      document.getElementById('progress')
-	 );
-/*
- * Modulo Objetivo Real
- */
-		var ObjetivoReal = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-			 var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          
-	        },
-	        render: function() { 
-	        var self = this 
-	        var valor = this.state.data.objetivo
-	          return (
-	            <span>
-	             {valor} MXN 
-	            </span>
-	          );
-	        }
-	      });
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() { 
+		        	var self = this     	
+		            drawCanvas(this.state.data ,'cvs');   
+		          return (
+		            <span>
+		               
+		            </span>
+		          );
+		        }
+		      });
 
-	     React.render(
-	    <ObjetivoReal source="api/v1/objetivo_real" />,
-	      document.getElementById('objetivo_real')
-	 );
-/*
- * Modulo Objetivo Obligado
- */
-		var Objetivo = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-			 var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          
-	        },
-	        render: function() { 
-	        var self = this 
-	        var valor = this.state.data.objetivo
-	          return (
-	            <span>
-	             {valor} MXN 
-	            </span>
-	          );
-	        }
-	      });
+		     React.render(
+		    <Porcentaje source="api/v1/porcentaje" />,
+		      document.getElementById('progress')
+		 );
+	/*
+	 * Modulo Objetivo Real
+	 */
+			var ObjetivoReal = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				 var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          
+		        },
+		        render: function() { 
+		        var self = this 
+		        var valor = this.state.data.objetivo
+		          return (
+		            <span>
+		             {valor} MXN 
+		            </span>
+		          );
+		        }
+		      });
 
-	     React.render(
-	    <Objetivo source="api/v1/get_objetivo" />,
-	      document.getElementById('objetivo')
-	 );
+		     React.render(
+		    <ObjetivoReal source="api/v1/objetivo_real" />,
+		      document.getElementById('objetivo_real')
+		 );
+	/*
+	 * Modulo Objetivo Obligado
+	 */
+			var Objetivo = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				 var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          
+		        },
+		        render: function() { 
+		        var self = this 
+		        var valor = this.state.data.objetivo
+		          return (
+		            <span>
+		             {valor} MXN 
+		            </span>
+		          );
+		        }
+		      });
 
-/*
- * Modulo Detalles Internas
- */
-	var Detalles = React.createClass({
-	onClick: function() {
-		$.ajax({
-	        url: "/api/v1/ordenes_internas" ,
-	        dataType: 'json',
-	        success: function(data) {
-	          this.setState({data: data});
-	        }.bind(this)
-		});
-		this.setState({boton_cancelar: <div id="ver" className="btn btn-warning" onClick={this.close}>Ocultar</div>});
-		this.setState({button: ""});
-		this.setState({visible: "table table-bordered table-hover"});
+		     React.render(
+		    <Objetivo source="api/v1/get_objetivo" />,
+		      document.getElementById('objetivo')
+		 );
+
+	/*
+	 * Modulo Detalles Internas
+	 */
+		var Detalles = React.createClass({
+		onClick: function() {
+			$.ajax({
+		        url: "/api/v1/ordenes_internas" ,
+		        dataType: 'json',
+		        success: function(data) {
+		          this.setState({data: data});
+		        }.bind(this)
+			});
+			this.setState({boton_cancelar: <div id="ver" className="btn btn-warning" onClick={this.close}>Ocultar</div>});
+			this.setState({button: ""});
+			this.setState({visible: "table table-bordered table-hover"});
 
 
-	},
-	close: function(){
-		this.setState({data: []});
-		this.setState({boton_cancelar: ""});
-		this.setState({button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>});
-		this.setState({visible: "table table-bordered table-hover visible"});
+		},
+		close: function(){
+			this.setState({data: []});
+			this.setState({boton_cancelar: ""});
+			this.setState({button: <div id="ver" className="btn btn-inverse width-100" onClick={this.onClick}>Ver detalles</div>});
+			this.setState({visible: "table table-bordered table-hover visible"});
 
-	},
+		},
 
-	
-	getInitialState: function() {
-	          return {
-	          	data: [],
-	         	button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>,
-	         	boton_cancelar:"",
-	         	visible: "table table-bordered table-hover visible"
-	     
-	            };	       
-	        },
-	
-	render: function() {   
-			var contador = this.state.contar
-			var subir = items
-			var url = "unirs/new?event="
+		
+		getInitialState: function() {
+		          return {
+		          	data: [],
+		         	button: <div id="ver" className="btn btn-inverse width-100" onClick={this.onClick}>Ver detalles</div>,
+		         	boton_cancelar:"",
+		         	visible: "table table-bordered table-hover visible"
+		     
+		            };	       
+		        },
+		
+		render: function() {   
+				var contador = this.state.contar
+				var subir = items
+				var url = "unirs/new?event="
+				
+						var items = this.state.data.map(function(object){
+							return <tr>
+								     <td><strong>{object.orden}</strong></td>
+								     <td>{object.importe} MXN</td>
+							       </tr>
+							});
+								
+			 			return <div>
+			 					{this.state.button}{this.state.boton_cancelar}
+								<table className={this.state.visible}>
+									<thead>
+									<tr>
+									<th>Número de Orden</th>
+									<th>Importe</th>
+									</tr>
+									</thead>
+									<tbody>
+									{items}
+									</tbody>
+							 	</table>
+								</div>
 			
+			 		}
+		});
+		
+		React.render(
+		     	<Detalles />,
+		 document.getElementById('detalles')
+		 );
+
+	/*
+	 * Modulo Detalles Mayores
+	 */
+		var DetallesMayores = React.createClass({
+		onClick: function() {
+			$.ajax({
+		        url: "/api/v1/mayores" ,
+		        dataType: 'json',
+		        success: function(data) {
+		          this.setState({data: data});
+		        }.bind(this)
+			});
+			this.setState({boton_cancelar: <div id="ver" className="btn btn-warning" onClick={this.close}>Ocultar</div>});
+			this.setState({button: ""});
+			this.setState({visible: "table table-bordered table-hover"});
+
+
+		},
+		close: function(){
+			this.setState({data: []});
+			this.setState({boton_cancelar: ""});
+			this.setState({button: <div id="ver" className="btn btn-inverse width-100" onClick={this.onClick}>Ver detalles</div>});
+			this.setState({visible: "table table-bordered table-hover visible"});
+
+		},
+
+		
+		getInitialState: function() {
+		          return {
+		          	data: [],
+		         	button: <div id="ver" className="btn btn-inverse width-100" onClick={this.onClick}>Ver detalles</div>,
+		         	boton_cancelar:"",
+		         	visible: "table table-bordered table-hover visible"
+		     
+		            };	       
+		        },
+		
+		render: function() {   	
+						var items = this.state.data.map(function(object){
+							if (object.dias <= 15){
+							return <tr className="warning"> 
+								     <td><strong>{object.orden}</strong></td>
+								     <td>{object.importe} MXN</td>
+								     <td>{object.fecha}</td>
+								     <td><strong>{object.dias}</strong></td>
+							       </tr>
+								}	
+								else
+								{
+								return	<tr className="danger">
+								     <td><strong>{object.orden}</strong></td>
+								     <td>{object.importe} MXN</td>
+								     <td>{object.fecha}</td>
+								     <td><strong>{object.dias}</strong></td>
+							       </tr>
+								}
+							 });
+								
+			 			return <div>
+			 					{this.state.button}{this.state.boton_cancelar}
+								<table className={this.state.visible}>
+									<thead>
+									<tr>
+									<th>Número de Orden</th>
+									<th>Importe</th>
+									<th>Fecha Alta</th>
+									<th>Total de Días</th>
+									</tr>
+									</thead>
+									<tbody>
+									{items}
+									</tbody>
+							 	</table>
+								</div>
+			
+			 		}
+		});
+		
+		React.render(
+		     	<DetallesMayores />,
+		 document.getElementById('detalles_mayores')
+		 );
+	/*
+	 *  Ordenes Recomendadas
+	 */
+		var OrdenesRecomendadas = React.createClass({
+		componentDidMount: function() {
+			$.ajax({
+		        url: "api/v1/pronostico",
+		        dataType: 'json',
+		        success: function(data) {
+		          this.setState({data: data});
+		          this.setState({importe: this.state.data[0].total});
+		          this.setState({conteo:  this.state.data[0].totalordenes});
+		          this.setState({resta:  this.state.data[0].resta});  
+		          this.setState({porcentaje:  this.state.data[0].porcentaje}); 
+		          this.setState({importe_facturado:  this.state.data[0].importe_facturado});
+		          this.setState({total:  this.state.data[0].importe_venta});
+		          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
+		          this.setState({dias:  this.state.data[0].dias});
+		          this.setState({contador:  this.state.data[0].contador});
+		        }.bind(this)
+			});
+			setInterval(this.consulta, 60000);  
+		},
+		consulta: function(){
+		$.ajax({
+		        url: "api/v1/pronostico",
+		        dataType: 'json',
+		        success: function(data) {
+		          this.setState({data: data});
+		          this.setState({importe: this.state.data[0].total}); 
+		          this.setState({conteo:  this.state.data[0].totalordenes});
+		          this.setState({resta:  this.state.data[0].resta});
+		          this.setState({porcentaje:  this.state.data[0].porcentaje});
+		          this.setState({importe_facturado:  this.state.data[0].importe_facturado});
+		          this.setState({total:  this.state.data[0].importe_venta});
+		          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
+		          this.setState({dias:  this.state.data[0].dias});
+		          this.setState({contador:  this.state.data[0].contador});
+		        }.bind(this)
+			});
+		},
+		getInitialState: function() {
+		          return {
+		          	data: [],
+		          	importe: "",
+		          	conteo: "",
+		          	resta:"",
+		          	porcentaje: "",
+		          	importe_facturado: "",
+		          	total: "",
+		          	porcentaje_venta:"",
+		          	dias: "",
+		          	contador:""
+		            };	       
+		        },
+
+		render: function() {  
+					var por = this.state.porcentaje
+					var por1 = this.state.porcentaje_venta
+					drawCanvas1(por ,'ordenes_cero'); 
+					drawCanvas2(por1 ,'objetivo_progress');
+					var val = this.state.total
+					valor(val);
+					var val1 = this.state.importe_facturado
+					valor1(val1);
+					var imp  = this.state.importe
+					var cont = this.state.conteo
+					valor2(cont);
+					var rest = this.state.resta
+					valor3(rest);
+					var i = this.state.total
+					var dias = this.state.dias
+					valor4(dias);
+					var contar = this.state.contador
+					valor5(contar);
 					var items = this.state.data.map(function(object){
-						return <tr>
-							     <td><strong>{object.orden}</strong></td>
-							     <td>{object.importe} MXN</td>
-						       </tr>
+						var comillaInicio = '"'
+						var comillaFin = '"'
+						return 	<span><strong>{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
 						});
-							
-		 			return <div>
-		 					{this.state.button}{this.state.boton_cancelar}
-							<table className={this.state.visible}>
-								<thead>
-								<tr>
-								<th>Número de Orden</th>
-								<th>Importe</th>
-								</tr>
-								</thead>
-								<tbody>
-								{items}
-								</tbody>
-						 	</table>
-							</div>
-		
-		 		}
-	});
-	
-	React.render(
-	     	<Detalles />,
-	 document.getElementById('detalles')
-	 );
+			 			return <span> 					
+			 			       <div> {items} con un valor de <strong className="verde">{imp}</strong> MXN, este seria su pronóstico.</div>	
+			 			       </span>
+			 		}
 
-/*
- * Modulo Detalles Mayores
- */
-	var DetallesMayores = React.createClass({
-	onClick: function() {
-		$.ajax({
-	        url: "/api/v1/mayores" ,
-	        dataType: 'json',
-	        success: function(data) {
-	          this.setState({data: data});
-	        }.bind(this)
-		});
-		this.setState({boton_cancelar: <div id="ver" className="btn btn-warning" onClick={this.close}>Ocultar</div>});
-		this.setState({button: ""});
-		this.setState({visible: "table table-bordered table-hover"});
+	});	
 
+		React.render(
+		     	<OrdenesRecomendadas />,
+		 document.getElementById('ordenes_recomendadas')
+		 );
 
-	},
-	close: function(){
-		this.setState({data: []});
-		this.setState({boton_cancelar: ""});
-		this.setState({button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>});
-		this.setState({visible: "table table-bordered table-hover visible"});
-
-	},
-
-	
-	getInitialState: function() {
-	          return {
-	          	data: [],
-	         	button: <div id="ver" className="btn btn-info" onClick={this.onClick}>Ver detalles</div>,
-	         	boton_cancelar:"",
-	         	visible: "table table-bordered table-hover visible"
-	     
-	            };	       
-	        },
-	
-	render: function() {   	
-					var items = this.state.data.map(function(object){
-						if (object.dias <= 15){
-						return <tr className="warning"> 
-							     <td><strong>{object.orden}</strong></td>
-							     <td>{object.importe} MXN</td>
-							     <td>{object.fecha}</td>
-							     <td><strong>{object.dias}</strong></td>
-						       </tr>
-							}	
-							else
-							{
-							return	<tr className="danger">
-							     <td><strong>{object.orden}</strong></td>
-							     <td>{object.importe} MXN</td>
-							     <td>{object.fecha}</td>
-							     <td><strong>{object.dias}</strong></td>
-						       </tr>
-							}
-						 });
-							
-		 			return <div>
-		 					{this.state.button}{this.state.boton_cancelar}
-							<table className={this.state.visible}>
-								<thead>
-								<tr>
-								<th>Número de Orden</th>
-								<th>Importe</th>
-								<th>Fecha Alta</th>
-								<th>Total de Días</th>
-								</tr>
-								</thead>
-								<tbody>
-								{items}
-								</tbody>
-						 	</table>
-							</div>
-		
-		 		}
-	});
-	
-	React.render(
-	     	<DetallesMayores />,
-	 document.getElementById('detalles_mayores')
-	 );
-/*
- *  Ordenes Recomendadas
- */
-	var OrdenesRecomendadas = React.createClass({
-	componentDidMount: function() {
-		$.ajax({
-	        url: "api/v1/pronostico",
-	        dataType: 'json',
-	        success: function(data) {
-	          this.setState({data: data});
-	          this.setState({importe: this.state.data[0].total});
-	          this.setState({conteo:  this.state.data[0].totalordenes});
-	          this.setState({resta:  this.state.data[0].resta});  
-	          this.setState({porcentaje:  this.state.data[0].porcentaje}); 
-	          this.setState({importe_facturado:  this.state.data[0].importe_facturado});
-	          this.setState({total:  this.state.data[0].importe_venta});
-	          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
-	          this.setState({dias:  this.state.data[0].dias});
-	          this.setState({contador:  this.state.data[0].contador});
-	        }.bind(this)
-		});
-		setInterval(this.consulta, 60000);  
-	},
-	consulta: function(){
-	$.ajax({
-	        url: "api/v1/pronostico",
-	        dataType: 'json',
-	        success: function(data) {
-	          this.setState({data: data});
-	          this.setState({importe: this.state.data[0].total}); 
-	          this.setState({conteo:  this.state.data[0].totalordenes});
-	          this.setState({resta:  this.state.data[0].resta});
-	          this.setState({porcentaje:  this.state.data[0].porcentaje});
-	          this.setState({importe_facturado:  this.state.data[0].importe_facturado});
-	          this.setState({total:  this.state.data[0].importe_venta});
-	          this.setState({porcentaje_venta:  this.state.data[0].porcentaje_venta});
-	          this.setState({dias:  this.state.data[0].dias});
-	          this.setState({contador:  this.state.data[0].contador});
-	        }.bind(this)
-		});
-	},
-	getInitialState: function() {
-	          return {
-	          	data: [],
-	          	importe: "",
-	          	conteo: "",
-	          	resta:"",
-	          	porcentaje: "",
-	          	importe_facturado: "",
-	          	total: "",
-	          	porcentaje_venta:"",
-	          	dias: "",
-	          	contador:""
-	            };	       
-	        },
-
-	render: function() {  
-				var por = this.state.porcentaje
-				var por1 = this.state.porcentaje_venta
-				drawCanvas1(por ,'ordenes_cero'); 
-				drawCanvas2(por1 ,'objetivo_progress');
-				var val = this.state.total
-				valor(val);
-				var val1 = this.state.importe_facturado
-				valor1(val1);
-				var imp  = this.state.importe
-				var cont = this.state.conteo
-				valor2(cont);
-				var rest = this.state.resta
-				valor3(rest);
-				var i = this.state.total
-				var dias = this.state.dias
-				valor4(dias);
-				var contar = this.state.contador
-				valor5(contar);
-				var items = this.state.data.map(function(object){
-					var comillaInicio = '"'
-					var comillaFin = '"'
-					return 	<span><strong>{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
-					});
-		 			return <span> 					
-		 			       <div> {items} con un valor de <strong className="verde">{imp}</strong> MXN, este seria su pronóstico.</div>	
-		 			       </span>
-		 		}
-
-});	
-
-	React.render(
-	     	<OrdenesRecomendadas />,
-	 document.getElementById('ordenes_recomendadas')
-	 );
-
-/*
- *  Conteo Ordenes
- */
-	var Conteo = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-	        	var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	      },
-	        render: function() {   
-	          return (
-	            <span>
-	             {this.state.data}     
-	            </span>
-	          );
-	        }
-	      });
-
-	     React.render(
-	    <Conteo source="api/v1/abiertas" />,
-	      document.getElementById('ordenes_abiertas')
-	 );
 	/*
-	 *  Costo Ordenes Abiertas
+	 *  Conteo Ordenes
 	 */
-	var Costo = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-	        var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	        },
-	        render: function() {   
-	          return (
-	            <span>
-	             {this.state.data} MXN     
-	            </span>
-	          );
-	        }
-	      });
+		var Conteo = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+		        	var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		      },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
 
-	     React.render(
-	    <Costo source="api/v1/costo" />,
-	      document.getElementById('costo')
-	 );
-	/*
-	 *  Costo Ordenes Facturadas
-	 */
-	var Facturadas = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-	        	var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	      },
-	        render: function() {   
-	          return (
-	            <span>
-	             {this.state.data}     
-	            </span>
-	          );
-	        }
-	      });
+		     React.render(
+		    <Conteo source="api/v1/abiertas" />,
+		      document.getElementById('ordenes_abiertas')
+		 );
+		/*
+		 *  Costo Ordenes Abiertas
+		 */
+		var Costo = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+		        var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data} MXN     
+		            </span>
+		          );
+		        }
+		      });
 
-	     React.render(
-	    <Facturadas source="api/v1/facturadas" />,
-	      document.getElementById('facturadas')
-	 );
-	 /*
-	 *  Costo Ordenes Internas
-	 */
-	var CostoInternas = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	          setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-	        var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));		
-	        },
-	        render: function() {   
-	          return (
-	            <span>
-	             {this.state.data} MXN    
-	            </span>
-	          );
-	        }
-	      });
+		     React.render(
+		    <Costo source="api/v1/costo" />,
+		      document.getElementById('costo')
+		 );
+		/*
+		 *  Costo Ordenes Facturadas
+		 */
+		var Facturadas = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+		        	var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		      },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
 
-	     React.render(
-	    <CostoInternas source="api/v1/internas" />,
-	      document.getElementById('costo_internas')
-	 );
-	 	 /*
-	 *  Conteo Ordenes Internas
-	 */
-	var ConteoInternas = React.createClass({
-	       getInitialState: function() {
-	          return {
-	            data: ""
-	          };
-	        },
-	      
-	        componentDidMount: function() {
-	          var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	           setInterval(this.consulta, 10000);
-	        },
-	        consulta: function(){
-	        	 var self = this;
-	          $.get(this.props.source, function(result) {
-	            var collection = result;
-	            if (this.isMounted()) {
-	              this.setState({
-	                data: collection
-	              });
-	            }
-	          }.bind(this));
-	     	 },
-	        render: function() {   
-	          return (
-	            <span>
-	             {this.state.data}     
-	            </span>
-	          );
-	        }
-	      });
+		     React.render(
+		    <Facturadas source="api/v1/facturadas" />,
+		      document.getElementById('facturadas')
+		 );
+		 /*
+		 *  Costo Ordenes Internas
+		 */
+		var CostoInternas = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+		        var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));		
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data} MXN    
+		            </span>
+		          );
+		        }
+		      });
 
-	     React.render(
-	    <ConteoInternas source="api/v1/conteo_internas" />,
-	      document.getElementById('ordenes_internas')
-	 );
+		     React.render(
+		    <CostoInternas source="api/v1/internas" />,
+		      document.getElementById('costo_internas')
+		 );
+   /*
+	*  Conteo Ordenes Internas
+	*/
+		var ConteoInternas = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		      
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		           setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+		        	 var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		     	 },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <ConteoInternas source="api/v1/conteo_internas" />,
+		      document.getElementById('ordenes_internas')
+		 );
+    /*
+	*  Conteo Ordenes Internas
+	*/
+		var Fecha = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Fecha source="api/v1/fecha" />,
+		      document.getElementById('fecha')
+		 );
 </script>

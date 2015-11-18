@@ -1,37 +1,119 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Registrar</h3>
-        </div>
-          <div class="panel-body">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
-                <fieldset>
-                <div class="form-group">
-                  <%= f.email_field :email, autofocus: true, :class => "form-control",:placeholder => "ejemplo@example.com" %>
-              </div>
-              <div class="form-group">
-                 <%= f.label :password %>
-                  <% if @minimum_password_length %>
-                  <em>(<%= @minimum_password_length %> caracteres minimo)</em>
-                  <% end %><br />
-                  <%= f.password_field :password, autocomplete: "off", :class => "form-control" %>
-              </div>
-              <div class="form-group">
-              <%= f.label :password_confirmation %><br />
-              <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %>
-              </div>
-              <div class="actions">
-                 <%= f.submit "Registrar", :class => "btn btn-lg btn-success btn-block" %>
-              </div>
-            </fieldset>
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <title>Pronistic</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+  <meta content="" name="description" />
+  <meta content="" name="author" />
+  
+<!-- ================== BEGIN BASE CSS STYLE ================== -->
+  <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+  <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+    <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+    <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735472/jquery.gritter.css" rel="stylesheet" />  
+  <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+    
+  <!-- ================== BEGIN BASE JS ================== -->
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447735628/pace.min.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!--[if lt IE 9]>
+      <script src="assets/crossbrowserjs/excanvas.min.js"></script>
+  <![endif]-->
+</head>
+<body class="pace-top">
+  <!-- begin #page-loader -->
+  <div id="page-loader" class="page-loader fade in"><span class="spinner">Loading...</span></div>
+  <!-- end #page-loader -->
 
-            <% end -%>
-              <hr/>
-          </div>
-      </div>
+  <!-- begin #page-container -->
+  <div id="page-container" class="fade page-container">
+      <!-- begin register -->
+    <div class="register">
+        <!-- begin register-brand -->
+            <div class="register-brand bg-inverse text-white">
+                 Registrar
+            </div>
+            <!-- end register-brand -->
+            <!-- begin register-content -->
+            <div class="register-content">
+                <h4 class="m-t-0 m-b-5">Qué bueno verte por aquí!</h4> 
+                <p></p> 
+                  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+               
+                    <div class="form-group">
+                        <%= f.email_field :email, autofocus: true, :class => "form-control input-lg",:placeholder => "Email Address" %>
+                    </div>
+                    <div class="form-group">
+                    <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> caracteres minimo)</em>
+                    <% end %><br />
+                    <%= f.password_field :password, autocomplete: "off", :class => "form-control input-lg", :placeholder => "Password"%>
+                    </div>
+                    <div class="form-group">
+                        <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control input-lg",:placeholder=>"Confirmacion Password" %>
+                    </div>
+                    <div class="checkbox m-b-15">
+                        <label>
+                            <input type="checkbox"> By creating an account, you agree to our <a href="#" class="text-muted">Terms and condition</a> and <a href="#" class="text-muted">Privacy Policy</a>.
+                        </label>
+                    </div>
+                    <div class="row m-b-15">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-lime btn-lg btn-block">Registrar</button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        Ya eres miembro? <a href="/users/sign_in" class="text-muted">Ingresar con su cuenta</a>
+                    </div>
+                <% end %>
+            </div>
+            <!-- end register-content -->
     </div>
+    <!-- end register -->
   </div>
-</div>
+  <!-- end page container -->
+  
+<!-- begin theme-panel -->
+  
+  
+   <!-- ================== BEGIN BASE JS ================== -->
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733159/jquery-ui.min.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733251/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="assets/crossbrowserjs/html5shiv.js"></script>
+      <script src="assets/crossbrowserjs/respond.min.js"></script>
+    <![endif]-->
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733386/jquery.slimscroll.min.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733489/jquery.cookie.js"></script>
+    <!-- ================== END BASE JS ================== -->
+    
+    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733913/bootstrap_calendar.min.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733996/jquery.sparkline.min.js"></script>
+    <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734296/jquery.gritter.js"></script>
+      <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
+      <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
+      <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+    <!-- ================== END PAGE LEVEL JS ================== -->
+      
+    
+    <script>
+      $(document).ready(function() {
+          App.init();
+          Demo.initThemePanel();
+      });
+    </script>
+</body>
+</html>
