@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+  resources :payments
   get 'inicio/index'
 
   devise_for :supers
   devise_for :sistemas
-  resources :pagos
   resources :configuracions
   resources :facturadas
   resources :pendientes

@@ -11,7 +11,9 @@ if  @validar.blank?
          message: "Cadena no valida"
          }
      else
- Facturada.delete_all(:app_id => params[:app_id])
+@mes = Date.today.month
+@año = Date.today.year
+ Facturada.delete_all(:app_id => params[:app_id]).where(:mes => @mes).where(:año => @año)
  @crear_ordenes = Facturada.create(facturas_params)
  render json: {
            message: "Datos guardados satisfactoriamente."

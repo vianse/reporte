@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_id: MyString
+  importe: MyString
+  fecha: 2015-11-19
+  dias: MyString
+  estatus: MyString
+
+two:
+  app_id: MyString
+  importe: MyString
+  fecha: 2015-11-19
+  dias: MyString
+  estatus: MyString

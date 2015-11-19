@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App:</strong>
+  <%= @payment.app_id %>
+</p>
+
+<p>
+  <strong>Importe:</strong>
+  <%= @payment.importe %>
+</p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @payment.fecha %>
+</p>
+
+<p>
+  <strong>Dias:</strong>
+  <%= @payment.dias %>
+</p>
+
+<p>
+  <strong>Estatus:</strong>
+  <%= @payment.estatus %>
+</p>
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>
