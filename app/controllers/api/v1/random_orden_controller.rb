@@ -8,7 +8,7 @@ class Api::V1::RandomOrdenController <ApplicationController
 		@configuracion = Configuracion.where(:app_id => @acceso).pluck(:dias).first
 		@fecha = Date.today() - @configuracion.to_i #Fecha con la resta del parametro
 		@catalogo = Catalogo.where(:mes => @mes).where(:app_id => @acceso).pluck(:objetivo_obligado).first
-		@facturado = Facturada.where(:app_id => @acceso).where(:mes => @mes).where(:año => @año).sum(:importe)
+		@facturado = Facturada.where(:app_id => @acceso).where(:mes => @mes).where(:anio => @año).sum(:importe)
 		@total_facturado = @facturado
 		@conteo = Pendiente.where(:app_id => @acceso).where("fecha < ?", @fecha).count(:id)
 		if @conteo > 6
