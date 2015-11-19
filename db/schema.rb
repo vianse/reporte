@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20151119062139) do
     t.string   "importe"
     t.date     "fecha"
     t.string   "dias"
-    t.string   "estatus"
+    t.integer  "estatus"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
