@@ -2,6 +2,7 @@ class Api::V1::CrearFacturadasController <ApplicationController
  skip_before_filter :verify_authenticity_token
  def index
  	
+  
  end
  def create
   @validar = App.where(api_key: params[:app_id]).first
