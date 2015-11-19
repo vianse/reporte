@@ -15,9 +15,7 @@ if  @validar.blank?
 @año = Date.today.year
  Facturada.where(:mes => @mes).where(:año => @año).delete_all(:app_id => params[:app_id])
  @crear_ordenes = Facturada.create(facturas_params)
- render json: {
-           message: "Datos guardados satisfactoriamente."
-         }
+  render :json => @crear_ordenes.to_json(:only => [:orden]) 
        
 end
  #  @importe = params[:importe].match(/(\d.+)/)[1].gsub(',','').to_f

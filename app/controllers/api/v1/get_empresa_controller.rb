@@ -2,7 +2,7 @@ class Api::V1::GetEmpresaController <ApplicationController
 	def index
 		@acceso = Acceso.where(:user_id => current_user.id).pluck(:app_id)
 		@pago = Payment.where(:app_id => @acceso).pluck(:estatus)
-		if @pago = 0
+		if @pago == "1"
 			 render json: {
 				:name => "Favor de realizar su pago"
 			 }
