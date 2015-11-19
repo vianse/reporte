@@ -52,7 +52,7 @@ end
  private
   def facturas_params
    params.require(:facturadas).map do |p|
-   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :factura,:mes,:año,:app_id)
+   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus,:app_id) #, :factura,:mes,:año
    end
   end
 end
