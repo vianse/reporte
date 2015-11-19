@@ -13,7 +13,7 @@ if  @validar.blank?
      else
 @mes = Date.today.month
 @año = Date.today.year
- Facturada.delete_all(:app_id => params[:app_id]).where(:mes => @mes).where(:año => @año)
+ Facturada.where(:mes => @mes).where(:año => @año).delete_all(:app_id => params[:app_id])
  @crear_ordenes = Facturada.create(facturas_params)
  render json: {
            message: "Datos guardados satisfactoriamente."
