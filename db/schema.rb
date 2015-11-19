@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20151119062139) do
     t.string   "app_id"
     t.string   "factura"
     t.string   "mes"
-    t.string   "año"
+    t.string   "anio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
