@@ -1,7 +1,20 @@
 class Api::V1::TestController <ApplicationController
  skip_before_filter :verify_authenticity_token
  def index
- 	
+ 	 @validar = App.where(api_key: params[:app_id]).first
+if  @validar.blank?
+       render json: {
+         message: "Cadena no valida"
+         }
+     else
+@mes = Date.today.month
+@año = Date.today.year
+# Facturada.delete_all(:app_id => params[:app_id]).where(:mes => @mes).where(:año => @año)
+ #@crear_ordenes = Facturada.create(facturas_params)
+ render json: {
+           message: "Datos guardados satisfactoriamente."
+         }
+       
   
  end
  def create
