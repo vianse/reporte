@@ -99,9 +99,14 @@ a.font{
 						    <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
 					    </a>
 					    <ul class="sub-menu">
+                            <% if @apps == 1 %>
 					        <li class="active"><a href="/">Reporte</a></li>
+                            <% else %>
+                            <li><a href="/sucursales">Sucursales <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+                            <% end %>
 					        <li><a href="/settings">Configuración <i class="fa fa-wrench text-theme m-l-3"></i></a></li>
-					        <li><a href="#">Periodos y objetivos <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+					        <li><a href="/objetivos">Periodos y objetivos <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+                            
 					    </ul>
 					</li>
 				</ul>

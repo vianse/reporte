@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sucursales/index'
+
   get 'alertpayment/index'
 
   resources :payments
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
       resources :get_ordenes_mayores, path: "mayores"
       resources :get_fecha, path: "fecha"
       resources :test, path: "prueba"
+      resources :sucursales, path: "sucursales"
 
 
     end
@@ -51,6 +54,7 @@ Rails.application.routes.draw do
   get 'home' => 'home#index', as: :home
   get 'inicio' => 'inicio#index', as: :inicio
   get 'pago' => 'alertpayment#index', as: :pago
+  get 'sucursales' => 'sucursales#index', as: :sucursales
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
