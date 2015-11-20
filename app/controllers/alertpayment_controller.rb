@@ -1,12 +1,13 @@
-class HomeController < ApplicationController
-	before_action :authenticate_user!
+class AlertpaymentController < ApplicationController
   def index
+  	def index
   	 @app = App.select("api_key").where(:user_id => current_user.id)
 	 @pago = Payment.where(:app_id => @app).pluck(:estatus).first
 	 
-  if @pago == 1
-  			redirect_to "/pago"
+  if @pago == 0
+  			redirect_to "/"
   	 else
   	 end
+  end
   end
 end

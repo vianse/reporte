@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'alertpayment/index'
+
   resources :payments
   get 'inicio/index'
 
@@ -48,7 +50,7 @@ Rails.application.routes.draw do
   get 'objetivos' => 'catalogos#index', as: :objetivos
   get 'home' => 'home#index', as: :home
   get 'inicio' => 'inicio#index', as: :inicio
-
+  get 'pago' => 'alertpayment#index', as: :pago
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
