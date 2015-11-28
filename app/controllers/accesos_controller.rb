@@ -69,6 +69,6 @@ class AccesosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def acceso_params
-      params.require(:acceso).permit(:user_id, :app_id)
+      params.require(:acceso).permit(:user_id, :group_id, :app_id_s, :app_id_h)
     end
 end

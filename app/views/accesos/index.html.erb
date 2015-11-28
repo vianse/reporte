@@ -20,7 +20,9 @@
                   <thead>
                     <tr>
                       <th>Mail del usuario</th>
-                      <th>App_Id</th>
+                      <th>Grupo_id</th>
+                      <th>Agencia_id_S</th>
+                      <th>Agencia_id_h</th>
                       <th colspan="3"></th>
                     </tr>
                   </thead>
@@ -29,7 +31,9 @@
                     <% @accesos.each do |acceso| %>
                       <tr>
                         <td><%= acceso.user.email %></td>
-                        <td><%= acceso.app_id %></td>
+                        <td><%= acceso.group_id %></td>
+                        <td><%= acceso.app_id_s %></td>
+                        <td><%= acceso.app_id_h %></td>
                         <td><%= link_to 'Editar', edit_acceso_path(acceso) %></td>
                         <td><%= link_to 'Eliminar', acceso, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                       </tr>

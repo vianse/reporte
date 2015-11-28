@@ -1,11 +1,12 @@
 class Api::V1::GetOrdenesMayoresController <ApplicationController
 	include ActionView::Helpers::NumberHelper
 	def index
+		@parametro = params[:app_id]
 		@app = App.select("api_key").where(:user_id => current_user.id)
 		@acceso = Acceso.select("app_id").where(:user_id => current_user.id)
-		@configuracion = Configuracion.where(:app_id => @acceso).pluck(:dias).first
+		@configuracion = Configuracion.where(:app_id => @parametro).pluck(:dias).first
 		@fecha = Date.today() - @configuracion.to_i #Fecha con la resta del parametro
-		@catalogo = Pendiente.where(:app_id => @acceso).where("fecha < ?", @fecha).order("fecha ASC")
+		@catalogo = Pendiente.where(:app_id => @parametro).where("fecha < ?", @fecha).order("fecha ASC")
 		
 		elementos = @catalogo.map do |k|
 		@dias = distance_of_time_in_days(k.fecha)

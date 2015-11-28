@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Pronostic</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+  <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735472/jquery.gritter.css" rel="stylesheet" />  
+  <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+    
+  <!-- ================== BEGIN BASE JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735628/pace.min.js"></script>
+  <!-- ================== END BASE JS ================== -->
+
+	
+	<!--[if lt IE 9]>
+	    <script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+</head>
+<style type="text/css">
+.visible{
+    display: none;
+}
+a.font{
+	font-size: 16px;
+}
+.font{
+	font-size: 16px;
+}
+.verde{
+	color: #00A896;
+}
+</style>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="page-loader fade in"><span class="spinner">Loading...</span></div>
+	<!-- end #page-loader -->
+
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-container page-header-fixed page-sidebar-fixed page-with-two-sidebar page-with-footer">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<!-- begin container-fluid -->
+			<div class="container-fluid">
+				<!-- begin mobile sidebar expand / collapse button -->
+				<div class="navbar-header">
+					<a href="/" class="navbar-brand">Pronostic</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- end mobile sidebar expand / collapse button -->
+				
+				<!-- begin navbar-right -->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="hidden-xs"><%= current_user.email %></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="/users/edit">Seguridad</a></li>
+							<li class="divider"></li>
+							<li><%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete  %></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- end navbar-right -->
+			</div>
+			<!-- end container-fluid -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar nav -->
+				<ul class="nav">
+					<li class="nav-header">Navegación</li>
+					<li class="has-sub active">
+						<a href="javascript:;">
+						    <b class="caret pull-right"></b>
+						    <i class="fa fa-home"></i>
+						    <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
+					    </a>
+					    <ul class="sub-menu">
+                            <% if @apps == 1 || @apps == 0 %>
+					        <li class="active"><a href="/sucursales?type=Servicio">Reporte</a></li>
+                            <% else %>
+                            <li><a href="/sucursales">Resumen Grupo <i class="fa fa-file-text-o text-theme m-l-3"></i></a></li>
+                            <li><a href="/sucursales?type=Servicio">Operación Servicio <i class="fa fa-building text-theme m-l-3"></i></a></li>
+                            <% end %>
+                            <li><a href="/sucursales?type=HYP">HYP <i class="fa fa-wrench text-theme m-l-3"></i></a></li>
+					        
+                            
+					    </ul>
+					</li>
+				</ul>
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li><a href="javascript:;">Home</a></li>
+				<li class="active">Dashboard</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header"><span id="empresa"></span> <small id="fecha"></small></h1>
+			<!-- end page-header -->
+			<div class="panel panel-white overflow-hidden m-b-10">
+                <div class="panel-heading">
+                	<h4 class="panel-body">Resumen General</h4>
+                	<p>Objetivo Mensual General (Incluye todas las sucursales)  <strong><span id="objetivos"></span></strong> MXN</p>
+                     <p>Venta General Servicio: <strong><span id="facserv"></span></strong> MXN</p>
+                     <p>Venta General HYP:  <strong><span id="fachyp"></span></strong> MXN</p>
+                     <p>Total General:  <strong><span id="total"></span></strong> MXN</p>
+                     <p>Venta adicional VS Objetivo General:  <strong><span id="venta_adicional"></span></strong> MXN</p>
+                </div>
+            </div>
+              
+            <div class="row">
+                    <!-- begin col-8 -->
+                    <div class="col-md-12">
+                        <!-- begin panel -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                    
+                                </div>
+                                <h4 class="panel-title">Detalles de ventas adicional por sucursal</h4>
+                            </div>
+                            <div class="table-responsive">
+                                <span id="sucursales_hyp"></span>
+
+                            </div>
+                        </div>
+                        <!-- end panel -->
+                    </div>
+                    <!-- end col-8 -->
+                    <!-- begin col-4 -->
+                    <!-- end col-4 -->
+                </div>
+
+               
+            <!-- begin #footer -->
+            <div id="footer" class="footer">
+                <span class="pull-right">
+                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
+                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
+                    </a>
+                </span>
+                &copy; 2015 <b>vianse</b> All Right Reserved
+            </div>
+            <!-- end #footer -->
+		</div>
+		<!-- end #content -->
+		
+		<!-- begin #sidebar-right -->
+		
+		<!-- end #sidebar-right -->
+	</div>
+	<!-- end page container -->
+	
+    <!-- begin theme-panel -->
+    <!-- end theme-panel -->
+<!-- ================== BEGIN BASE JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733159/jquery-ui.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733251/bootstrap.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="assets/crossbrowserjs/html5shiv.js"></script>
+    <script src="assets/crossbrowserjs/respond.min.js"></script>
+  <![endif]-->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733386/jquery.slimscroll.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733489/jquery.cookie.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733913/bootstrap_calendar.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733996/jquery.sparkline.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734296/jquery.gritter.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+		    App.init();
+		    Demo.init();
+		    //PageDemo.init();
+		});
+	</script>
+</body data-no-turbolink data-no-transition-cache>
+</html>
+
+<script type="text/javascript">
+	function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+				  if (typeof stroke == "undefined" ) {
+					stroke = true;
+				  }
+				  if (typeof radius === "undefined") {
+					radius = 5;
+				  }
+				  
+				  //edge clearing
+				  
+				  var gdest = ctx.globalCompositeOperation;
+				  var fstyle = ctx.fillStyle;
+				  ctx.globalCompositeOperation = "destination-out";			  
+				  ctx.fillStyle = "#FF686B";
+				 
+				  ctx.beginPath();
+				  ctx.moveTo(x, y+radius);
+				  ctx.quadraticCurveTo(x, y, x + radius, y);
+				  ctx.lineTo(x, y);
+				  ctx.lineTo(x, y+radius);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.beginPath();
+				  ctx.moveTo(x, y+height-radius);
+				  ctx.quadraticCurveTo(x, y+height, x + radius, y+height);
+				  ctx.lineTo(x, y+height);
+				  ctx.lineTo(x, y+height-radius);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.beginPath();
+				  ctx.moveTo(x+width-radius, y);
+				  ctx.quadraticCurveTo(x+width, y, x + width, y+radius);
+				  ctx.lineTo(x+width, y);
+				  ctx.lineTo(x+width-radius, y);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.beginPath();
+				  ctx.moveTo(x+width, y+height-radius);
+				  ctx.quadraticCurveTo(x+width, y+height, x+width - radius, y+height);
+				  ctx.lineTo(x+width, y+height);
+				  ctx.lineTo(x+width, y+height-radius);			 
+				  ctx.closePath(); 		
+				  ctx.fill();
+				  
+				  ctx.fillStyle = fstyle;
+				  ctx.globalCompositeOperation = gdest;
+				  
+
+
+				  
+				  //round rect
+				  ctx.beginPath();
+				  ctx.moveTo(x + radius, y);
+				  ctx.lineTo(x + width - radius, y);
+				  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+				  ctx.lineTo(x + width, y + height - radius);
+				  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+				  ctx.lineTo(x + radius, y + height);
+				  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+				  ctx.lineTo(x, y + radius);
+				  ctx.quadraticCurveTo(x, y, x + radius, y);
+				  ctx.closePath(); 			  
+				  if (stroke) {
+					ctx.stroke();
+				  }
+				  if (fill) {
+					ctx.fill();
+				  } 
+	 
+
+				}
+
+				
+				var ii = 0;		
+				function isNumber(n) 
+				{
+				  return !isNaN(parseFloat(n)) && isFinite(n);
+				}
+				
+				function drawCanvas(percentage, canvasid)
+				{			
+											
+					var error = !isNumber(percentage);
+					
+					if (!error && (percentage < 0 || percentage > 100))
+					{
+						error = true;
+					}
+					
+					percentage = percentage.toString().replace(/[^0-9]/g, '');
+					var canvas = $('#'+canvasid);
+					canvas.clear = true;
+					canvas = document.getElementById('cvs');
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						context.clearRect(0,0,canvas.width,canvas.height);
+						
+						context.fillStyle = "#FFC6C1";
+						context.fillRect(0, 0, canvas.width, canvas.height);
+						
+						var percWidth = Math.round(canvas.width / 100);
+						
+						if (!error)
+						{
+							for (var i = 0; i<= percentage; i++)
+							{						
+								var r,g,b;
+								if (i <= 50)
+								{
+									r = 255;
+									g = Math.round((255*i)/50);
+									b = 0;
+								}
+								else
+								{
+									r = Math.round((255*(100-i))/50);
+									g = 255;
+									b = 0
+								}						
+								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
+								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
+							}
+							
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = percentage + "%";
+						}
+						else
+						{
+							context.fillStyle = "rgb(255,0,0)";
+							context.fillRect(0,0,canvas.width, canvas.height);
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = "Sin Acceso";
+						}
+						
+						context.fillStyle = "#2B2D42";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
+						/*context.fillStyle = "rgb(90,90,90)";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
+						context.fillStyle = "#FFFAFF";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
+						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
+						
+						
+						
+						
+						context.fillStyle = "rgb(0, 0, 0)";					
+						roundRect(context, 0,0,canvas.width,canvas.height,5);
+					}
+					
+				}
+				function drawCanvas1(percentage, canvasid)
+				{			
+											
+					var error = !isNumber(percentage);
+					
+					if (!error && (percentage < 0 || percentage > 100))
+					{
+						error = true;
+					}
+					
+					percentage = percentage.toString().replace(/[^0-9]/g, '');
+					var canvas = $('#'+canvasid);
+					canvas.clear = true;
+					canvas = document.getElementById('ordenes_cero');
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						context.clearRect(0,0,canvas.width,canvas.height);
+						
+						context.fillStyle = "#FFC6C1";
+						context.fillRect(0, 0, canvas.width, canvas.height);
+						
+						var percWidth = Math.round(canvas.width / 100);
+						
+						if (!error)
+						{
+							for (var i = 0; i<= percentage; i++)
+							{						
+								var r,g,b;
+								if (i <= 50)
+								{
+									r = 255;
+									g = Math.round((255*i)/50);
+									b = 0;
+								}
+								else
+								{
+									r = Math.round((255*(100-i))/50);
+									g = 255;
+									b = 0
+								}						
+								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
+								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
+							}
+							
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = percentage + "%";
+						}
+						else
+						{
+							context.fillStyle = "rgb(255,0,0)";
+							context.fillRect(0,0,canvas.width, canvas.height);
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = "Sin Acceso";
+						}
+						
+						context.fillStyle = "#2B2D42";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
+						/*context.fillStyle = "rgb(90,90,90)";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
+						context.fillStyle = "#FFFAFF";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
+						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
+						
+						
+						
+						
+						context.fillStyle = "rgb(0, 0, 0)";					
+						roundRect(context, 0,0,canvas.width,canvas.height,5);
+					}
+					
+				}
+				function drawCanvas2(percentage, canvasid)
+				{			
+											
+					var error = !isNumber(percentage);
+					
+					if (!error && (percentage < 0 || percentage > 100))
+					{
+						error = true;
+					}
+					
+					percentage = percentage.toString().replace(/[^0-9]/g, '');
+					var canvas = $('#'+canvasid);
+					canvas.clear = true;
+					canvas = document.getElementById('objetivo_progress');
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						context.clearRect(0,0,canvas.width,canvas.height);
+						
+						context.fillStyle = "#FFC6C1";
+						context.fillRect(0, 0, canvas.width, canvas.height);
+						
+						var percWidth = Math.round(canvas.width / 100);
+						
+						if (!error)
+						{
+							for (var i = 0; i<= percentage; i++)
+							{						
+								var r,g,b;
+								if (i <= 50)
+								{
+									r = 255;
+									g = Math.round((255*i)/50);
+									b = 0;
+								}
+								else
+								{
+									r = Math.round((255*(100-i))/50);
+									g = 255;
+									b = 0
+								}						
+								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
+								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
+							}
+							
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = percentage + "%";
+						}
+						else
+						{
+							context.fillStyle = "rgb(255,0,0)";
+							context.fillRect(0,0,canvas.width, canvas.height);
+							context.font = "bold 20px sans-serif";
+							context.fillStyle = "rgb(255,255,255)";
+							context.textBaseline = "middle";
+							var msg = "Sin Acceso";
+						}
+						
+						context.fillStyle = "#2B2D42";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
+						/*context.fillStyle = "rgb(90,90,90)";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
+						context.fillStyle = "#FFFAFF";
+						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
+						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
+						
+						
+						
+						
+						context.fillStyle = "rgb(0, 0, 0)";					
+						roundRect(context, 0,0,canvas.width,canvas.height,5);
+					}
+					
+				}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
+<script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<script type="text/javascript">
+		
+    function valor(value){
+        
+    };
+
+	function valor1(value){
+		$( "#importe_facturado" ).text("Cumplimiento del objetivo " + value + " MXN");
+	};
+	function valor2(value){
+		$( "#conteo" ).text(value);
+		
+	};	
+	function valor3(value){
+		$( "#rest" ).text(value);
+	};
+	function valor4(value){
+		$( "#o" ).text(value + " días");
+	};
+
+	function valor5(value){
+		$( "#contador" ).text(value);
+	};
+	
+	$( "#ver" ).click(function() {
+  		$( "#detalles" ).toggle( "slow", function() {
+    // Animation complete.
+        });
+	});
+</script>
+
+<script type="text/jsx">
+
+/* Script para obtener los parametros de la URL
+ *  
+ */ 
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+/* variables
+ *  
+ */ 
+
+        var empresa = getUrlParameter('group_id');
+        var type = getUrlParameter('type');
+        var url = "api/v1/general?group_id=" + empresa 
+        var url1 = "api/v1/general_sucursales?group_id=" + empresa
+
+      
+/* Nombre Grupo
+ * 
+ */
+		var Empresa = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data.nombre}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Empresa source={url} />,
+		      document.getElementById('empresa')
+		 );
+
+/* Nombre Facturacion Servicio
+ * 
+ */
+		var FacServ = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data.facturacion_servicio}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <FacServ source={url} />,
+		      document.getElementById('facserv')
+		 );
+/* Nombre Facturacion HYP
+ * 
+ */
+		var FacHyp = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data.facturacion_hyp}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <FacHyp source={url} />,
+		      document.getElementById('fachyp')
+		 );
+
+/* Nombre objetivos
+ * 
+ */
+		var Objetivos = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data.objetivo}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Objetivos source={url} />,
+		      document.getElementById('objetivos')
+		 );
+/*  objetivos
+ * 
+ */
+		var Total = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data.venta_total}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Total source={url} />,
+		      document.getElementById('total')
+		 );
+
+/*  Venta adicional
+ * 
+ */
+		var Adicional = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		          setInterval(this.consulta, 10000);
+		        },
+		        consulta: function(){
+				var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data.venta_adicional}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Adicional source={url} />,
+		      document.getElementById('venta_adicional')
+		 );
+
+/* Sucursales_hyp
+ *  
+ */
+    
+    var SucursalesHyp  = React.createClass({
+        componentDidMount: function() {
+            $.ajax({
+                url: url1,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+             setInterval(this.consulta, 10000);
+        },
+   		consulta: function(){
+ 			$.ajax({
+                url: url1,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+   		},
+        getInitialState: function() {
+                  return {
+                    data: [],
+                    tabla: "",
+                    data1: [],
+                    sucursal:""
+                    };         
+                },
+    
+        render: function() { 
+
+                        var click    = this.asignar 
+                        var ap       = this.appid
+                        var suc      = this.state.sucursal 
+                        var items    = this.state.data.map(function(object){
+                    
+                            return <tr>
+                                            <td><strong>{object.sucursal}</strong></td>
+                                            <td className="text-center">{object.venta}</td>
+                                            <td className="text-center">{object.venta_hyp}</td>
+                                            <td className="text-center">{object.objetivo}</td>
+                                            <td className="text-center">{object.venta_adicional}</td>
+                                            
+                                    </tr>
+
+                            });
+
+                        return   <span>
+                                <div>
+                                <table className="table table-bordered table-hover table-striped table-td-valign-middle">
+                                    <thead>
+                                        <tr className="inverse">
+                                            <th>Sucursal</th>
+                                            <th className="text-center">Venta Servicio</th>
+                                            <th className="text-center">Venta HYP</th>
+                                            <th className="text-center">Objetivo Obligado Servicio</th>
+                                            <th className="text-center">Venta adicional VS Objetivo Obligado</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {items}
+                                    </tbody>
+                                </table>
+                                </div>
+                        </span>
+
+
+                    }
+        });
+        
+        React.render(
+                <SucursalesHyp  />,
+         document.getElementById('sucursales_hyp')
+         );
+
+
+
+/* Fecha
+ *  
+ */
+		var Fecha = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Fecha source="api/v1/fecha" />,
+		      document.getElementById('fecha')
+		 );
+
+</script>

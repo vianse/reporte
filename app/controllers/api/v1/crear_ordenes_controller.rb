@@ -78,7 +78,7 @@ end
   private
   def ordenes_params
    params.require(:ordenes).map do |p|
-   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id)
+   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo)
    end
   end
   def json(value)

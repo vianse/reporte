@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :groups
+  get 'errors/app_id'
+  get 'errors/acceso'
+  get 'errors/sucursal'
   get 'sucursales/index'
 
   get 'alertpayment/index'
@@ -40,6 +44,10 @@ Rails.application.routes.draw do
       resources :get_fecha, path: "fecha"
       resources :test, path: "prueba"
       resources :sucursales, path: "sucursales"
+      resources :get_sucursales_hyp, path: "sucursales_hyp"
+      resources :get_ordenes_hyp, path: "ordenes_hyp"
+      resources :general, path: "general"
+      resources :get_sucursales_general, path: "general_sucursales"
 
 
     end
@@ -52,6 +60,8 @@ Rails.application.routes.draw do
   get 'settings' => 'configuracions#index', as: :settings
   get 'objetivos' => 'catalogos#index', as: :objetivos
   get 'home' => 'home#index', as: :home
+  get 'home_hyp' => 'home#index_hyp', as: :home_hyp
+  get 'general' => 'home#index_general', as: :home_general
   get 'inicio' => 'inicio#index', as: :inicio
   get 'pago' => 'alertpayment#index', as: :pago
   get 'sucursales' => 'sucursales#index', as: :sucursales

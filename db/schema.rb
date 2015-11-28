@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119062139) do
+ActiveRecord::Schema.define(version: 20151121055014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accesos", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "app_id"
+    t.string   "group_id"
+    t.string   "app_id_s"
+    t.string   "app_id_h"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,7 +30,8 @@ ActiveRecord::Schema.define(version: 20151119062139) do
   create_table "apps", force: :cascade do |t|
     t.string   "name"
     t.string   "api_key"
-    t.integer  "user_id"
+    t.string   "group"
+    t.string   "type_app"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -40,6 +43,7 @@ ActiveRecord::Schema.define(version: 20151119062139) do
     t.integer  "objetivo_obligado"
     t.string   "app_id"
     t.string   "user_id"
+    t.string   "group_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
@@ -50,6 +54,7 @@ ActiveRecord::Schema.define(version: 20151119062139) do
     t.string   "internas"
     t.string   "dias"
     t.string   "app_id"
+    t.string   "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -64,6 +69,16 @@ ActiveRecord::Schema.define(version: 20151119062139) do
     t.string   "factura"
     t.string   "mes"
     t.string   "anio"
+    t.string   "sucursal_id"
+    t.string   "group_id"
+    t.string   "sucursal_tipo"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -93,8 +108,11 @@ ActiveRecord::Schema.define(version: 20151119062139) do
     t.date     "fecha"
     t.string   "estatus"
     t.string   "app_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "sucursal_id"
+    t.string   "group_id"
+    t.string   "sucursal_tipo"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "sistemas", force: :cascade do |t|

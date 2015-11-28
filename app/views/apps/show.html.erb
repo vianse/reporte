@@ -9,6 +9,15 @@
   <strong>Api key:</strong>
   <%= @app.api_key %>
 </p>
+<p>
+  <strong>Group:</strong>
+  <%= @app.group %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @app.type_app %>
+</p>
 
 <%= link_to 'Edit', edit_app_path(@app) %> |
 <%= link_to 'Back', apps_path %>

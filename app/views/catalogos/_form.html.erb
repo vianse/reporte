@@ -150,8 +150,9 @@ a.font{
               </div>
               
               <div class="field">
-                <%= f.hidden_field :app_id,:value => @acceso.app_id %>
+                <%= f.text_field :app_id,:value => @parametro %>
                 <%= f.hidden_field :user_id, :value => current_user.id %>
+                <%= f.hidden_field :group_id, :value => @group_id %>
               </div>
               <div class="actions">
                  <%= f.submit "Guardar", :class => "btn btn-lg btn-success btn-block" %>

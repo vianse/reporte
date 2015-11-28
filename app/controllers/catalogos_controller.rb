@@ -4,8 +4,71 @@ class CatalogosController < ApplicationController
   # GET /catalogos
   # GET /catalogos.json
   def index
-    @acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
-    @catalogos = Catalogo.where(:app_id => @acceso.app_id)
+@parametro = params[:app_id]
+if params[:type] == "Servicio"
+    @app    = App.where(:api_key => @parametro).pluck(:group).first
+    @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
+    if @app.blank?
+      redirect_to "/errors/app_id"
+    else
+        if @acceso.blank?
+            @app    = App.where(:api_key => @parametro).pluck(:api_key).first
+            @acceso = Acceso.where(:user_id => current_user.id).where(:app_id_s => @parametro).pluck(:app_id_s).first
+                if @app.blank?
+                  redirect_to "/errors/app_id"
+                else
+                      if @acceso.blank?
+                        redirect_to "/errors/acceso"
+                      else
+                        @catalogos = Catalogo.where(:app_id => @parametro) 
+                      end
+                end
+
+        else
+           @catalogos = Catalogo.where(:app_id => @parametro) 
+        end
+    end
+
+end
+
+    if params[:type] == "HYP"
+    @app    = App.where(:api_key => @parametro).pluck(:group).first
+    @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
+    if @app.blank?
+      redirect_to "/errors/app_id"
+    else
+      if @acceso.blank?
+          @app    = App.where(:api_key => @parametro).pluck(:api_key).first
+          @acceso = Acceso.where(:user_id => current_user.id).where(:app_id_h => @parametro).pluck(:app_id_h).first
+          if @app.blank?
+              redirect_to "/errors/app_id"
+          else
+            if @acceso.blank?
+                redirect_to "/errors/acceso"
+            else
+               @catalogos = Catalogo.where(:app_id => @parametro)  
+            end
+          end
+
+      else
+        @catalogos = Catalogo.where(:app_id => @parametro) 
+      end
+    end
+
+end
+
+    # @parametro = params[:app_id]
+    # @app    = App.where(:api_key => @parametro).pluck(:api_key).first
+    # @acceso = Acceso.where(:user_id => current_user.id).where(:app_id => @parametro).pluck(:app_id).first
+    # if @app.blank?
+    #   redirect_to "/errors/app_id"
+    # else
+    #   if @acceso.blank?
+    #     redirect_to "/errors/acceso"
+    #   else
+    #   @catalogos = Catalogo.where(:app_id => @acceso)
+    #   end
+    # end
   end
 
   # GET /catalogos/1
@@ -15,8 +78,9 @@ class CatalogosController < ApplicationController
 
   # GET /catalogos/new
   def new
-    @acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
-    @app = App.select("api_key").where(:api_key => @acceso).first
+    @parametro = params[:app_id]
+    @group_id = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
+    #@app = App.select("api_key").where(:api_key => @acceso).first
     @catalogo = Catalogo.new
   end
 
@@ -72,6 +136,6 @@ class CatalogosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def catalogo_params
-      params.require(:catalogo).permit(:mes, :año, :objetivo_real, :objetivo_obligado, :app_id, :user_id)
+      params.require(:catalogo).permit(:mes, :año, :objetivo_real, :objetivo_obligado, :app_id, :user_id,:group_id)
     end
 end
