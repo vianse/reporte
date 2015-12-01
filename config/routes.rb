@@ -48,7 +48,7 @@ Rails.application.routes.draw do
       resources :get_ordenes_hyp, path: "ordenes_hyp"
       resources :general, path: "general"
       resources :get_sucursales_general, path: "general_sucursales"
-
+      resources :get_dias, path: "dias"
 
     end
   end

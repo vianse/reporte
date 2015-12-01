@@ -93,12 +93,15 @@ ActiveRecord::Schema.define(version: 20151121055014) do
 
   create_table "payments", force: :cascade do |t|
     t.string   "app_id"
-    t.string   "importe"
-    t.date     "fecha"
-    t.string   "dias"
-    t.integer  "estatus"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "esquema"
+    t.decimal  "importe"
+    t.date     "fechapago"
+    t.date     "fechavencimiento"
+    t.string   "diasalerta"
+    t.string   "diascorteacceso"
+    t.string   "estatus"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "pendientes", force: :cascade do |t|

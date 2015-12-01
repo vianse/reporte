@@ -16,16 +16,28 @@
     <%= f.text_field :app_id %>
   </div>
   <div class="field">
+    <%= f.label :esquema %><br>
+    <%= f.text_field :esquema %>
+  </div>
+  <div class="field">
     <%= f.label :importe %><br>
     <%= f.text_field :importe %>
   </div>
   <div class="field">
-    <%= f.label :fecha %><br>
-    <%= f.date_select :fecha %>
+    <%= f.label :fechapago %><br>
+    <%= f.date_select :fechapago %>
   </div>
   <div class="field">
-    <%= f.label :dias %><br>
-    <%= f.text_field :dias %>
+    <%= f.label :fechavencimiento %><br>
+    <%= f.date_select :fechavencimiento %>
+  </div>
+  <div class="field">
+    <%= f.label :diasalerta %><br>
+    <%= f.text_field :diasalerta %>
+  </div>
+  <div class="field">
+    <%= f.label :diascorteacceso %><br>
+    <%= f.text_field :diascorteacceso %>
   </div>
   <div class="field">
     <%= f.label :estatus %><br>

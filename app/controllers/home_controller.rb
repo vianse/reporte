@@ -4,7 +4,7 @@ class HomeController < ApplicationController
    @parametro = params[:app_id]
    @tipo = params[:type]
    #@app = App.select("api_key").where(:user_id => current_user.id)
-	 @pago = Payment.where(:app_id => @parametro).pluck(:estatus).first
+	 @pago = Payment.where(:app_id => @parametro).pluck(:estatus).last
    #valida si es grupo
 	 @grupo = Acceso.select("group_id").where(:user_id => current_user.id).pluck(:group_id).first
     if @grupo.blank?
@@ -20,10 +20,11 @@ class HomeController < ApplicationController
     else
       @apps = App.where(:group => @grupo).count
       #redirect_to "/general?group_id=" + @grupo
-      #render json: "grupo #{@apps}"
+      #render json: "grupo #{@apps}" 
+
     end
    
-  if @pago == 1
+  if @pago.to_i == 1
   			redirect_to "/pago"
   	 else
   	 end
@@ -58,12 +59,13 @@ class HomeController < ApplicationController
      end
   end
   def index_general
- @parametro = params[:app_id]
+
+  @parametro = params[:app_id]
   #@ordenes = Pendiente.where(:sucursal_id => "53616251380") 
 
    @tipo = params[:type]
    #@app = App.select("api_key").where(:user_id => current_user.id)
-   @pago = Payment.where(:app_id => @parametro).pluck(:estatus).first
+    @pago = Payment.where(:app_id => @parametro).pluck(:estatus).first
    #valida si es grupo
    @grupo = Acceso.select("group_id").where(:user_id => current_user.id).pluck(:group_id).first
     if @grupo.blank?
@@ -79,6 +81,7 @@ class HomeController < ApplicationController
     else
       @apps = App.where(:group => @grupo).count
       #render json: "grupo #{@apps}"
+
     end
    
   if @pago == 1
@@ -86,4 +89,6 @@ class HomeController < ApplicationController
      else
      end
   end
+
+  
 end
