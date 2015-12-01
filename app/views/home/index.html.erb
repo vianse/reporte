@@ -123,6 +123,15 @@ a.font{
 		<!-- begin #content -->
 		<div id="content" class="content">
             <div id="alerta"></div>
+            <% if @objetivo.blank? %>
+            <div class="alert alert-danger fade in">
+                            <strong>Error!</strong>
+                            Falta configurar los objetivos de este mes <a href="objetivos?app_id=<%= @parametro %>&type=Servicio"> da click aquí para configurarlos</a>
+                            <span class="close" data-dismiss="alert">×</span>
+            </div>
+            <% else %>
+            
+            <% end %>
           
 			<!-- begin breadcrumb -->
 			<ol class="breadcrumb pull-right">

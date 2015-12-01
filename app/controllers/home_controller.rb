@@ -1,7 +1,11 @@
 class HomeController < ApplicationController
 	before_action :authenticate_user!
   def index
+   @mes = Date.today.month
+   @año = Date.today.year
    @parametro = params[:app_id]
+   @objetivo = Catalogo.where(:app_id => @parametro).where(:mes => @mes).where(:año => @año).first
+
    @tipo = params[:type]
    #@app = App.select("api_key").where(:user_id => current_user.id)
 	 @pago = Payment.where(:app_id => @parametro).pluck(:estatus).last
