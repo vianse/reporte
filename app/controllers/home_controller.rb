@@ -34,7 +34,7 @@ class HomeController < ApplicationController
   	 end
   end
   def index_hyp
- @parametro = params[:app_id]
+  @parametro = params[:app_id]
   @ordenes = Pendiente.where(:sucursal_id => "53616251380") 
 
    @tipo = params[:type]
