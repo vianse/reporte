@@ -9,7 +9,7 @@ class ControlController < ApplicationController
           if @app_id_h.blank?
              redirect_to "/errors/sucursal"
           else
-             redirect_to "/home_hyp?app_id=" + @app_id_h
+             redirect_to "/home_hyp?app_id=" + @app_id_h + "&type=HYP"
           end
         else
           redirect_to "/home?app_id="+ @app_id_s + "&type=Servicio"
