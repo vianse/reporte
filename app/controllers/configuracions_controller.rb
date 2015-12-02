@@ -10,7 +10,7 @@ class ConfiguracionsController < ApplicationController
 if params[:type] == "Servicio"
     @app    = App.where(:api_key => @parametro).pluck(:group).first
     @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
-    if @acceso.blank?
+    if @app.blank?
       redirect_to "/errors/app_id"
     else
         if @acceso.blank?
