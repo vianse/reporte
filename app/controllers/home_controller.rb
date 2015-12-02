@@ -22,7 +22,7 @@ class HomeController < ApplicationController
             end
         
     else
-      @apps = App.where(:group => @grupo).count
+      @apps_g = App.where(:group => @grupo).count
       #redirect_to "/general?group_id=" + @grupo
       #render json: "grupo #{@apps}" 
 
