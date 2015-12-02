@@ -99,11 +99,11 @@ a.font{
 						    <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
 					    </a>
 					    <ul class="sub-menu">
-                            <%= @apps %>
+                            <%= @apps_g %>
                             <% if @apps == 1 || @apps == 0 %>
 					        <li class="active"><a href="/sucursales?type=Servicio">Operación Servicio</a></li>
                             <% end %>
-                            <% if @apps > 1  %>
+                            <% if @apps_g > 1  %>
                             <li><a href="/general?group_id=<%= @grupo %>">Resumen Grupo <i class="fa fa-file-text-o text-theme m-l-3"></i></a></li>
                             <li><a href="/sucursales?type=Servicio">Operación Servicio <i class="fa fa-building text-theme m-l-3"></i></a></li>
                             <% end %>
