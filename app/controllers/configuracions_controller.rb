@@ -5,7 +5,7 @@ class ConfiguracionsController < ApplicationController
   # GET /configuracions.json
   def index
 
-
+@tipo = params[:type]
 @parametro = params[:app_id]
 if params[:type] == "Servicio"
     @app    = App.where(:api_key => @parametro).pluck(:group).first
@@ -85,6 +85,7 @@ end
     @group_id = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
     #@acceso = Acceso.select("app_id").where(:user_id => current_user.id).first
     @acceso = params[:app_id]
+    @tipo = params[:type]
   end
 
   # GET /configuracions/1/edit
@@ -96,29 +97,20 @@ end
   def create
     @configuracion = Configuracion.new(configuracion_params)
 
-    respond_to do |format|
+   
       if @configuracion.save
-        format.html { redirect_to "/settings", notice: 'Configuracion was successfully created.' }
-        format.json { render :show, status: :created, location: @configuracion }
-      else
-        format.html { render :new }
-        format.json { render json: @configuracion.errors, status: :unprocessable_entity }
+       redirect_to "/settings?app_id="+ @configuracion.app_id + "&type=" + @configuracion.tipo
       end
-    end
   end
 
   # PATCH/PUT /configuracions/1
   # PATCH/PUT /configuracions/1.json
   def update
-    respond_to do |format|
       if @configuracion.update(configuracion_params)
-        format.html { redirect_to "/settings", notice: 'Configuracion was successfully updated.' }
-        format.json { render :show, status: :ok, location: @configuracion }
-      else
-        format.html { render :edit }
-        format.json { render json: @configuracion.errors, status: :unprocessable_entity }
+        redirect_to "/settings?app_id="+ @configuracion.app_id + "&type=" + @configuracion.tipo
+
       end
-    end
+   
   end
 
   # DELETE /configuracions/1
@@ -139,6 +131,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def configuracion_params
-      params.require(:configuracion).permit(:abiertas, :facturadas, :internas, :dias, :app_id, :group_id)
+      params.require(:configuracion).permit(:internas, :dias, :app_id, :group_id,:tipo)
     end
 end

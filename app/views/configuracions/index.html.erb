@@ -142,7 +142,7 @@ a.font{
         </div>
     <div class="col-md-9">
 
-       <a href="/configuracions/new?app_id=<%= @parametro %>" class="btn btn-success m-r-5 m-b-5">Agregar configuración</a>
+       <a href="/configuracions/new?app_id=<%= @parametro %>&type=<%= @tipo %>" class="btn btn-success m-r-5 m-b-5">Agregar configuración</a>
        <div class="panel-heading">
                                 <div class="panel-heading-btn">
                     
@@ -165,8 +165,8 @@ a.font{
                       <td><%= configuracion.internas %></td>
                       <td><%= configuracion.dias %></td>
                       <td><%= configuracion.app_id %></td>
-                      <td><%= link_to 'Edita', edit_configuracion_path(configuracion) %></td>
-                      <td><%= link_to 'Eliminar', configuracion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      <td><%= link_to 'Editar', edit_configuracion_path(configuracion) %></td>
+                      
                     </tr>
                   <% end %>
                 </tbody>

@@ -5,6 +5,7 @@ class CatalogosController < ApplicationController
   # GET /catalogos.json
   def index
 @parametro = params[:app_id]
+@tipo = params[:type]
 if params[:type] == "Servicio"
     @app    = App.where(:api_key => @parametro).pluck(:group).first
     @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
@@ -79,6 +80,7 @@ end
   # GET /catalogos/new
   def new
     @parametro = params[:app_id]
+    @tipo = params[:type]
     @group_id = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
     #@app = App.select("api_key").where(:api_key => @acceso).first
     @catalogo = Catalogo.new
@@ -91,31 +93,21 @@ end
   # POST /catalogos
   # POST /catalogos.json
   def create
+    @parametro = params[:app_id]
+    @tipo = params[:type]
     @catalogo = Catalogo.new(catalogo_params)
-
-    respond_to do |format|
       if @catalogo.save
-        format.html { redirect_to "/objetivos", notice: 'Catalogo was successfully created.' }
-        format.json { render :show, status: :created, location: @catalogo }
-      else
-        format.html { render :new }
-        format.json { render json: @catalogo.errors, status: :unprocessable_entity }
+        redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
       end
-    end
   end
 
   # PATCH/PUT /catalogos/1
   # PATCH/PUT /catalogos/1.json
   def update
-    respond_to do |format|
+   
       if @catalogo.update(catalogo_params)
-        format.html { redirect_to "/objetivos", notice: 'Catalogo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @catalogo }
-      else
-        format.html { render :edit }
-        format.json { render json: @catalogo.errors, status: :unprocessable_entity }
+        redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
       end
-    end
   end
 
   # DELETE /catalogos/1
@@ -136,6 +128,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def catalogo_params
-      params.require(:catalogo).permit(:mes, :año, :objetivo_real, :objetivo_obligado, :app_id, :user_id,:group_id)
+      params.require(:catalogo).permit(:mes, :año, :objetivo_real, :objetivo_obligado, :app_id, :user_id,:group_id,:tipo)
     end
 end

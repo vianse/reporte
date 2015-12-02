@@ -39,22 +39,22 @@ ActiveRecord::Schema.define(version: 20151121055014) do
   create_table "catalogos", force: :cascade do |t|
     t.string   "mes"
     t.string   "año"
-    t.integer  "objetivo_real"
-    t.integer  "objetivo_obligado"
+    t.decimal  "objetivo_real"
+    t.decimal  "objetivo_obligado"
     t.string   "app_id"
     t.string   "user_id"
     t.string   "group_id"
+    t.string   "tipo"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
 
   create_table "configuracions", force: :cascade do |t|
-    t.string   "abiertas"
-    t.string   "facturadas"
     t.string   "internas"
     t.string   "dias"
     t.string   "app_id"
     t.string   "group_id"
+    t.string   "tipo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

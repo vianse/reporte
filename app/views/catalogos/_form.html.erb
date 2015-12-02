@@ -99,9 +99,8 @@ a.font{
                 <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
               </a>
               <ul class="sub-menu">
-                  <li class="active"><a href="/">Reporte</a></li>
-                  <li><a href="/settings">Configuración <i class="fa fa-wrench text-theme m-l-3"></i></a></li>
-                  <li><a href="/objetivos">Periodos y objetivos <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+                  <li class="active"><a href="/">Regresar</a></li>
+                  
               </ul>
           </li>
         </ul>
@@ -153,6 +152,7 @@ a.font{
                 <%= f.text_field :app_id,:value => @parametro %>
                 <%= f.hidden_field :user_id, :value => current_user.id %>
                 <%= f.hidden_field :group_id, :value => @group_id %>
+                <%= f.hidden_field :tipo, :value => @tipo %>
               </div>
               <div class="actions">
                  <%= f.submit "Guardar", :class => "btn btn-lg btn-success btn-block" %>
