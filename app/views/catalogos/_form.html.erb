@@ -149,7 +149,7 @@ a.font{
               </div>
               
               <div class="field">
-                <%= f.text_field :app_id,:value => @parametro %>
+                <%= f.hidden_field :app_id,:value => @parametro %>
                 <%= f.hidden_field :user_id, :value => current_user.id %>
                 <%= f.hidden_field :group_id, :value => @group_id %>
                 <%= f.hidden_field :tipo, :value => @tipo %>

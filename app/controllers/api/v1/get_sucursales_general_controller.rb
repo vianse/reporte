@@ -10,7 +10,7 @@
                  @venta   = Facturada.where(:sucursal_id => k.api_key).where(:mes => @mes).where(:anio => @año).where(:sucursal_tipo => "S").sum(:importe)
                  @venta_hyp   = Facturada.where(:sucursal_id => k.api_key).where(:mes => @mes).where(:anio => @año).where(:sucursal_tipo => "H").sum(:importe)
                  @objetivo = Catalogo.where(:mes => @mes).where(:año => @año).where(:app_id => k.api_key).pluck(:objetivo_obligado).first
-                 @venta_adicional = @venta - @objetivo
+                 @venta_adicional = @venta - @objetivo.to_i
                  if @venta_adicional <= 0
                     @venta_adicional_real = "No ha llegado al objetivo obligado"
                  else
