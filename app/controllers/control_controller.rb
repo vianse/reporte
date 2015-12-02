@@ -5,7 +5,7 @@ class ControlController < ApplicationController
       if @grupo.blank?
         @app_id_s = Acceso.select("app_id_s").where(:user_id => current_user.id).pluck(:app_id_s).first
         if @app_id_s.blank?
-          @app_id_h = Acceso.select("app_id_s").where(:user_id => current_user.id).pluck(:app_id_s).first
+          @app_id_h = Acceso.select("app_id_h").where(:user_id => current_user.id).pluck(:app_id_h).first
           if @app_id_h.blank?
              redirect_to "/errors/sucursal"
           else
