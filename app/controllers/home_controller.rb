@@ -15,14 +15,14 @@ class HomeController < ApplicationController
           #valida si es agencia
             @agencia = Acceso.select("app_id_s").where(:user_id => current_user.id).pluck(:app_id_s).first
             if @agencia.blank?
-              @apps = App.where(:api_key => @agencia).count
+              @apps_h = App.where(:api_key => @agencia).count
             else
-              @apps = App.where(:api_key => @agencia).count
+              @apps_s = App.where(:api_key => @agencia).count
               #render json: "Subgrupo #{@apps}"
             end
         
     else
-      @apps = App.where(:group => @grupo).count
+      @apps_g = App.where(:group => @grupo).count
       #redirect_to "/general?group_id=" + @grupo
       #render json: "grupo #{@apps}" 
 
