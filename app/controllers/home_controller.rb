@@ -63,7 +63,7 @@ class HomeController < ApplicationController
      end
   end
   def index_general
-
+  @año = Date.today.year
   @parametro = params[:app_id]
   #@ordenes = Pendiente.where(:sucursal_id => "53616251380") 
 

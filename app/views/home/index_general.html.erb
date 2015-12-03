@@ -169,6 +169,53 @@ a.font{
                     <!-- end col-4 -->
                 </div>
 
+                <div class="row">
+                    <!-- begin col-8 -->
+                    <div class="col-md-12">
+                        <!-- begin panel -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                    
+                                </div>
+                                <h4 class="panel-title">Facturación Servicio año <%= @año %></h4>
+                            </div>
+                            <div class="table-responsive">
+                                <span id="venta_servicio"></span>
+
+                            </div>
+                        </div>
+                        <!-- end panel -->
+                    </div>
+                    <!-- end col-8 -->
+                    <!-- begin col-4 -->
+                    <!-- end col-4 -->
+                </div>
+
+
+                    <div class="row">
+                    <!-- begin col-8 -->
+                    <div class="col-md-12">
+                        <!-- begin panel -->
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                    
+                                </div>
+                                <h4 class="panel-title">Facturación HYP año <%= @año %></h4>
+                            </div>
+                            <div class="table-responsive">
+                                <span id="venta_hyp"></span>
+
+                            </div>
+                        </div>
+                        <!-- end panel -->
+                    </div>
+                    <!-- end col-8 -->
+                    <!-- begin col-4 -->
+                    <!-- end col-4 -->
+                </div>
+
                
             <!-- begin #footer -->
             <div id="footer" class="footer">
@@ -223,315 +270,7 @@ a.font{
 </body data-no-turbolink data-no-transition-cache>
 </html>
 
-<script type="text/javascript">
-	function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
-				  if (typeof stroke == "undefined" ) {
-					stroke = true;
-				  }
-				  if (typeof radius === "undefined") {
-					radius = 5;
-				  }
-				  
-				  //edge clearing
-				  
-				  var gdest = ctx.globalCompositeOperation;
-				  var fstyle = ctx.fillStyle;
-				  ctx.globalCompositeOperation = "destination-out";			  
-				  ctx.fillStyle = "#FF686B";
-				 
-				  ctx.beginPath();
-				  ctx.moveTo(x, y+radius);
-				  ctx.quadraticCurveTo(x, y, x + radius, y);
-				  ctx.lineTo(x, y);
-				  ctx.lineTo(x, y+radius);			 
-				  ctx.closePath(); 		
-				  ctx.fill();
-				  
-				  ctx.beginPath();
-				  ctx.moveTo(x, y+height-radius);
-				  ctx.quadraticCurveTo(x, y+height, x + radius, y+height);
-				  ctx.lineTo(x, y+height);
-				  ctx.lineTo(x, y+height-radius);			 
-				  ctx.closePath(); 		
-				  ctx.fill();
-				  
-				  ctx.beginPath();
-				  ctx.moveTo(x+width-radius, y);
-				  ctx.quadraticCurveTo(x+width, y, x + width, y+radius);
-				  ctx.lineTo(x+width, y);
-				  ctx.lineTo(x+width-radius, y);			 
-				  ctx.closePath(); 		
-				  ctx.fill();
-				  
-				  ctx.beginPath();
-				  ctx.moveTo(x+width, y+height-radius);
-				  ctx.quadraticCurveTo(x+width, y+height, x+width - radius, y+height);
-				  ctx.lineTo(x+width, y+height);
-				  ctx.lineTo(x+width, y+height-radius);			 
-				  ctx.closePath(); 		
-				  ctx.fill();
-				  
-				  ctx.fillStyle = fstyle;
-				  ctx.globalCompositeOperation = gdest;
-				  
 
-
-				  
-				  //round rect
-				  ctx.beginPath();
-				  ctx.moveTo(x + radius, y);
-				  ctx.lineTo(x + width - radius, y);
-				  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-				  ctx.lineTo(x + width, y + height - radius);
-				  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-				  ctx.lineTo(x + radius, y + height);
-				  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-				  ctx.lineTo(x, y + radius);
-				  ctx.quadraticCurveTo(x, y, x + radius, y);
-				  ctx.closePath(); 			  
-				  if (stroke) {
-					ctx.stroke();
-				  }
-				  if (fill) {
-					ctx.fill();
-				  } 
-	 
-
-				}
-
-				
-				var ii = 0;		
-				function isNumber(n) 
-				{
-				  return !isNaN(parseFloat(n)) && isFinite(n);
-				}
-				
-				function drawCanvas(percentage, canvasid)
-				{			
-											
-					var error = !isNumber(percentage);
-					
-					if (!error && (percentage < 0 || percentage > 100))
-					{
-						error = true;
-					}
-					
-					percentage = percentage.toString().replace(/[^0-9]/g, '');
-					var canvas = $('#'+canvasid);
-					canvas.clear = true;
-					canvas = document.getElementById('cvs');
-					if(canvas.getContext){
-						var context = canvas.getContext('2d');
-						context.clearRect(0,0,canvas.width,canvas.height);
-						
-						context.fillStyle = "#FFC6C1";
-						context.fillRect(0, 0, canvas.width, canvas.height);
-						
-						var percWidth = Math.round(canvas.width / 100);
-						
-						if (!error)
-						{
-							for (var i = 0; i<= percentage; i++)
-							{						
-								var r,g,b;
-								if (i <= 50)
-								{
-									r = 255;
-									g = Math.round((255*i)/50);
-									b = 0;
-								}
-								else
-								{
-									r = Math.round((255*(100-i))/50);
-									g = 255;
-									b = 0
-								}						
-								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
-								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
-							}
-							
-							context.font = "bold 20px sans-serif";
-							context.fillStyle = "rgb(255,255,255)";
-							context.textBaseline = "middle";
-							var msg = percentage + "%";
-						}
-						else
-						{
-							context.fillStyle = "rgb(255,0,0)";
-							context.fillRect(0,0,canvas.width, canvas.height);
-							context.font = "bold 20px sans-serif";
-							context.fillStyle = "rgb(255,255,255)";
-							context.textBaseline = "middle";
-							var msg = "Sin Acceso";
-						}
-						
-						context.fillStyle = "#2B2D42";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
-						/*context.fillStyle = "rgb(90,90,90)";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
-						context.fillStyle = "#FFFAFF";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
-						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
-						
-						
-						
-						
-						context.fillStyle = "rgb(0, 0, 0)";					
-						roundRect(context, 0,0,canvas.width,canvas.height,5);
-					}
-					
-				}
-				function drawCanvas1(percentage, canvasid)
-				{			
-											
-					var error = !isNumber(percentage);
-					
-					if (!error && (percentage < 0 || percentage > 100))
-					{
-						error = true;
-					}
-					
-					percentage = percentage.toString().replace(/[^0-9]/g, '');
-					var canvas = $('#'+canvasid);
-					canvas.clear = true;
-					canvas = document.getElementById('ordenes_cero');
-					if(canvas.getContext){
-						var context = canvas.getContext('2d');
-						context.clearRect(0,0,canvas.width,canvas.height);
-						
-						context.fillStyle = "#FFC6C1";
-						context.fillRect(0, 0, canvas.width, canvas.height);
-						
-						var percWidth = Math.round(canvas.width / 100);
-						
-						if (!error)
-						{
-							for (var i = 0; i<= percentage; i++)
-							{						
-								var r,g,b;
-								if (i <= 50)
-								{
-									r = 255;
-									g = Math.round((255*i)/50);
-									b = 0;
-								}
-								else
-								{
-									r = Math.round((255*(100-i))/50);
-									g = 255;
-									b = 0
-								}						
-								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
-								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
-							}
-							
-							context.font = "bold 20px sans-serif";
-							context.fillStyle = "rgb(255,255,255)";
-							context.textBaseline = "middle";
-							var msg = percentage + "%";
-						}
-						else
-						{
-							context.fillStyle = "rgb(255,0,0)";
-							context.fillRect(0,0,canvas.width, canvas.height);
-							context.font = "bold 20px sans-serif";
-							context.fillStyle = "rgb(255,255,255)";
-							context.textBaseline = "middle";
-							var msg = "Sin Acceso";
-						}
-						
-						context.fillStyle = "#2B2D42";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
-						/*context.fillStyle = "rgb(90,90,90)";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
-						context.fillStyle = "#FFFAFF";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
-						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
-						
-						
-						
-						
-						context.fillStyle = "rgb(0, 0, 0)";					
-						roundRect(context, 0,0,canvas.width,canvas.height,5);
-					}
-					
-				}
-				function drawCanvas2(percentage, canvasid)
-				{			
-											
-					var error = !isNumber(percentage);
-					
-					if (!error && (percentage < 0 || percentage > 100))
-					{
-						error = true;
-					}
-					
-					percentage = percentage.toString().replace(/[^0-9]/g, '');
-					var canvas = $('#'+canvasid);
-					canvas.clear = true;
-					canvas = document.getElementById('objetivo_progress');
-					if(canvas.getContext){
-						var context = canvas.getContext('2d');
-						context.clearRect(0,0,canvas.width,canvas.height);
-						
-						context.fillStyle = "#FFC6C1";
-						context.fillRect(0, 0, canvas.width, canvas.height);
-						
-						var percWidth = Math.round(canvas.width / 100);
-						
-						if (!error)
-						{
-							for (var i = 0; i<= percentage; i++)
-							{						
-								var r,g,b;
-								if (i <= 50)
-								{
-									r = 255;
-									g = Math.round((255*i)/50);
-									b = 0;
-								}
-								else
-								{
-									r = Math.round((255*(100-i))/50);
-									g = 255;
-									b = 0
-								}						
-								context.fillStyle = "rgb("+r+", "+g+", "+b+")";
-								context.fillRect(Math.round(i*canvas.width / 100)-percWidth, 0, percWidth, canvas.height);					
-							}
-							
-							context.font = "bold 20px sans-serif";
-							context.fillStyle = "rgb(255,255,255)";
-							context.textBaseline = "middle";
-							var msg = percentage + "%";
-						}
-						else
-						{
-							context.fillStyle = "rgb(255,0,0)";
-							context.fillRect(0,0,canvas.width, canvas.height);
-							context.font = "bold 20px sans-serif";
-							context.fillStyle = "rgb(255,255,255)";
-							context.textBaseline = "middle";
-							var msg = "Sin Acceso";
-						}
-						
-						context.fillStyle = "#2B2D42";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+2 , canvas.height/2+2);
-						/*context.fillStyle = "rgb(90,90,90)";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2)+1 , canvas.height/2+1);*/
-						context.fillStyle = "#FFFAFF";
-						context.fillText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);
-						/*context.strokeText(msg, (canvas.width/2)-(context.measureText(msg).width/2) , canvas.height/2);*/
-						
-						
-						
-						
-						context.fillStyle = "rgb(0, 0, 0)";					
-						roundRect(context, 0,0,canvas.width,canvas.height,5);
-					}
-					
-				}
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
 <script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
@@ -597,7 +336,8 @@ a.font{
         var type = getUrlParameter('type');
         var url = "api/v1/general?group_id=" + empresa 
         var url1 = "api/v1/general_sucursales?group_id=" + empresa
-
+		var url2 = "api/v1/periodos_servicio?group_id=" + empresa 
+		var url3 = "api/v1/periodos_hyp?group_id=" + empresa 
       
 /* Nombre Grupo
  * 
@@ -644,6 +384,146 @@ a.font{
 		    <Empresa source={url} />,
 		      document.getElementById('empresa')
 		 );
+
+
+/* Periodos_Servicio
+ *  
+ */
+    
+    var VentaServicio  = React.createClass({
+        componentDidMount: function() {
+            $.ajax({
+                url: url2 ,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+            
+        },
+        
+        getInitialState: function() {
+                  return {
+                    data: [],
+                    tabla: ""
+          
+                    };         
+                },
+        
+        render: function() { 
+                        var items    = this.state.data.map(function(object){
+                    
+                            return <tr>
+                                            <td><strong>{object.mes}</strong></td>
+                                            <td className="text-center">{object.objetivo}</td>
+                                            <td className="text-center">{object.venta}</td>
+                                            <td className="text-center">{object.estatus}</td>
+                                            <td className="text-center">{object.porcentaje} %</td>
+                                    </tr>
+
+                            });
+
+
+      
+                        return   <span>
+                                <div>
+                                <table className="table table-bordered table-hover table-striped table-td-valign-middle">
+                                    <thead>
+                                        <tr className="inverse">
+                                            <th>Periodo</th>
+                                            <th className="text-center">Objetivo Obligado</th>
+                                            <th className="text-center">Facturación total</th>
+                                            <th className="text-center">Estado</th>
+                                            <th className="text-center">Porcentaje de cumplimiento</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {items}
+                                    </tbody>
+                                </table>
+                                </div>
+                            </span>
+
+
+                    }
+        });
+        
+        React.render(
+                <VentaServicio  />,
+         document.getElementById('venta_servicio')
+         );
+
+ /* Periodos_HYP
+ *  
+ */
+    
+    var VentaHyp  = React.createClass({
+        componentDidMount: function() {
+            $.ajax({
+                url: url3 ,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+            
+        },
+        
+        getInitialState: function() {
+                  return {
+                    data: [],
+                    tabla: ""
+          
+                    };         
+                },
+        
+        render: function() { 
+                        var items    = this.state.data.map(function(object){
+                    
+                            return <tr>
+                                            <td><strong>{object.mes}</strong></td>
+                                            <td className="text-center">{object.objetivo}</td>
+                                            <td className="text-center">{object.venta}</td>
+                                            <td className="text-center">{object.estatus}</td>
+                                            <td className="text-center">{object.porcentaje} %</td>
+                                    </tr>
+
+                            });
+
+
+      
+                        return   <span>
+                                <div>
+                                <table className="table table-bordered table-hover table-striped table-td-valign-middle">
+                                    <thead>
+                                        <tr className="inverse">
+                                            <th>Periodo</th>
+                                            <th className="text-center">Objetivo Obligado</th>
+                                            <th className="text-center">Facturación total</th>
+                                            <th className="text-center">Estado</th>
+                                            <th className="text-center">Porcentaje de cumplimiento</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {items}
+                                    </tbody>
+                                </table>
+                                </div>
+                            </span>
+
+
+                    }
+        });
+        
+        React.render(
+                <VentaHyp  />,
+         document.getElementById('venta_hyp')
+         );
+
+
+
 
 /* Nombre Facturacion Servicio
  * 

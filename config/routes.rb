@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       resources :get_sucursales_general, path: "general_sucursales"
       resources :get_dias, path: "dias"
       resources :get_periodos_anteriores, path: "periodos"
+      resources :get_periodos_servicio, path: "periodos_servicio"
+      resources :get_periodos_hyp, path: "periodos_hyp"
 
     end
   end
