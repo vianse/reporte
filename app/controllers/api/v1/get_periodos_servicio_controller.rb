@@ -11,7 +11,7 @@ class Api::V1::GetPeriodosServicioController <ApplicationController
         elementos = meses.map do |k|
 
             @catalogo = Facturada.where(:group_id => @parametro).where(:anio => @año).where(:mes => k.mes).where(:sucursal_tipo => "S").sum(:importe)
-            @objetivo = Catalogo.where(:mes => k.mes).where(:año => @año).where(:group_id => @parametro).where(:tipo => "Servicio").pluck(:objetivo_obligado).first 
+            @objetivo = Catalogo.where(:mes => k.mes).where(:año => @año).where(:group_id => @parametro).where(:tipo => "Servicio").sum(:objetivo_obligado)
             if @objetivo.to_i > @catalogo.to_i || @objetivo.to_i == 0 
                 @cumplio = "No llego al objetivo"
                 else
