@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       resources :general, path: "general"
       resources :get_sucursales_general, path: "general_sucursales"
       resources :get_dias, path: "dias"
+      resources :get_periodos_anteriores, path: "periodos"
 
     end
   end
@@ -63,6 +64,7 @@ Rails.application.routes.draw do
   get 'home_hyp' => 'home#index_hyp', as: :home_hyp
   get 'general' => 'home#index_general', as: :home_general
   get 'inicio' => 'inicio#index', as: :inicio
+  get 'periodos' => 'home#index_periodos', as: :periodos
   get 'pago' => 'alertpayment#index', as: :pago
   get 'sucursales' => 'sucursales#index', as: :sucursales
   # Example of regular route:
