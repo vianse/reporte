@@ -865,7 +865,7 @@ a.font{
 		          };
 		        },
 		      
-		        componentDidMount: function() {
+		componentDidMount: function() {
 		          var self = this;
 		          $.get(this.props.source, function(result) {
 		            var collection = result;
@@ -876,9 +876,8 @@ a.font{
 		            }
 		          }.bind(this));
 		          setInterval(this.consulta, 10000);
-
 		        },
-		        consulta: function(){
+		consulta: function(){
 				var self = this;
 		          $.get(this.props.source, function(result) {
 		            var collection = result;
@@ -889,7 +888,7 @@ a.font{
 		            }
 		          }.bind(this));
 		        },
-		        render: function() { 
+		render: function() { 
 		        	var self = this     	
 		            drawCanvas(this.state.data ,'cvs');   
 		          return (
