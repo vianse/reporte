@@ -15,14 +15,17 @@ class HomeController < ApplicationController
           #valida si es agencia
             @agencia = Acceso.select("app_id_s").where(:user_id => current_user.id).pluck(:app_id_s).first
             if @agencia.blank?
-              @apps = App.where(:api_key => @agencia).count
+              #@apps = App.where(:api_key => @agencia).count
+              @apps = 3
             else
-              @apps = App.where(:api_key => @agencia).count
+              #@apps = App.where(:api_key => @agencia).count
+              @apps = 2
               #render json: "Subgrupo #{@apps}"
             end
         
     else
-      @apps = App.where(:group => @grupo).count
+      #@apps = App.where(:group => @grupo).count
+      @apps = 1
       #redirect_to "/general?group_id=" + @grupo
       #render json: "grupo #{@apps}" 
 
@@ -46,14 +49,17 @@ class HomeController < ApplicationController
           #valida si es agencia
             @agencia = Acceso.select("app_id_s").where(:user_id => current_user.id).pluck(:app_id_s).first
             if @agencia.blank?
-              @apps = App.where(:api_key => @agencia).count
+              #@apps = App.where(:api_key => @agencia).count
+              @apps = 3
             else
-              @apps = App.where(:api_key => @agencia).count
+              #@apps = App.where(:api_key => @agencia).count
               #render json: "Subgrupo #{@apps}"
+              @apps = 2
             end
         
     else
-      @apps = App.where(:group => @grupo).count
+      #@apps = App.where(:group => @grupo).count
+      @apps = 1
       #render json: "grupo #{@apps}"
     end
    

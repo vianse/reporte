@@ -99,22 +99,51 @@ a.font{
 						    <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
 					    </a>
 					    <ul class="sub-menu">
-                         
-                            <% if @apps == 1 || @apps == 0 %>
-					        <li class="active"><a href="/sucursales?type=Servicio">Operación Servicio</a></li>
-                            <li><a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">Configuración <i class="fa fa-cogs text-theme m-l-3"></i></a></li>
-
-                            <li><a href="/objetivos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos y objetivos <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+                            <% if @apps == 1  %>
+                             <li class="active">
+                                <a href="/general?group_id=<%= @grupo %>">
+                                    Resumen Grupo 
+                                    <i class="fa fa-file-text-o text-theme m-l-3"></i>
+                                </a>
+                            </li>
+					        <li>
+                                <a href="/sucursales?type=Servicio">Operación Servicio</a>
+                            </li>
+                            <li>
+                                <a href="/sucursales?type=HYP">
+                                    Operación HYP 
+                                    <i class="fa fa-wrench text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            
                             <% end %>
 
-                            <% if @apps > 1  %>
-                            <li><a href="/general?group_id=<%= @grupo %>">Resumen Grupo <i class="fa fa-file-text-o text-theme m-l-3"></i></a></li>
-                            <li><a href="/sucursales?type=Servicio">Operación Servicio <i class="fa fa-building text-theme m-l-3"></i></a></li>
-                            <li><a href="/sucursales?type=HYP">Operación HYP <i class="fa fa-wrench text-theme m-l-3"></i></a></li>
-                            <li><a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">Configuración <i class="fa fa-cogs text-theme m-l-3"></i></a></li>
+                            <% if @apps == 2  %>
+                            <li>
+                                <a href="/sucursales?type=Servicio">Operación Servicio</a>
+                            </li>
+                            <li>
+                                <a href="/sucursales?type=HYP">
+                                    Operación HYP 
+                                    <i class="fa fa-wrench text-theme m-l-3"></i>
+                                </a>
+                            </li>
 
-                            <li><a href="/objetivos?app_id=<%= @parametro %>&type=<%= @tipo %>">Objetivos <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
-                            <li><a href="/periodos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos anteriores <i class="fa fa-calendar text-theme m-l-3"></i></a></li>
+                            <li>
+                                <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">Configuración 
+                                    <i class="fa fa-cogs text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/objetivos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos y objetivos 
+                                    <i class="fa fa-calendar text-theme m-l-3"></i>
+                                </a>
+                             </li>
+                            <li>
+                                <a href="/periodos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos anteriores 
+                                    <i class="fa fa-calendar text-theme m-l-3"></i>
+                                </a>
+                            </li>
                             <% end %>
                             
 					        
@@ -302,18 +331,7 @@ a.font{
                 </div>
                 <!-- end col-6 -->
             </div>
-            <!-- end row -->
 
-
-			<!-- begin row -->
-
-            <!-- end row -->
-            
-            <!-- begin row -->
-
-            <!-- end row -->
-			
-            <!-- begin #footer -->
             <div id="footer" class="footer">
                 <span class="pull-right">
                     <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">

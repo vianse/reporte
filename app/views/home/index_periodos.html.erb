@@ -99,15 +99,11 @@ a.font{
                             <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
                         </a>
                         <ul class="sub-menu">
-                            <% if @apps == 1 || @apps == 0 %>
-                            <li class="active"><a href="/sucursales?type=Servicio">Reporte</a></li>
-                            <% else %>
                             
-                            <li><a href="/sucursales?type=Servicio">Operación Servicio <i class="fa fa-building text-theme m-l-3"></i></a></li>
-                            <% end %>
-                            <li><a href="/sucursales?type=HYP">Operación HYP <i class="fa fa-wrench text-theme m-l-3"></i></a></li>
-                            
-                            
+                              <li class="active">
+                                <a href="/">Regresar</a>
+                              </li>
+                           
                         </ul>
                     </li>
                 </ul>
@@ -360,6 +356,7 @@ a.font{
                                             <td className="text-center">{object.venta}</td>
                                             <td className="text-center">{object.estatus}</td>
                                             <td className="text-center">{object.porcentaje} %</td>
+                                            
                                     </tr>
 
                             });
@@ -376,7 +373,9 @@ a.font{
                                             <th className="text-center">Facturación total</th>
                                             <th className="text-center">Estado</th>
                                             <th className="text-center">Porcentaje de cumplimiento</th>
-                                            <th></th>
+                                            <th>
+
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
