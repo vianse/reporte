@@ -180,83 +180,87 @@ a.font{
 			<!-- begin page-header -->
 			<h1 class="page-header"><span id="empresa"></span> <small id="fecha"></small></h1>
 			<!-- end page-header -->
-			<div class="panel panel-white overflow-hidden m-b-10">
-                <div class="panel-heading">
-                     <h4 class="panel-title">Tú objetivo de venta obligado para este mes es de: <strong><span id="objetivo"></span></strong></h4>
-                     <h4 class="panel-title">Tú objetivo ideal para este mes es de:  <strong><span id="objetivo_real"></span></strong></h4>
-                </div>
-            </div>
-              
-            
-            <!-- begin row -->
+
+            <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Operación mensual</h4>
+                            </div>
+                            <div class="panel-body">
+                                <h4>Tú objetivo de venta obligado para este mes es de: <span class="m-t-0" id="objetivo"></span></h4>
+                                <h4>Tú objetivo sugerido para este mes es de: <span class="m-t-0" id="objetivo_real"></span></h4>
+                                <br>
+                                            <!-- begin row -->
             <div class="row">
                 <!-- begin col-6 -->
                 <div class="col-md-6">
-                    <!-- begin widget -->
-                    <div class="panel">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Pendiente (Sin Facturar)</a></li>
-                            </ul>
-                            <div class="tab-content m-b-0">
-                                <div class="tab-pane fade active in" id="default-tab-1">
-                                    <p class="lead m-b-10 font">
+                    <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Venta Pendiente (Sin Facturar)
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <p class="lead m-b-10 font">
                                         Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un costo de <strong><span id="costo"></span> </strong>
                                     </p>
                                     <p class="m-b-20">
                                         
-										Las ordenes INTERNAS ascienden a
-										<strong><span id="costo_internas"></span></strong> 
-										en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
-										orden(es) 
+                                        Las ordenes INTERNAS ascienden a
+                                        <strong><span id="costo_internas"></span></strong> 
+                                        en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
+                                        orden(es) 
                                     </p>
                                     <div class="text-left">
                                         <div id="detalles"></div>
                                     </div>
-                                </div>
-                                
                             </div>
                         </div>
-                    <!-- end widget -->
-                </div>
-                <!-- end col-6 -->
-                <!-- begin col-6 -->
-                <div class="col-md-6">
+                    </div>
+
+                    <div class="col-md-6">
                     <!-- begin widget -->
-                    <div class="panel">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Facturada Actual</a></li>
-                            </ul>
-                            <div class="tab-content m-b-0">
-                                <div class="tab-pane fade active in" id="default-tab-1">
-                                    <p class="lead m-b-10">
+
+                    <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Facturación del mes actual
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                 <p class="lead m-b-10">
                                         Total <strong><span id="facturadas" class="verde"></span></strong> MXN
                                     </p>
                                     <p class="m-b-20">
-                                        Porcentaje de cumplimiento del objetivo 
+                                        Porcentaje de cumplimiento de tú objetivo 
                                     </p>
                                     <div class="text-left">
                                         <div id="progress"></div>
-										<canvas id="cvs" class="margin-left" width="200" height="25">
-										</canvas><br><br><br>
+                                        <canvas id="cvs" class="margin-left" width="200" height="25">
+                                        </canvas><br><br><br>
                                     </div>
-                                </div>
-                                
                             </div>
                         </div>
                     <!-- end widget -->
                 </div>
                 <!-- end col-6 -->
             </div>
-            <!-- end row -->
+        </div>
+    </div>
+
+                    <!-- end widget -->
+             
+                <!-- end col-6 -->
+                <!-- begin col-6 -->
+                <!-- end row -->
 
             			<div class="panel">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Pronósticos</a></li>
+                                <li class="active"><a href="#" class="font" data-toggle="tab">Historial de orden(es) mayor(es) a <span id="o"></span></a></li>
                             </ul>
                             <div class="tab-content m-b-0">
                                 <div class="tab-pane fade active in" id="default-tab-1">
                                     <p class="lead m-b-10 font">
-                                        <span id="contador" class="float-1"></span> orden(es) de servicio mayor(es) a <span id="o"></span>
+                                        Cuentas con <span id="contador" class="float-1"></span> orden(es)
                                     </p>
                                     <div class="text-left">
                                         <div id="detalles_mayores"></div>
@@ -266,70 +270,80 @@ a.font{
                             </div>
                         </div>
 
-                        <div class="panel panel-white overflow-hidden m-b-10">
-			                <div class="panel-heading">
-			                     <h2 class="panel-title font">Estimado concesionario</h2>
-			                     <h4 class="panel-title">Si usted factura la(s) orden(es) de servicio No:
-									<span id="ordenes_recomendadas" class="float-2"></span></h4>
-			                </div>
-			            </div>
-
               <!-- begin row -->
-            <div class="row">
+            
+
+            <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                </div>
+                                <h4 class="panel-title">Pronósticos</h4>
+                            </div>
+                            <div class="panel-body">
+                                <h3 class="m-t-0">Estimado Concesionario</h3>
+                                <p>
+                                    Si usted factura la(s) orden(es) de servicio No: 
+                                </p>
+                                <h5 id="ordenes_recomendadas"></h5>
+                                <br>
+
+                <div class="row">
                 <!-- begin col-6 -->
-                  <div class="col-md-6">
-                    <!-- begin widget -->
-                    <div class="panel">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Sugerida <span class="verde">(Es suma de los valores en verde)</span></a></li>
-                            </ul>
-                            <div class="tab-content m-b-0">
-                                <div class="tab-pane fade active in" id="default-tab-1">
-                                    <p class="lead m-b-10">
+                        <div class="col-md-6">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            Facturación Sugerida
+                                        </h4>
+                                    </div>
+                                    <div class="alert alert-success fade in">
+                                        <p><b>Nota!</b> Es la suma de los valores en color verde.</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p class="lead m-b-10">
                                          <strong><span id="total_pronostico"></span></strong>
-                                    </p>
-                                    <p class="m-b-20">
-                                      <strong><span id="importe_facturado"></span></strong>
-                                    </p>
-                                    <div class="text-left">
-										<canvas id="objetivo_progress" width="200" height="25">
-										</canvas>
+                                        </p>
+                                        <p class="m-b-20">
+                                            <strong><span id="importe_facturado"></span></strong>
+                                         </p>
+                                        <div class="text-left">
+                                            <canvas id="objetivo_progress" width="200" height="25">
+                                            </canvas>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                            </div>
                         </div>
-                    <!-- end widget -->
-                </div>
-                
-                <!-- end col-6 -->
-                <!-- begin col-6 -->
-              <div class="col-md-6">
-                    <!-- begin widget -->
-                    <div class="panel">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Pendiente(Sin Facturar)</a></li>
-                            </ul>
-                            <div class="tab-content m-b-0">
-                                <div class="tab-pane fade active in" id="default-tab-1">
-                                    <p class="lead m-b-10 font">
-                                        Le quedarían <strong><span id="conteo"></span></strong> ordenes por cerrar equivalentes a un costo de <strong>
-									 				<span id="rest"></span>
-		 										</strong> MXN
-                                    </p>
-                                    <p class="m-b-20">
-                                       Cumplimiento del objetivo a 0 ordenes
-                                    </p>
-                                    <div class="text-left">
-                                        <canvas id="ordenes_cero" width="200" height="25"></canvas>
-                                    </div>
+                        <div class="col-md-6">
+
+                            <div class="panel panel-success">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    Venta Pendiente(Sin Facturar)
+                                                </h4>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <p class="lead m-b-10 font">
+                                                Le quedarían <strong><span id="conteo"></span></strong> ordenes por cerrar equivalentes a un costo de <strong>
+                                                            <span id="rest"></span>
+                                                        </strong> MXN
+                                            </p>
+                                            <p class="m-b-20">
+                                               Cumplimiento del objetivo a 0 ordenes
+                                            </p>
+                                            <div class="text-left">
+                                                <canvas id="ordenes_cero" width="200" height="25"></canvas>
+                                            </div>
+                                            </div>
                                 </div>
-                                
-                            </div>
-                        </div>
                     <!-- end widget -->
                 </div>
                 <!-- end col-6 -->
+            </div>
+
+
+                            </div>
+                            
             </div>
 
             <div id="footer" class="footer">
@@ -715,7 +729,7 @@ a.font{
 		$( "#rest" ).text(value);
 	};
 	function valor4(value){
-		$( "#o" ).text(value + " días");
+		$( "#o" ).text(value + " día(s)");
 	};
 
 	function valor5(value){
@@ -1255,7 +1269,7 @@ a.font{
 						return 	<span><strong>{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
 						});
 			 			return <span> 					
-			 			       <div> {items} con un valor de <strong className="verde">{imp}</strong> MXN, este seria su pronóstico.</div>	
+			 			       <div> {items} con un valor de <strong className="verde">{imp}</strong> MXN, este seria su pronóstico:</div>	
 			 			       </span>
 			 		}
 

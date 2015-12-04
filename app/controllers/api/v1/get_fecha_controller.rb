@@ -1,8 +1,8 @@
 class Api::V1::GetFechaController <ApplicationController
  skip_before_filter :verify_authenticity_token
 	def index
-        @mes = Date.today.month
-        @dia = Date.today.day
+        @mes = Time.now.strftime("%m")
+        @dia = Time.now.strftime("%d")
 	   render json: { 
         :dia => @dia.to_s + " de ",
         :mes => mes(@mes.to_s),
