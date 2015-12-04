@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :accesos
-  devise_for :users
+   devise_for :users, :skip => [:sessions]
   resources :catalogos
   resources :apps
   namespace :api do
@@ -69,6 +69,15 @@ Rails.application.routes.draw do
   get 'periodos' => 'home#index_periodos', as: :periodos
   get 'pago' => 'alertpayment#index', as: :pago
   get 'sucursales' => 'sucursales#index', as: :sucursales
+
+
+ 
+  as :user do
+    get 'login' => 'devise/sessions#new', :as => :new_user_session
+    post 'login' => 'devise/sessions#create', :as => :user_session
+    match 'salir' => 'devise/sessions#destroy', :as => :destroy_user_session,
+      :via => Devise.mappings[:user].sign_out_via
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
