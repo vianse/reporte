@@ -81,7 +81,7 @@ end
   def new
     @parametro = params[:app_id]
     @tipo = params[:type]
-    @group_id = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
+    @group_id = App.where(:api_key => @parametro).pluck(:group).first
     #@app = App.select("api_key").where(:api_key => @acceso).first
     @catalogo = Catalogo.new
   end
@@ -95,6 +95,7 @@ end
   def create
     @parametro = params[:app_id]
     @tipo = params[:type]
+   @group_id = App.where(:api_key => @parametro).pluck(:group).first
     @catalogo = Catalogo.new(catalogo_params)
       if @catalogo.save
         redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
