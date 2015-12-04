@@ -3,7 +3,7 @@ class Api::V1::GetPeriodosAnterioresController <ApplicationController
 	def index
    		@año = Date.today.year
 		@parametro = params[:app_id]		
-		meses = Facturada.select(:mes).uniq
+		meses = Facturada.select(:mes).uniq.order('mes asc')
 		tipo = params[:type]
 
 		elementos = meses.map do |k|

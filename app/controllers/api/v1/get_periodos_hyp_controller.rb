@@ -5,7 +5,7 @@ class Api::V1::GetPeriodosHypController <ApplicationController
      @grupo = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
      @año = Date.today.year
         @parametro = @grupo        
-        meses = Facturada.select(:mes).uniq
+        meses = Facturada.select(:mes).uniq.order('mes asc')
         tipo = params[:type]
 
         elementos = meses.map do |k|
