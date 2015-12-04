@@ -105,7 +105,7 @@ end
   # PATCH/PUT /catalogos/1
   # PATCH/PUT /catalogos/1.json
   def update
-   
+    @group_id = App.where(:api_key => @parametro).pluck(:group).first
       if @catalogo.update(catalogo_params)
         redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
       end
