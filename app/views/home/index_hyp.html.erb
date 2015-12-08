@@ -160,73 +160,80 @@ a.font{
 			<!-- begin page-header -->
 			<h1 class="page-header"><span id="empresa"></span> <small id="fecha"></small></h1>
 			<!-- end page-header -->
-			<div class="panel panel-white overflow-hidden m-b-10">
-                <div class="panel-heading">
-                     <h4 class="panel-title">Tú objetivo de facturación obligado para este mes es de: <strong><span id="objetivo"></span></strong></h4>
-                     <h4 class="panel-title">Tú objetivo sugerida para este mes es de:  <strong><span id="objetivo_real"></span></strong></h4>
-                </div>
-            </div>
-              
-            
+
+			<div class="panel panel-inverse">
+                            <div class="panel-heading">
+                              
+                                <h4 class="panel-title">Operación mensual</h4>
+                            </div>
+                            <div class="panel-body">
+                                <h4>Tú objetivo de venta obligado para este mes es de: <span class="m-t-0" id="objetivo"></span></h4>
+                                <h4>Tú objetivo sugerido para este mes es de: <span class="m-t-0" id="objetivo_real"></span></h4>
+                                <br>
+                           
+
             <!-- begin row -->
             <div class="row">
                 <!-- begin col-6 -->
                 <div class="col-md-6">
                     <!-- begin widget -->
-                    <div class="panel">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Venta Pendiente (Sin Facturar)</a></li>
-                            </ul>
-                            <div class="tab-content m-b-0">
-                                <div class="tab-pane fade active in" id="default-tab-1">
-                                    <p class="lead m-b-10 font">
-                                        Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de HYP abierta(s), con un costo de <strong><span id="costo"></span> </strong>
+                    <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Venta Pendiente (Sin Facturar)
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <p class="lead m-b-10 font">
+                                        Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un importe de <strong><span id="costo"></span> </strong>
                                     </p>
                                     <p class="m-b-20">
                                         
-										Las ordenes INTERNAS ascienden a
-										<strong><span id="costo_internas"></span></strong> 
-										en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
-										orden(es) 
+                                        Las ordenes INTERNAS ascienden a
+                                        <strong><span id="costo_internas"></span></strong> 
+                                        en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
+                                        orden(es) 
                                     </p>
                                     <div class="text-left">
                                         <div id="detalles"></div>
                                     </div>
-                                </div>
-                                
                             </div>
-                        </div>
+                    </div>
                     <!-- end widget -->
                 </div>
                 <!-- end col-6 -->
                 <!-- begin col-6 -->
                 <div class="col-md-6">
                     <!-- begin widget -->
-                    <div class="panel">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" class="font" data-toggle="tab">Facturación mes actual</a></li>
-                            </ul>
-                            <div class="tab-content m-b-0">
-                                <div class="tab-pane fade active in" id="default-tab-1">
-                                    <p class="lead m-b-10">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Facturación del mes actual
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                 <p class="lead m-b-10">
                                         Total <strong><span id="facturadas" class="verde"></span></strong> MXN
                                     </p>
                                     <p class="m-b-20">
-                                        Porcentaje de cumplimiento del objetivo 
+                                        Porcentaje de cumplimiento de tú objetivo 
                                     </p>
                                     <div class="text-left">
                                         <div id="progress"></div>
-										<canvas id="cvs" class="margin-left" width="200" height="25">
-										</canvas><br><br><br>
+                                        <canvas id="cvs" class="margin-left" width="200" height="25">
+                                        </canvas><br><br><br>
                                     </div>
-                                </div>
-                                
                             </div>
-                        </div>
+                    </div>
                     <!-- end widget -->
                 </div>
                 <!-- end col-6 -->
             </div>
+
+             </div>
+       </div>
+
+
             <!-- end row -->
             <div class="row">
                     <!-- begin col-8 -->

@@ -69,6 +69,7 @@ Rails.application.routes.draw do
   get 'periodos' => 'home#index_periodos', as: :periodos
   get 'pago' => 'alertpayment#index', as: :pago
   get 'sucursales' => 'sucursales#index', as: :sucursales
+  #get 'precios' => 'inicio#precios', as: :precios
 
 
  
