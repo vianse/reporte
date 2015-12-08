@@ -125,20 +125,56 @@ a.font{
                             </li>
                             <% end %>
                             <% if @apps == 1  %>
-                
-                            <li>
-                                <a href="/">
-                                    Regresar 
+                            <li class="active">
+                                <a href="/general?group_id=<%= @grupo %>">
+                                    Regresar a Grupo 
+                                    <i class="fa fa-file-text-o text-theme m-l-3"></i>
+                                </a>
+                            </li>
+					        <li>
+                                <a href="/sucursales?type=HYP">
+                                    Operación HYP 
                                     <i class="fa fa-wrench text-theme m-l-3"></i>
                                 </a>
                             </li>
+                       
                             <li>
                                 <a href="/periodos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos anteriores 
                                     <i class="fa fa-calendar text-theme m-l-3"></i>
                                 </a>
                             </li>
                             <% end %>
+                            <% if @apps == 2  %>
+                            <li>
+                                <a href="/sucursales?type=Servicio">Operación Servicio</a>
+                            </li>
+                            <%= @hyp %> 
+                            <% if @hyp.blank? %>
                             
+                            <% else %>
+                            <li>
+                                <a href="/sucursales?type=HYP">
+                                    Operación HYP 
+                                    <i class="fa fa-wrench text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <% end %>
+                            <li>
+                                <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">Configuración 
+                                    <i class="fa fa-cogs text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/objetivos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos y objetivos 
+                                    <i class="fa fa-calendar text-theme m-l-3"></i>
+                                </a>
+                             </li>
+                            <li>
+                                <a href="/periodos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos anteriores 
+                                    <i class="fa fa-calendar text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <% end %>
                         </ul>
 					</li>
 				</ul>
@@ -151,6 +187,18 @@ a.font{
 		
 		<!-- begin #content -->
 		<div id="content" class="content">
+
+			<div id="alerta"></div>
+            <% if @objetivo.blank? %>
+            <div class="alert alert-danger fade in">
+                            <strong>Error!</strong>
+                            Falta configurar los objetivos de este mes <a href="objetivos?app_id=<%= @parametro %>&type=HYP"> da click aquí para configurarlos</a>
+                            <span class="close" data-dismiss="alert">×</span>
+            </div>
+            <% else %>
+            
+            <% end %>
+
 			<!-- begin breadcrumb -->
 			<ol class="breadcrumb pull-right">
 				<li><a href="javascript:;">Home</a></li>
@@ -697,8 +745,72 @@ a.font{
         var url10 = "api/v1/internas?app_id=" + empresa
         var url11 = "api/v1/conteo_internas?app_id=" + empresa
         var url12 = "api/v1/sucursales_hyp?app_id=" + empresa
+        var url13 = "api/v1/dias?app_id=" + empresa
        
         var app = empresa
+
+var Notificacion = React.createClass({
+        getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                consulta: function(){
+                var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                },
+        
+        render: function() {   
+                var dias = this.state.data.dias
+                var aler = this.state.data.alerta
+            if (aler == "1" ){
+                            return <span>
+                                      <div className="alert alert-warning fade in m-b-10">
+                                        <strong>Atención! -- </strong>
+                                        Estimado concesionario le quedan <strong>{dias} </strong>
+                                            día(s) para que venza tú servicio, favor de realizar tu pago lo antes posible.
+                                        </div>
+                                    </span>
+
+            }
+            else {
+                if (dias == 0 ){
+                return <span></span>
+                }
+                else
+                {
+                 return  <span></span>
+                }
+            }
+  
+            
+                    }
+        });
+        
+        React.render(
+                <Notificacion source={url13}/>,
+         document.getElementById('alerta')
+         );
+
 
 /* Titulo
  *  

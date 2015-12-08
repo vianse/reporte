@@ -20,6 +20,7 @@ class HomeController < ApplicationController
             else
               #@apps = App.where(:api_key => @agencia).count
               @apps = 2
+              @hyp = Acceso.select("app_id_h").where(:user_id => current_user.id).pluck(:app_id_h).first
               #render json: "Subgrupo #{@apps}"
             end
         
@@ -41,6 +42,10 @@ class HomeController < ApplicationController
   @ordenes = Pendiente.where(:sucursal_id => "53616251380") 
 
    @tipo = params[:type]
+  @mes = Date.today.month
+  @año = Date.today.year
+  @objetivo = Catalogo.where(:app_id => @parametro).where(:mes => @mes).where(:año => @año).first
+
    #@app = App.select("api_key").where(:user_id => current_user.id)
    @pago = Payment.where(:app_id => @parametro).pluck(:estatus).first
    #valida si es grupo
