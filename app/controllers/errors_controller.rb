@@ -5,7 +5,7 @@ class ErrorsController < ApplicationController
   end
   def sucursal
   end
- def show
+  def show
     render status_code.to_s, :status => status_code
   end
  
