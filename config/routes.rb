@@ -71,8 +71,11 @@ Rails.application.routes.draw do
   get 'sucursales' => 'sucursales#index', as: :sucursales
   #get 'precios' => 'inicio#precios', as: :precios
 
+%w( 404 422 500 ).each do |code|
+  get code, :to => "errors#show", :code => code
+end
 
- 
+
   # as :user do
   #   get 'login' => 'devise/sessions#new', :as => :new_user_session
   #   post 'login' => 'devise/sessions#create', :as => :user_session
