@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_sistemas!
+  before_action :authenticate_sistema!
   # GET /payments
   # GET /payments.json
   def index

@@ -1,3 +1,16 @@
+  <!-- begin navbar-right -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown navbar-user">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs"><%= current_sistemas.email %></span> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="/sistemas/edit">Seguridad</a></li>
+                            <li class="divider"></li>
+                            <li><%= link_to "Cerrar sesión", destroy_sistemas_session_path, method: :delete  %></li>
+                        </ul>
+                    </li>
+                </ul>
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Groups</h1>

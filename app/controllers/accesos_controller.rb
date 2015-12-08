@@ -1,6 +1,6 @@
 class AccesosController < ApplicationController
   before_action :set_acceso, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_sistema!
   # GET /accesos
   # GET /accesos.json
   def index

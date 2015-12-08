@@ -1,6 +1,6 @@
 class CatalogosController < ApplicationController
   before_action :set_catalogo, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_sistemas!
+
   # GET /catalogos
   # GET /catalogos.json
   def index
