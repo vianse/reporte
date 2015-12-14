@@ -71,9 +71,7 @@ Rails.application.routes.draw do
   get 'sucursales' => 'sucursales#index', as: :sucursales
   #get 'precios' => 'inicio#precios', as: :precios
 
-%w( 404 422 500 ).each do |code|
-  get code, :to => "errors#show", :code => code
-end
+
 
 
   # as :user do
