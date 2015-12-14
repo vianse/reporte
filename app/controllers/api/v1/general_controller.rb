@@ -1,7 +1,7 @@
 class Api::V1::GeneralController <ApplicationController
     include ActionView::Helpers::NumberHelper
  def index
-    @parametro = "31882213619"#params[:group_id]
+    @parametro = params[:group_id]
     @mes = Date.today.month
     @año = Date.today.year
     @grupo_name = Group.where(:group_id => @parametro).pluck(:name).first
