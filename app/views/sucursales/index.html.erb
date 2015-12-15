@@ -272,7 +272,7 @@ else
         var tipo = "&type=" + type
         
             var items = this.state.data.map(function(object){
-              if (object.sucursal){
+              if (object.sucursal != ""){
                     return <li>
                               <a href={url2 + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
