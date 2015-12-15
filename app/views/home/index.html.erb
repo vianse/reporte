@@ -207,7 +207,8 @@ a.font{
                                         Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un importe de <strong><span id="costo"></span> </strong>
                                     </p>
                                     <% if @internas.blank? %>
-                                    <span class="label label-danger">Falta configuración</span>
+                                    <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">
+                                    <span class="label label-danger">Falta configuración</span></a>
                                     <% else %>
                                     <% end %>
                                     <p class="m-b-20">
