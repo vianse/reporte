@@ -206,7 +206,11 @@ a.font{
                                 <p class="lead m-b-10 font">
                                         Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un importe de <strong><span id="costo"></span> </strong>
                                     </p>
+                                    <% if @internas.blank? %>
+                                    
+                                    <% else %>
                                     <span class="label label-danger">Falta configuración</span>
+                                    <% end %>
                                     <p class="m-b-20">
                                         
                                         Las ordenes INTERNAS ascienden a

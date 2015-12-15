@@ -5,6 +5,7 @@ class HomeController < ApplicationController
    @año = Date.today.year
    @parametro = params[:app_id]
    @objetivo = Catalogo.where(:app_id => @parametro).where(:mes => @mes).where(:año => @año).first
+   @internas = Configuracion.where(:app_id => @parametro).first
 
    @tipo = params[:type]
    #@app = App.select("api_key").where(:user_id => current_user.id)
