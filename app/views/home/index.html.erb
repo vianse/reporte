@@ -374,6 +374,28 @@ a.font{
 	
     <!-- begin theme-panel -->
     <!-- end theme-panel -->
+    <div class="modal modal-message fade" id="modal-message">
+        <div class="modal-dialog">
+           <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                   <h4 class="modal-title">Datos Bancarios</h4>
+                     </div>
+                     <div class="modal-body">
+                     <h4><i class="fa fa-map-marker text-primary fa-fw"></i> Bancomer</h4>
+                     <p><strong>Tranferencia interbancaria:</strong><br> Clabe Interbancaria: 012180001946957399 <br> Número de cuenta: 0194695739</p>
+                     <p><strong>Contacto</strong> <br><p>soporte@vianse.mx</p><p>Soporte Telefonico: 234234234</p></p>
+
+                     </div>
+                     <div class="modal-footer">
+                      <a href="javascript:;" class="btn width-100 btn-default" data-dismiss="modal">Close</a>
+                  
+                </div>
+            </div>
+        </div>
+    </div>      
+
+
 <!-- ================== BEGIN BASE JS ================== -->
   <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
   <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
@@ -827,6 +849,7 @@ a.font{
                                         <strong>¡Atención! -- </strong>
                                         Estimado concesionario: Le quedan <strong>{dias} </strong>
                                             día(s) para que venza tu servicio, favor de realizar tu pago lo antes posible.
+                                            <a href="#modal-message" className="btn btn-danger btn-rounded" data-toggle="modal"> -- Detalles de pago</a>
                                         </div>
                                     </span>
 
