@@ -213,14 +213,23 @@ if (type == "Servicio") {
         var tipo = "&type=" + type
 				
 						var items = this.state.data.map(function(object){
-                    return <li>
+              if (object.sucursal){
+                return <li>
                               <a href={url + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
                                   <h4>{object.sucursal}</h4>
                                 </div>
                               </a>
-                          </li>
-
+                        </li>
+              }
+              else{
+                return <li>
+                              
+                                <div className="chat-info has-new">
+                                  <h4>No hay sucursales</h4>
+                                </div>
+                        </li>
+              }
               });
 							
 			 			return <div>
@@ -263,7 +272,7 @@ else
         var tipo = "&type=" + type
         
             var items = this.state.data.map(function(object){
-
+              if (object.sucursal){
                     return <li>
                               <a href={url2 + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
@@ -271,7 +280,15 @@ else
                                 </div>
                               </a>
                           </li>
-
+                    }
+                    else{
+                      return <li>
+                                <div className="chat-info has-new">
+                                  <h4>No hay sucursales</h4>
+                                </div>
+                              
+                        </li>
+                    }
 
               });
               
