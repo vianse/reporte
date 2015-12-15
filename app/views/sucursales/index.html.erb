@@ -121,8 +121,11 @@ a.font{
 			                </div>
 			                <div class="widget-body">
                                 <ul class="widget-chat-list">
-
+                                  <% if @apps.blank? %> 
                                     <div id="sucursales"></div>
+                                    <% else %>
+                                    <div> No hay sucursales</div>
+                                    <% end %>
                                 </ul>
                       </div>
                   </div>
