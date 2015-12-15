@@ -118,14 +118,14 @@ a.font{
 			            <div class="widget widget-chat">
 			                <div class="widget-header bg-inverse">
 			                    <h4 class="text-white">Sucursales <%= params[:type] %></h4>
-			                    
 			                </div>
 			                <div class="widget-body">
                                 <ul class="widget-chat-list">
+
                                     <div id="sucursales"></div>
-                                            </ul>
-                                  </div>
-                        </div>
+                                </ul>
+                      </div>
+                  </div>
 
 			            <!-- end widget -->
 			        </div>
@@ -186,7 +186,7 @@ a.font{
         var type = getUrlParameter('type');
         var url1 = "/api/v1/sucursales?type=" + type
 
-        if (type == "Servicio") {
+if (type == "Servicio") {
 		var Detalles = React.createClass({
 		componentDidMount: function() {
 			$.ajax({
@@ -216,7 +216,12 @@ a.font{
                     return <li>
                               <a href={url + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
-                                  <h4>{object.sucursal}</h4>
+                                 if (object.sucursal == null){
+                                   <h4>No hay sucursales</h4>
+                                 }
+                                  else{
+                                    <h4>{object.sucursal}</h4>
+                                  }
                                 </div>
                               </a>
                           </li>
@@ -267,7 +272,12 @@ else
                     return <li>
                               <a href={url2 + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
-                                  <h4>{object.sucursal}</h4>
+                                  if (object.sucursal == null){
+                                   <h4>No hay sucursales</h4>
+                                 }
+                                  else{
+                                    <h4>{object.sucursal}</h4>
+                                  }
                                 </div>
                               </a>
                           </li>
