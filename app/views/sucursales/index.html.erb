@@ -216,12 +216,7 @@ if (type == "Servicio") {
                     return <li>
                               <a href={url + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
-                                 if (object.sucursal == null){
-                                   <h4>No hay sucursales</h4>
-                                 }
-                                  else{
-                                    <h4>{object.sucursal}</h4>
-                                  }
+                                  <h4>{object.sucursal}</h4>
                                 </div>
                               </a>
                           </li>
@@ -272,12 +267,7 @@ else
                     return <li>
                               <a href={url2 + object.app_id + tipo} data-toggle="chat-detail">
                                 <div className="chat-info has-new">
-                                  if (object.sucursal == null){
-                                   <h4>No hay sucursales</h4>
-                                 }
-                                  else{
-                                    <h4>{object.sucursal}</h4>
-                                  }
+                                  <h4>{object.sucursal}</h4>
                                 </div>
                               </a>
                           </li>
