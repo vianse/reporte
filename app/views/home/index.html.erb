@@ -107,7 +107,9 @@ a.font{
                                 </a>
                             </li>
 					        <li>
-                                <a href="/sucursales?type=Servicio">Operación Servicio</a>
+                                <a href="/sucursales?type=Servicio">Operación Servicio
+                                    <i class="fa fa-building text-theme m-l-3"></i>
+                                </a>
                             </li>
                             <li>
                                 <a href="/periodos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos Anteriores 
@@ -119,7 +121,9 @@ a.font{
 
                             <% if @apps == 2  %>
                             <li>
-                                <a href="/sucursales?type=Servicio">Operación Servicio</a>
+                                <a href="/sucursales?type=Servicio">Operación Servicio
+                                    <i class="fa fa-building text-theme m-l-3"></i>
+                                </a>
                             </li>
                         
                             <% if @hyp.blank? %>
