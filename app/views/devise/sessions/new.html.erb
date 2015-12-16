@@ -50,11 +50,8 @@
                 <h4 class="text-center m-t-0 m-b-20">Excelente tenerte de vuelta!</h4>
                 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                     <div class="form-group">
-                      <%= f.email_field :email, autofocus: true, :class => "form-control parsley-error",:placeholder => "Correo electrónico" %>
+                      <%= f.email_field :email, autofocus: true, :class => "form-control input-lg",:placeholder => "Correo electrónico" %>
                     </div>
-
-                    
-                    
                     <div class="form-group">
                       <%= f.password_field :password, autocomplete: "off", :class  => "form-control input-lg",  :placeholder =>"Contraseña" %>
                     </div>
