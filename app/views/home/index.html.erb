@@ -4,17 +4,17 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
-	<meta charset="utf-8" />
-	<title>Pronostic</title>
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-	<meta content="" name="description" />
-	<meta content="" name="author" />
+    <meta charset="utf-8" />
+    <title>Pronostic</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
-  <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
-  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
-  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
-  <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+    <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
   <!-- ================== END BASE CSS STYLE ================== -->
   
   <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
@@ -31,18 +31,31 @@
 	<![endif]-->
 </head>
 <style type="text/css">
-.visible{
-    display: none;
-}
-a.font{
-	font-size: 16px;
-}
-.font{
-	font-size: 16px;
-}
-.verde{
-	color: #00A896;
-}
+    .visible{
+        display: none;
+    }
+    a.font{
+    	font-size: 16px;
+    }
+    .font{
+    	font-size: 16px;
+    }
+    .verde{
+    	color: #00A896;
+    }
+    .subtitle{
+        /* Good: */
+        font-family: .AppleSystemUIFont;
+        font-size: 18px;
+        color: #6A696A;
+        line-height: 24px;
+    }
+    .panel.panel-success .panel-heading{
+        margin-top: 10px;
+    }
+    .empresa{
+        font-family: .AppleSystemUIFont;
+    }
 </style>
 <body>
 	<!-- begin #page-loader -->
@@ -151,10 +164,7 @@ a.font{
                                     <i class="fa fa-calendar text-theme m-l-3"></i>
                                 </a>
                             </li>
-                            <% end %>
-                            
-					        
-                            
+                            <% end %>            
 					    </ul>
 					</li>
 				</ul>
@@ -168,15 +178,14 @@ a.font{
 		<!-- begin #content -->
 		<div id="content" class="content">
             <div id="alerta"></div>
-            <% if @objetivo.blank? %>
-            <div class="alert alert-danger fade in">
-                            <strong>¡Error! -- </strong>
-                            Falta configurar los objetivos de este mes da <a href="objetivos?app_id=<%= @parametro %>&type=Servicio"> click aquí para configurarlos</a>
-                            <span class="close" data-dismiss="alert">×</span>
-            </div>
-            <% else %>
-            
-            <% end %>
+                <% if @objetivo.blank? %>
+                    <div class="alert alert-danger fade in">
+                        <strong>¡Error! -- </strong>
+                        Falta configurar los objetivos de este mes da <a href="objetivos?app_id=<%= @parametro %>&type=Servicio"> click aquí para configurarlos</a>
+                        <span class="close" data-dismiss="alert">×</span>
+                    </div>
+                <% else %>
+                <% end %>
           
 			<!-- begin breadcrumb -->
 			<ol class="breadcrumb pull-right">
@@ -185,76 +194,81 @@ a.font{
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header"><span id="empresa"></span> <small id="fecha"></small></h1>
+			<h1 class="page-header"><span id="empresa" class="empresa"></span> <small id="fecha"></small></h1>
 			<!-- end page-header -->
 
             <div class="panel panel-inverse">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">Operación mensual</h4>
-                            </div>
-                            <div class="panel-body">
-                                <h4>Tu objetivo de facturación obligado para este mes es de: <span class="m-t-0" id="objetivo"></span></h4>
-                                <h4>Tu objetivo sugerido para este mes es de: <span class="m-t-0" id="objetivo_real"></span></h4>
-                                <br>
+                <div class="panel-heading">
+                    <h4 class="panel-title">Operación mensual</h4>
+                </div>
+                <div class="panel-body">
+                    <span class="subtitle">
+                        Tu objetivo de facturación obligado para este mes es de: 
+                        <strong><span class="m-t-0" id="objetivo"></span></strong>
+                    </span><br>
+                    <span class="subtitle">
+                        Tu objetivo sugerido para este mes es de: 
+                        <strong><span class="m-t-0" id="objetivo_real"></span></strong>
+                    </span><br>
                                             <!-- begin row -->
             <div class="row">
-                <!-- begin col-6 -->
-                <div class="col-md-6">
-                    <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    Venta Pendiente (Sin Facturar)
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                <p class="lead m-b-10 font">
-                                        Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un importe de <strong><span id="costo"></span> </strong>
-                                    </p>
-                                    <% if @internas.blank? %>
-                                    <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">
-                                    <span class="label label-danger">Falta configuración</span></a>
-                                    <% else %>
-                                    <% end %>
-                                    <p class="m-b-20">
-                                        
-                                        Las ordenes INTERNAS ascienden a
-                                        <strong><span id="costo_internas"></span></strong> 
-                                        en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
-                                        orden(es) 
+                    <!-- begin col-6 -->
+                    <div class="col-md-6">
+                        <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        Venta Pendiente (Sin Facturar)
+                                    </h4>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="lead m-b-10 font">
+                                            Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un importe de <strong><span id="costo"></span> </strong>
+                                        </p>
+                                        <% if @internas.blank? %>
+                                        <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">
+                                        <span class="label label-danger">Falta configuración</span></a>
+                                        <% else %>
+                                        <% end %>
+                                        <p class="m-b-20">
+                                            
+                                            Las ordenes INTERNAS ascienden a
+                                            <strong><span id="costo_internas"></span></strong> 
+                                            en <strong><span id="ordenes_internas" class="float internas-color"></span></strong>
+                                            orden(es) 
 
-                                    </p>
-                                    <div class="text-left">
-                                        <div id="detalles"></div>
-                                    </div>
-                            </div>
+                                        </p>
+                                        <div class="text-left">
+                                            <div id="detalles"></div>
+                                        </div>
+                                </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-md-6">
-                    <!-- begin widget -->
-                    <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    Facturación del mes actual
-                                </h4>
-                            </div>
-                            <div class="panel-body">
-                                 <p class="lead m-b-10">
-                                        Total <strong><span id="facturadas" class="verde"></span></strong> MXN
-                                    </p>
-                                    <p class="m-b-20">
-                                        Porcentaje de cumplimiento de tu objetivo 
-                                    </p>
-                                    <div class="text-left">
-                                        <div id="progress"></div>
-                                        <canvas id="cvs" class="margin-left" width="200" height="25">
-                                        </canvas><br><br><br>
-                                    </div>
-                            </div>
+                    <div class="col-md-6">
+                        <!-- begin widget -->
+                        <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        Facturación del mes actual
+                                    </h4>
+                                </div>
+                                <div class="panel-body">
+                                     <p class="lead m-b-10">
+                                            Total <strong><span id="facturadas" class="verde"></span></strong> MXN
+                                        </p>
+                                        <p class="m-b-20">
+                                            Porcentaje de cumplimiento de tu objetivo 
+                                        </p>
+                                        <div class="text-left">
+                                            <div id="progress"></div>
+                                            <canvas id="cvs" class="margin-left" width="200" height="25">
+                                            </canvas><br><br><br>
+                                        </div>
+                                </div>
+                        </div>
+                        <!-- end widget -->
                     </div>
-                    <!-- end widget -->
-                </div>
-                <!-- end col-6 -->
+                    <!-- end col-6 -->
             </div>
         </div>
     </div>
