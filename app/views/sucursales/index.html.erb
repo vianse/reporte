@@ -43,6 +43,9 @@ a.font{
 .verde{
   color: #00A896;
 }
+.leyenda{
+  margin-left: 10px;
+}
 </style>
 <body>
   <!-- begin #page-loader -->
@@ -124,7 +127,7 @@ a.font{
                                   <% if @apps.blank? %> 
                                     <li> 
                                       <div className="chat-info has-new">
-                                        <h4>No hay sucursales</h4>
+                                        <h4 class="leyenda">No hay sucursales</h4>
                                       </div>
                                     </li>
                                     <% else %>
