@@ -19,7 +19,7 @@ class ControlController < ApplicationController
       end
     else
       if sistema_signed_in?
-        redirect_to "/apps"
+        redirect_to "/groups"
       else
         redirect_to "/inicio"
       end
