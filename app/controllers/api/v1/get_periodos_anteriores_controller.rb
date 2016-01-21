@@ -16,8 +16,10 @@ class Api::V1::GetPeriodosAnterioresController <ApplicationController
 			@objetivo = Catalogo.where(:mes => k.mes).where(:año => @año).where(:app_id => @parametro).where(:tipo => tipo).pluck(:objetivo_obligado).first 
 			if @objetivo.to_i > @catalogo.to_i || @objetivo.to_i == 0 
 				@cumplio = "No llego al objetivo"
+				@estado = 0
 				else
 				@cumplio = "Cumplio con el objetivo"
+				@estado = 1
 			end
 				@total = (@catalogo / @objetivo.to_i ) * 100 
 
@@ -26,7 +28,8 @@ class Api::V1::GetPeriodosAnterioresController <ApplicationController
 				:venta => number_to_currency(@catalogo),
 				:objetivo => number_to_currency(@objetivo),
 				:estatus => @cumplio,
-				:porcentaje => @total.round(2)
+				:porcentaje => @total.round(2),
+				:estado_id => @estado 
 
 			}
 
