@@ -7,7 +7,7 @@ class CatalogosController < ApplicationController
 @parametro = params[:app_id]
 @tipo = params[:type]
 if params[:type] == "Servicio"
-    @app    = App.where(:api_key => @parametro).pluck(:group).first
+    @app    = App.where(:api_key => @parametro).pluck(:group_id).first
     @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
     if @app.blank?
       redirect_to "/errors/app_id"
@@ -33,7 +33,7 @@ if params[:type] == "Servicio"
 end
 
     if params[:type] == "HYP"
-    @app    = App.where(:api_key => @parametro).pluck(:group).first
+    @app    = App.where(:api_key => @parametro).pluck(:group_id).first
     @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
     if @app.blank?
       redirect_to "/errors/app_id"
@@ -81,7 +81,7 @@ end
   def new
     @parametro = params[:app_id]
     @tipo = params[:type]
-    @group_id = App.where(:api_key => @parametro).pluck(:group).first
+    @group_id = App.where(:api_key => @parametro).pluck(:group_id).first
     #@app = App.select("api_key").where(:api_key => @acceso).first
     @catalogo = Catalogo.new
   end
@@ -95,7 +95,7 @@ end
   def create
     @parametro = params[:app_id]
     @tipo = params[:type]
-   @group_id = App.where(:api_key => @parametro).pluck(:group).first
+   @group_id = App.where(:api_key => @parametro).pluck(:group_id).first
     @catalogo = Catalogo.new(catalogo_params)
       if @catalogo.save
         redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo

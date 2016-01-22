@@ -12,7 +12,7 @@ class SucursalesController < ApplicationController
          
          end
      else
-        @apps = App.where(:group => @grupo).where(:type_app => params[:type])
+        @apps = App.where(:group_id => @grupo).where(:type_app => params[:type])
        
      end
 end
@@ -27,7 +27,7 @@ if params[:type] == "HYP"
                  end
 
     else
-        @apps = App.where(:group => @grupo).where(:type_app => params[:type])
+        @apps = App.where(:group_id => @grupo).where(:type_app => params[:type])
         
     end
   end

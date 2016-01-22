@@ -8,7 +8,7 @@ class ConfiguracionsController < ApplicationController
 @tipo = params[:type]
 @parametro = params[:app_id]
 if params[:type] == "Servicio"
-    @app    = App.where(:api_key => @parametro).pluck(:group).first
+    @app    = App.where(:api_key => @parametro).pluck(:group_id).first
     @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
     if @app.blank?
       redirect_to "/errors/app_id"
@@ -34,7 +34,7 @@ if params[:type] == "Servicio"
 end
 
     if params[:type] == "HYP"
-    @app    = App.where(:api_key => @parametro).pluck(:group).first
+    @app    = App.where(:api_key => @parametro).pluck(:group_id).first
     @acceso = Acceso.where(:user_id => current_user.id).where(:group_id => @app).pluck(:group_id).first
     if @app.blank?
       redirect_to "/errors/app_id"

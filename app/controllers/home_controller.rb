@@ -95,7 +95,7 @@ class HomeController < ApplicationController
             end
         
     else
-      @apps = App.where(:group => @grupo).count
+      @apps = App.where(:group_id => @grupo).count
       #render json: "grupo #{@apps}"
 
     end
@@ -127,7 +127,7 @@ def index_periodos
             end
         
     else
-      @apps = App.where(:group => @grupo).count
+      @apps = App.where(:group_id => @grupo).count
       #render json: "grupo #{@apps}"
 
     end
