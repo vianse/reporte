@@ -3,7 +3,7 @@ class Api::V1::GetSucursalesHypController <ApplicationController
 	def index
 		@parametro = params[:app_id]
 		#@acceso = Acceso.where(:user_id => current_user.id).where(:app_id_h => @parametro).pluck(:app_id_h).first
-		@app    = App.where(:api_key => @parametro).pluck(:group).first
+		@app    = App.where(:api_key => @parametro).pluck(:group_id).first
 		#render json: @app
 		 if @app.blank?
 		 	render json: {
@@ -35,7 +35,7 @@ class Api::V1::GetSucursalesHypController <ApplicationController
 		# 			end
 
 		# 	else
-		 	   @empresa  = App.select(:name, :api_key).where(:group => @app).where(:type_app => "Servicio")
+		 	   @empresa  = App.select(:name, :api_key).where(:group_id => @app).where(:type_app => "Servicio")
 		 	   elementos = @empresa.map do |k|
 		 	   	 @contar = Pendiente.where(:sucursal_id => k.api_key).where(:sucursal_tipo => "H").count
 				 @ordenes = Pendiente.select("importe").where(:sucursal_id => k.api_key).where(:sucursal_tipo => "H")

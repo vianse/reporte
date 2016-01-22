@@ -4,7 +4,7 @@
  @parametro = params[:group_id]
  @mes = Date.today.month
  @año = Date.today.year
- @empresa  = App.select(:name, :api_key).where(:group => @parametro).where(:type_app => "Servicio")
+ @empresa  = App.select(:name, :api_key).where(:group_id => @parametro).where(:type_app => "Servicio")
 
                elementos = @empresa.map do |k|
                  @venta   = Facturada.where(:sucursal_id => k.api_key).where(:mes => @mes).where(:anio => @año).where(:sucursal_tipo => "S").sum(:importe)

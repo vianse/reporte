@@ -21,7 +21,7 @@ class Api::V1::SucursalesController <ApplicationController
              render json: elementos
          end
      else
-        @apps = App.where(:group => @grupo).where(:type_app => params[:type])
+        @apps = App.where(:group_id => @grupo).where(:type_app => params[:type])
         elementos = @apps.map do |k|
              {   
              :sucursal => k.name,
@@ -52,7 +52,7 @@ if params[:type] == "HYP"
                  end
 
     else
-        @apps = App.where(:group => @grupo).where(:type_app => params[:type])
+        @apps = App.where(:group_id => @grupo).where(:type_app => params[:type])
         elementos = @apps.map do |k|
              {   
              :sucursal => k.name,

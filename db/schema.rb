@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20151121055014) do
   create_table "apps", force: :cascade do |t|
     t.string   "name"
     t.string   "api_key"
-    t.string   "group"
+    t.string   "group_id"
     t.string   "type_app"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
