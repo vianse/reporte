@@ -134,7 +134,7 @@ a.font{
                 <fieldset>
                 <div class="form-group">
                   <%= f.label "Ingresa mes a configurar con formato numérico" %><br>
-                  <%= f.text_field :mes,:placeholder => "Eje. 01 que corresponde a enero" , :class => "form-control" %>
+                  <%= f.text_field :mes,:placeholder => "Eje. 1 que corresponde a enero" , :class => "form-control",:value => Date.today.month %>
                 </div>
               <div class="form-group">
                  <%= f.label "Año Actual" %><br>

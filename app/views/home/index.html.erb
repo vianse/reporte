@@ -1320,7 +1320,8 @@
 					var items = this.state.data.map(function(object){
 						var comillaInicio = '"'
 						var comillaFin = '"'
-						return 	<span><strong>{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
+						return 	<span data-toggle="tooltip" title="" data-original-title="Tooltip"><strong >{comillaInicio + object.ordenes + comillaFin}</strong> , </span>
+                        
 						});
 			 			return <span> 					
 			 			       <div> {items} con un valor de <strong className="verde">{imp}</strong> MXN, este seria su pronóstico:</div>	

@@ -4,6 +4,7 @@ class HomeController < ApplicationController
    @mes = Date.today.month
    @año = Date.today.year
    @parametro = params[:app_id]
+  ## parametro para mostrar el warning de error de configuración
    @objetivo = Catalogo.where(:app_id => @parametro).where(:mes => @mes).where(:año => @año).first
    @internas = Configuracion.where(:app_id => @parametro).first
 
@@ -136,7 +137,5 @@ def index_periodos
         redirect_to "/pago"
      else
      end
-  end
-
-  
+  end 
 end
