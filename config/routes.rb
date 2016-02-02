@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'charges/index'
+
+  post 'charges/create'
+
+  get 'charges/show'
+
   resources :groups
   get 'errors/app_id'
   get 'errors/acceso'
