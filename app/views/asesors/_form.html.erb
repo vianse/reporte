@@ -1,0 +1,33 @@
+<%= form_for(@asesor) do |f| %>
+  <% if @asesor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@asesor.errors.count, "error") %> prohibited this asesor from being saved:</h2>
+
+      <ul>
+      <% @asesor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :asesor_id %><br>
+    <%= f.text_field :asesor_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :app_id %><br>
+    <%= f.text_field :app_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

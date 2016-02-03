@@ -138,4 +138,7 @@ def index_periodos
      else
      end
   end 
+  def index_asesores
+    
+  end
 end

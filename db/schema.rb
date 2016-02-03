@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121055014) do
+ActiveRecord::Schema.define(version: 20160202225419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20151121055014) do
     t.string   "api_key"
     t.string   "group_id"
     t.string   "type_app"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "asesors", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "asesor_id"
+    t.string   "user_id"
+    t.string   "app_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -72,6 +81,7 @@ ActiveRecord::Schema.define(version: 20151121055014) do
     t.string   "sucursal_id"
     t.string   "group_id"
     t.string   "sucursal_tipo"
+    t.string   "asesor_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -114,6 +124,7 @@ ActiveRecord::Schema.define(version: 20151121055014) do
     t.string   "sucursal_id"
     t.string   "group_id"
     t.string   "sucursal_tipo"
+    t.string   "asesor_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end

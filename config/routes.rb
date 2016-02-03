@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :asesors
   get 'charges/index'
 
   post 'charges/create'
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
       resources :get_periodos_anteriores, path: "periodos"
       resources :get_periodos_servicio, path: "periodos_servicio"
       resources :get_periodos_hyp, path: "periodos_hyp"
+      resources :get_nombre_asesor, path: "obtener_nombre_asesor"
 
     end
   end
@@ -73,6 +75,7 @@ Rails.application.routes.draw do
   get 'general' => 'home#index_general', as: :home_general
   get 'inicio' => 'inicio#index', as: :inicio
   get 'periodos' => 'home#index_periodos', as: :periodos
+  get 'asesores' => 'home#index_asesores', as: :asesores
   get 'pago' => 'alertpayment#index', as: :pago
   get 'sucursales' => 'sucursales#index', as: :sucursales
   #get 'precios' => 'inicio#precios', as: :precios
