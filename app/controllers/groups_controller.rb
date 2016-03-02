@@ -4,9 +4,10 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
-    
-
+    @groups = Group.where(:user_id => current_sistema.id)
+    @grupo  = Group.where(:user_id => current_sistema.id).count
+    @usuario  = User.where(:sistemas_id => current_sistema.id).count
+    @agencia  = App.where(:user_id => current_sistema.id).count
   end
 
   # GET /groups/1
@@ -30,7 +31,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to "/panel" }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -44,7 +45,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to "/groups" }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -71,6 +72,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :group_id)
+      params.require(:group).permit(:name, :group_id, :user_id)
     end
 end

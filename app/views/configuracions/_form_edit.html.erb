@@ -133,13 +133,21 @@ a.font{
             <%= form_for(@configuracion) do |f| %>
             <fieldset>
                 <div class="form-group">
-                  <%= f.label "Etiqueta con la que se identifican las internas desde el DMS" %><br>
+                  <%= f.label "Etiqueta con la que se identifican las ordenes internas en tu DMS" %><br>
                   <%= f.text_field :internas,:placeholder => "Eje. I o Internas; verificar con sistemas", :class => "form-control" %>
                 </div>
               <div class="form-group">
-                 <%= f.label "Ingresa los días apartir de los cuales se empezaran a realizar pronosticos" %><br>
+                 <%= f.label "Ingresa el número de días apartir de los cuales se empezaran a realizar los pronosticos" %><br>
                  <%= f.text_field :dias,:placeholder => "Eje. 5 (Solo Números)", :class => "form-control" %>
-              </div>    
+              </div> 
+                <div class="form-group">
+                  <%= f.label "Etiqueta con la que se identifican las ordenes de garantias desde el DMS" %><br>
+                  <%= f.text_field :garantias,:placeholder => "Eje. G o Garantias; verificar con sistemas", :class => "form-control" %>
+                </div>
+              <div class="form-group">
+                 <%= f.label "Ingresa el número de días para el limite de pago de garantias" %><br>
+                 <%= f.text_field :dias_garantias,:placeholder => "Eje. 5 (Solo Números)", :class => "form-control" %>
+              </div>  
               <div class="actions">
                  <%= f.submit "Guardar", :class => "btn btn-lg btn-success btn-block" %>
               </div>

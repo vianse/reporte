@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get 'template/template'
+
+  resources :garantia
+  get 'usuarios' => 'registrar#index', as: :usuarios
+  post 'registrar/create'
+  resources :subgroups
   resources :asesors
   get 'charges/index'
-
   post 'charges/create'
-
   get 'charges/show'
 
   resources :groups
@@ -26,7 +30,7 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :accesos
-   devise_for :users
+  devise_for :users
   resources :catalogos
   resources :apps
   namespace :api do
@@ -60,7 +64,16 @@ Rails.application.routes.draw do
       resources :get_periodos_servicio, path: "periodos_servicio"
       resources :get_periodos_hyp, path: "periodos_hyp"
       resources :get_nombre_asesor, path: "obtener_nombre_asesor"
-
+      resources :get_ordenes_abiertas_asesor, path: "obtener_ordenes_asesor"
+      resources :get_ordenes_facturadas_asesor, path: "obtener_facturadas_asesor"
+      resources :get_competencias, path: "obtener_competencias"
+      resources :get_ordenes_viejas_asesor, path: "obtener_viejas"
+      resources :crear_usuarios, path: "crea_usuario"
+      resources :garantias, path: "garantias"
+      resources :garantias_estatus, path: "garantias_estatus"
+      resources :garantias_estatus_color, path: "garantias_color"
+      resources :garantias_detalles, path: "garantias_detalles"
+      resources :cierre_mes, path: "cierre_mes"
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
@@ -76,18 +89,31 @@ Rails.application.routes.draw do
   get 'inicio' => 'inicio#index', as: :inicio
   get 'periodos' => 'home#index_periodos', as: :periodos
   get 'asesores' => 'home#index_asesores', as: :asesores
+  get 'garantias' => 'home#index_garantias', as: :garantias
   get 'pago' => 'alertpayment#index', as: :pago
   get 'sucursales' => 'sucursales#index', as: :sucursales
+  get 'agencias' => 'apps#index', as: :agencias
+  get 'agencias/new' => 'apps#new', as: :agencias_new
+  get 'panel' => 'groups#index', as: :panel
+  get 'nuevo_grupo' => 'groups#new', as: :group_new
+  get 'nuevo_usuario' => 'registrar#create', as: :usuario_new
+  match 'usuario/:id' => 'registrar#destroy', :via => :delete, :as => :admin_destroy_user
+  get 'nuevo_acceso' => 'accesos#new', as: :acceso_new
+  get 'nueva_agencia' => 'apps#new', as: :agencia_new
+  get 'asignar_asesor' => 'asesors#new', as: :asignar_new
+  get 'listado_asesores' => 'asesors#index', as: :listado_asesores
+  
+  #delete 'photos/:id(.:format)', :to => 'photos#destroy'
   #get 'precios' => 'inicio#precios', as: :precios
 
 
 
 
-  # as :user do
-  #   get 'login' => 'devise/sessions#new', :as => :new_user_session
-  #   post 'login' => 'devise/sessions#create', :as => :user_session
-  #   match 'salir' => 'devise/sessions#destroy', :as => :destroy_user_session,
-  #     :via => Devise.mappings[:user].sign_out_via
+   #as :user do
+    # get 'login' => 'devise/sessions#new', :as => :new_user_session
+    # post 'login' => 'devise/sessions#create', :as => :user_session
+    # match 'salir' => 'devise/sessions#destroy', :as => :destroy_user_session,
+    #:via => Devise.mappings[:user].sign_out_via
   # end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

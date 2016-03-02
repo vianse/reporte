@@ -1,0 +1,25 @@
+<%= form_for(@garantium) do |f| %>
+  <% if @garantium.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@garantium.errors.count, "error") %> prohibited this garantium from being saved:</h2>
+
+      <ul>
+      <% @garantium.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :key %><br>
+    <%= f.text_field :key %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.text_field :date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -5,7 +5,9 @@ class AppsController < ApplicationController
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.all
+    @apps = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id])
+    @app = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id]).count
+   
   end
 
   # GET /apps/1
@@ -25,11 +27,19 @@ class AppsController < ApplicationController
   # POST /apps
   # POST /apps.json
   def create
-    @app = App.new(app_params)
+    @app = App.new({
+      :name => params[:name],
+      :api_key => params[:api_key],
+      :group_id => params[:group_id],
+      :type_app => params[:type_app], 
+      :subgroup_id => params[:subgroup_id], 
+      :user_id => params[:user_id]
+
+})
 
     respond_to do |format|
       if @app.save
-        format.html { redirect_to @app, notice: 'App was successfully created.' }
+        format.html { redirect_to '/agencias?group_id=' + params[:group_id], notice: 'App was successfully created.' }
         format.json { render :show, status: :created, location: @app }
       else
         format.html { render :new }
@@ -70,6 +80,6 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
-      params.require(:app).permit(:name, :api_key,:group_id,:type_app)
+      params.require(:app).permit(:name, :api_key,:group_id,:type_app, :subgroup_id, :user_id)
     end
 end

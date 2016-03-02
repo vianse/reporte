@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>Pronostic</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735472/jquery.gritter.css" rel="stylesheet" />  
+  <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+    
+  <!-- ================== BEGIN BASE JS ================== -->
+  <!--<script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735628/pace.min.js"></script>-->
+  <!-- ================== END BASE JS ================== -->
+
+	
+	<!--[if lt IE 9]>
+	    <script src="assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+</head>
+<style type="text/css">
+    .visible{
+        display: none;
+    }
+    a.font{
+    	font-size: 16px;
+    }
+    .font{
+    	font-size: 16px;
+    }
+    .verde{
+    	color: #00A896;
+    }
+    .subtitle{
+        /* Good: */
+        font-family: .AppleSystemUIFont;
+        font-size: 18px;
+        line-height: 24px;
+    }
+    .panel.panel-success .panel-heading{
+        margin-top: 10px;
+    }
+    .empresa{
+        font-family: .AppleSystemUIFont;
+    }
+    .btn.btn-warning{
+        margin-bottom: 10px;
+    }
+    .circle-red{
+        color: hsl(2, 85%, 61%);
+    }
+    .circle-green{
+        color: hsl(126, 45%, 58%);
+    }
+    .circle-yellow{
+        color: hsl(35, 97%, 62%);
+    }
+    #flotante{  /*padre*/
+    
+    width: 100%; 
+    height: 100px;
+    }
+    #flotante .A{  /*hijos*/
+    display: inline-block;
+    margin-left: 20px;
+    }
+     #flotante .B{
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 0px!important;
+     }
+    #flotante .c{
+    display: inline-block;
+    margin-left: 50px;
+   
+     }
+     #flotante .d{
+    display: inline-block;
+    margin-left: 50px;
+   
+     }
+     #flotante .e{
+    display: inline-block;
+    margin-left: 50px;
+   
+     }
+
+</style>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="page-loader fade in"><span class="spinner">Loading...</span></div>
+	<!-- end #page-loader -->
+
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade page-container page-header-fixed page-sidebar-fixed page-with-two-sidebar page-with-footer">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<!-- begin container-fluid -->
+			<div class="container-fluid">
+				<!-- begin mobile sidebar expand / collapse button -->
+				<div class="navbar-header">
+					<a href="/" class="navbar-brand">
+                        <img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px">
+
+                    </a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- end mobile sidebar expand / collapse button -->
+				
+				<!-- begin navbar-right -->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown navbar-user">
+						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="hidden-xs"><%= current_user.email %></span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="/users/edit">Seguridad</a></li>
+							<li class="divider"></li>
+							<li><%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete  %></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- end navbar-right -->
+			</div>
+			<!-- end container-fluid -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar nav -->
+				<ul class="nav">
+					<li class="nav-header">Navegación</li>
+					<li class="has-sub active">
+						<a href="javascript:;">
+						    <b class="caret pull-right"></b>
+						    <i class="fa fa-home"></i>
+						    <span>Inicio <span class="label label-theme m-l-3">Bienvenidos</span></span>
+					    </a>
+					    <ul class="sub-menu">
+                          
+                             <li class="active">
+                                <a href="/">
+                                    Regresar 
+                                    <i class="fa fa-file-text-o text-theme m-l-3"></i>
+                                </a>
+                                 <a href="/sucursales?type=Garantias">Ver mas sucursales
+                                    <i class="fa fa-bell text-theme m-l-3"></i>
+                                </a>
+                            </li>
+					        
+                            <% if @apps == 2  %>
+                            <li>
+                                <a href="/sucursales?type=Servicio">Operación Servicio
+                                    <i class="fa fa-building text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                        
+                            <% if @hyp.blank? %>
+                            
+                            <% else %>
+                            <li>
+                                <a href="/sucursales?type=HYP">
+                                    Operación HYP 
+                                    <i class="fa fa-wrench text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <% end %>
+                            <li>
+                                <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">Configuración 
+                                    <i class="fa fa-cogs text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/objetivos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos y Objetivos 
+                                    <i class="fa fa-calendar text-theme m-l-3"></i>
+                                </a>
+                             </li>
+                            <li>
+                                <a href="/periodos?app_id=<%= @parametro %>&type=<%= @tipo %>">Periodos Anteriores 
+                                    <i class="fa fa-calendar text-theme m-l-3"></i>
+                                </a>
+                            </li>
+                            <% end %>            
+					    </ul>
+					</li>
+				</ul>
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+      
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li><a href="javascript:;">Home</a></li>
+				<li class="active">Operación Servicio</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header"><span class="empresa"> Garantias al dia: </span> <small id="fecha"></small></h1>
+			<!-- end page-header -->
+
+            <div id="panel" class="">
+                            <div class="panel-heading">
+                                <div class="progress progress-striped progress-sm active pull-right m-t-5 width-150">
+                                    <div id="progress" class="progress-bar progress-bar-inverse" style="width: 60%"><div id="total"></div></div>
+                                </div>
+                                <h4 class="panel-title">Monitoreo de Garantias Mes Actual</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row"> 
+                                    <div class="panel">
+                                        <div id="flotante">
+                                            <div class="fa fa-circle circle-green A" id="circulo"></div><h3 class="B" id="mensaje"></h3></br>
+                                            <div id="semaforo"></div>
+                                             <div class="fa fa-circle circle-green c">
+                                                <strong id="verde"></strong>
+                                             </div></br>
+                                             <div class="fa fa-circle circle-yellow d">
+                                                <strong id="amarillo"></strong>
+                                             </div></br>
+                                             <div class="fa fa-circle circle-red e">
+                                                <strong id="rojo"></strong>
+                                            </div></br>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+            </div>
+
+
+            <div class="panel panel-inverse">
+
+
+                            <div class="panel-body">
+                                <div class="row"> 
+                                    <div class="panel">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">Listado de Garantias Abiertas</h4>
+                                        </div>
+                                        <div class="table-responsive">
+                                           <span id="viejas"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+            </div>  
+
+             <div id="footer" class="footer">
+                <span class="pull-right">
+                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
+                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
+                    </a>
+                </span>
+                &copy; 2015 <b>vianse</b> All Right Reserved
+             </div>
+        </div>
+	</div>
+
+<!-- ================== BEGIN BASE JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733159/jquery-ui.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733251/bootstrap.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="assets/crossbrowserjs/html5shiv.js"></script>
+    <script src="assets/crossbrowserjs/respond.min.js"></script>
+  <![endif]-->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733386/jquery.slimscroll.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733489/jquery.cookie.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733913/bootstrap_calendar.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733996/jquery.sparkline.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734296/jquery.gritter.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+		    App.init();
+		    Demo.init();
+		    //PageDemo.init();
+		});
+	</script>
+</body data-no-turbolink data-no-transition-cache>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
+<script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<script type="text/javascript">
+	function valor(value){
+		 $( "#panel" ).attr('class', value);
+        
+	};	
+	function valor1(value){
+		$('#progress').attr('style', value);
+       
+	};
+
+    function valor2(value){
+       $( "#mensaje" ).text(value);
+       
+    };
+    function valor3(value){
+       $( "#circulo" ).attr('class', value);
+       
+    };
+    function valor4(value){
+       $( "#verde" ).text(value);
+    
+    };
+    function valor5(value){
+       $( "#amarillo" ).text(value);
+       
+    };
+    function valor6(value){
+       $( "#rojo" ).text(value);
+       
+    };
+   
+
+	
+</script>
+
+<script type="text/jsx">
+	/*
+	 *  Title
+	 */
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+
+        var empresa = getUrlParameter('app_id');
+        var id = getUrlParameter('id');
+        var url = "api/v1/obtener_nombre_asesor?app_id=" + empresa 
+        var url1 = "api/v1/obtener_ordenes_asesor?app_id=" + empresa + "&id=" + id
+        var url2 = "api/v1/obtener_facturadas_asesor?app_id=" + empresa + "&id=" + id
+        var url3 = "api/v1/obtener_competencias?app_id=" + empresa + "&id=" + id
+        var url4 = "api/v1/garantias?app_id=" + empresa 
+        var url5 = "api/v1/garantias_estatus?app_id=" + empresa
+        var url6 = "api/v1/garantias_color?app_id=" + empresa
+        var url7 = "api/v1/garantias_detalles?app_id=" + empresa
+
+
+
+		var Fecha = React.createClass({
+		       getInitialState: function() {
+		          return {
+		            data: ""
+		          };
+		        },
+		        componentDidMount: function() {
+		          var self = this;
+		          $.get(this.props.source, function(result) {
+		            var collection = result;
+		            if (this.isMounted()) {
+		              this.setState({
+		                data: collection
+		              });
+		            }
+		          }.bind(this));
+		        },
+		        render: function() {   
+		          return (
+		            <span>
+		             {this.state.data}     
+		            </span>
+		          );
+		        }
+		      });
+
+		     React.render(
+		    <Fecha source="api/v1/fecha" />,
+		      document.getElementById('fecha')
+		 );
+
+        var Total = React.createClass({
+               getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                 consulta: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+
+                      });
+                    }
+                  }.bind(this));
+                },
+                render: function() {  
+                        var tamano = this.state.data.total
+                        valor1("width: " + tamano + "%");
+                  return (
+                    <span>
+                     {this.state.data} % 
+                    </span>
+
+                  );
+
+                }
+              });
+
+             React.render(
+            <Total source={url5} />,
+              document.getElementById('total')
+         );
+
+        var Estatus = React.createClass({
+               getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                  consulta: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                },
+                render: function() {   
+                var variable = this.state.data.color
+                   
+                 if (this.state.data.color === 0)
+                 {
+                      
+                      valor("panel panel-success");
+                      valor2("Felicidades sigue por ese camino"); 
+                      valor3("fa fa-circle circle-green A"); 
+                    
+                 }
+
+                if (variable === 1)
+                    {
+                      valor("panel panel-warning"); 
+                      valor2("¡Puedes mejorar...!"); 
+                      valor3("fa fa-circle circle-yellow A");
+                     
+                    } 
+                    
+                if (variable === 2)
+                    {
+                          valor("panel panel-danger"); 
+                          valor2("Analisa tus tiempos de cobro, tu indicador es preocupante"); 
+                         valor3("fa fa-circle circle-red A");
+                        
+                    }
+
+                return <div></div>
+               
+                
+                
+                }
+              });
+
+             React.render(
+            <Estatus source={url6} />,
+              document.getElementById('circulo')
+         );
+
+/* 
+ *  Ordenes Viejas 
+ */
+    
+    var Garantias  = React.createClass({
+        componentDidMount: function() {
+            $.ajax({
+                url: url4 ,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+            setInterval(this.consulta, 10000);
+        },
+         consulta: function() {
+            $.ajax({
+                url: url4 ,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+        },
+        
+        getInitialState: function() {
+                  return {
+                    data: [],
+                    tabla: ""
+          
+                    };         
+                },
+        
+        render: function() { 
+                        var items    = this.state.data.map(function(object){
+                            if (object.estatus == 2){
+                            return <tr>
+                                            <td><strong>{object.orden}</strong></td>
+                                            <td className="text-center">{object.tipo}</td>
+                                            <td className="text-center">{object.importe}</td>
+                                            <td className="text-center">{object.fecha}</td>
+                                            <td className="text-center">{object.dias}</td>
+                                            <td className="text-center">
+
+                                                <div className="progress-bar progress-bar-danger" style={{width: "100%"}}>Expirada</div>
+
+                                            </td>
+                                    </tr>
+                            }
+                            else
+                            {
+                            if (object.estatus == 1){
+                            return <tr>
+                                            <td><strong>{object.orden}</strong></td>
+                                            <td className="text-center">{object.tipo}</td>
+                                            <td className="text-center">{object.importe}</td>
+                                            <td className="text-center">{object.fecha}</td>
+                                            <td className="text-center">{object.dias}</td>
+                                            <td className="text-center">
+
+                                                <div className="progress-bar progress-bar-warning" style={{width: "100%"}}>En proceso</div>
+
+                                            </td>
+                                    </tr>
+                            }
+
+                            else {
+
+                            if (object.estatus == 0){
+                            return <tr>
+                                            <td><strong>{object.orden}</strong></td>
+                                            <td className="text-center">{object.tipo}</td>
+                                            <td className="text-center">{object.importe}</td>
+                                            <td className="text-center">{object.fecha}</td>
+                                            <td className="text-center">{object.dias}</td>
+                                            <td className="text-center">
+
+                                                <div className="progress-bar progress-bar-success" style={{width: "100%"}}>En Proceso</div>
+
+                                            </td>
+                                    </tr>
+                            }
+
+
+                            }
+
+                            }
+
+                            });
+
+
+      
+                        return   <span>
+                                <div>
+                                <table className="table table-bordered table-hover table-striped table-td-valign-middle">
+                                    <thead>
+                                        <tr className="inverse">
+                                            <th>No de Orden</th>
+                                            <th className="text-center">Tipo</th>
+                                            <th className="text-center">Importe</th>
+                                            <th className="text-center">Fecha de apertura</th>
+                                            <th className="text-center">Total de Días</th>
+                                            <th className="text-center">Estatus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {items}
+                                    </tbody>
+                                </table>
+                                </div>
+                            </span>
+
+
+                    }
+        });
+        
+        React.render(
+                <Garantias  />,
+         document.getElementById('viejas')
+         );
+
+
+    var Detalles = React.createClass({
+               getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                consulta: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                },
+                render: function() {   
+                var variable = this.state.data
+                   
+                      valor4(this.state.data.verde);
+                      valor5(variable.amarillo); 
+                      valor6(variable.rojo); 
+        
+                
+                return <div></div>
+               
+                
+                
+                }
+              });
+
+             React.render(
+            <Detalles source={url7} />,
+              document.getElementById('semaforo')
+         );
+     
+</script>

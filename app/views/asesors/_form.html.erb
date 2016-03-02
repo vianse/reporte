@@ -1,33 +1,215 @@
-<%= form_for(@asesor) do |f| %>
-  <% if @asesor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@asesor.errors.count, "error") %> prohibited this asesor from being saved:</h2>
 
-      <ul>
-      <% @asesor.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->  
+<head>
+    <meta charset="utf-8" />
+    <title>Pronostic</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735472/jquery.gritter.css" rel="stylesheet" />  
+  <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+</head>
+<style type="text/css">
+.content{
+  margin-left: 0px!important;
+}
+body{
+  background-color: white!important;
+}
+.alinear{
+  width: 200px;
+  height: :60px!important;
+  font-size: 18px;
+  border-radius: 10px;
+}
+.alinear:hover{
+  opacity: .75;
+}
+  h1{
+    word-wrap: break-word;
+    font-size: 22px;
+    margin-bottom: 10px;
+font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }  
+  p{
+     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    margin: 0;
+    color: hsl(0, 0%, 34%);
+    line-height: 1.4615em;
+  }
+  a.button{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    text-decoration: none;
+    color: white;
+  }
+  label {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    word-wrap: break-word;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  input{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .row{
+    margin-top: 1%;
+  }
+
+</style>
+<body>
+
+  <div id="page-loader" class="page-loader fade in"><span class="spinner">Loading...</span></div>
+  <!-- end #page-loader -->
+
+  <!-- begin #page-container -->
+  <div id="page-container" class="fade page-container page-header-fixed page-sidebar-fixed page-with-two-sidebar page-with-footer">
+    <!-- begin #header -->
+    <div id="header" class="header navbar navbar-default navbar-fixed-top">
+      <!-- begin container-fluid -->
+      <div class="container-fluid">
+        <!-- begin mobile sidebar expand / collapse button -->
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
+          <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <!-- end mobile sidebar expand / collapse button -->
+        
+        <!-- begin navbar-right -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown navbar-user">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="hidden-xs"><%= current_user.email %></span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu pull-right">
+              <li><a href="/users/edit">Seguridad</a></li>
+              <li class="divider"></li>
+              <li><%= link_to "Cerrar sesión", destroy_user_session_path, method: :delete  %></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- end navbar-right -->
+      </div>
+      <!-- end container-fluid -->
     </div>
-  <% end %>
+    <!-- end #header -->
+    
+    <!-- begin #content -->
+  <div id="content" class="content">          
+
+   <div class="row">
+                    <!-- begin col-2 -->
+      <div class="col-md-1"></div>
+        <div class="col-md-4">
+          <h1> Configuracion de Asesores </h1>
+          <p>Permite al sistema hacer un match entre la información proveniente del DMS vs <strong>Pronostic.</strong></p></br>
+
+          <p>Con esto cuando un asesor ingrese a su cuenta de <strong>Pronostic; </strong> este solo le mostrara la información que solo le corresponde ver. </p>
+        </div>
+        <div class="col-md-6">
+          <div class="panel-body">
+
+  <%= form_tag( { :controller => 'asesors',:action => 'create'}, :method => "POST" ) do %>
 
   <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+    <%= label_tag "Escribe el nombre de tu asesor de servicio" %><br>
+    <%= text_field_tag :nombre,nil, :placeholder => "Eje. Juan Perez", :class => "form-control",:required => true %>
   </div>
   <div class="field">
-    <%= f.label :asesor_id %><br>
-    <%= f.text_field :asesor_id %>
+    <%= label_tag "Ingresa el número de asesor proveniente del DMS" %><br>
+    <%= text_field_tag :asesor_id,nil,:placeholder => "Eje. 1", :class => "form-control" ,:required => true%>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+    <%= label_tag "Selecciona el correo a quien le pertenece el número anterior" %><br>
+    <%= collection_select(nil, :usuario, @user, :id, :email, {:prompt => 'Selecciona un usuario'},:required => true, :class => "form-control")%>
   </div>
   <div class="field">
-    <%= f.label :app_id %><br>
-    <%= f.text_field :app_id %>
+    <%= hidden_field_tag :app_id,nil,:value => params[:app_id], :class => "form-control" %>
   </div>
+  
   <div class="actions">
-    <%= f.submit %>
+      <%= submit_tag "Asignar",:class=>"widget widget-stat bg-primary text-white alinear button"  %>
   </div>
 <% end %>
+  <hr/>
+          </div>
+        </div>
+        <div class="col-md-1">
+        </div>         <!-- end col-4 -->
+      </div>
+                
+      </div>    
+</div>
+
+            <div id="footer" class="footer">
+                <span class="pull-right">
+                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
+                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
+                    </a>
+                </span>
+                &copy; 2015 <b>vianse</b> All Right Reserved
+            </div>
+            <!-- end #footer -->
+    </div>
+  </div>
+  <!-- end page container -->
+
+<!-- ================== BEGIN BASE JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733159/jquery-ui.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733251/bootstrap.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733386/jquery.slimscroll.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733489/jquery.cookie.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733913/bootstrap_calendar.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733996/jquery.sparkline.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734296/jquery.gritter.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+  
+  <script>
+    $(document).ready(function() {
+        App.init();
+
+    });
+  </script>
+</body data-no-turbolink data-no-transition-cache>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
+<script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+
+
+
+
+

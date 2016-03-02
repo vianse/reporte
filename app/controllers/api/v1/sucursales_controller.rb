@@ -5,9 +5,26 @@ class Api::V1::SucursalesController <ApplicationController
  if params[:type] == "Servicio"
      @grupo = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
      if @grupo.blank?
-            @agencia = Acceso.where(:user_id => current_user.id).pluck(:app_id_s).first
+            @agencia = Acceso.where(:user_id => current_user.id).pluck(:app_id_s)
           if @agencia.blank?
-              render json: {:message => "No tiene acceso"}
+              
+               @garantia = Acceso.where(:user_id => current_user.id).pluck(:garantias)
+              if @garantia.blank?
+                  render json: {:message => "No tiene acceso"}
+                else
+                @apps = App.where(:api_key => @garantia).where(:type_app => params[:type])
+                elementos = @apps.map do |k|
+                 {   
+                 :sucursal => k.name,
+                 :app_id => k.api_key,
+                 :type => k.type_app,
+
+                 }
+                end
+                 render json: elementos
+             end
+
+
             else
             @apps = App.where(:api_key => @agencia).where(:type_app => params[:type])
             elementos = @apps.map do |k|
@@ -65,14 +82,6 @@ if params[:type] == "HYP"
 end
 
 
-	   # @acceso = Acceso.select("app_id").where(:user_id => current_user.id)
-    #    @apps = App.where(:api_key => @acceso)
-    #     elementos = @apps.map do |k|
-    #         {   
-    #         :sucursal => k.name,
-    #         :app_id => k.api_key
-    #         }
-    #         end
-    #         render json: elementos
+	
      end
 end

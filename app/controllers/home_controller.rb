@@ -141,4 +141,7 @@ def index_periodos
   def index_asesores
     
   end
+    def index_garantias
+    
+  end
 end

@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->  
+<head>
+    <meta charset="utf-8" />
+    <title>Pronostic</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Nunito:400,300,700" rel="stylesheet" id="fontFamilySrc" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734615/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735472/jquery.gritter.css" rel="stylesheet" />  
+  <!-- ================== END PAGE LEVEL CSS STYLE ================== -->
+</head>
+<style type="text/css">
+.content{
+  margin-left: 0px!important;
+}
+body{
+  background-color: white!important;
+}
+.alinear{
+  width: 200px;
+  height: :60px!important;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-top: 55px;
+  margin-left: 10%;
+}
+.alinear:hover{
+  opacity: .75;
+}
+  h1{
+    word-wrap: break-word;
+    font-size: 22px;
+    margin-bottom: 10px;
+font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }  
+  p{
+     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    margin: 0;
+    color: hsl(0, 0%, 34%);
+    line-height: 1.4615em;
+  }
+  a.button{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 22px;
+    text-decoration: none;
+    color: white;
+  }
+  .row{
+    margin-top: 10%;
+  }
+
+  strong{
+    color: hsl(0, 0%, 33%);
+    display: inline;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .link {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    margin-right: 20px;
+    margin-top: -5px;
+    text-decoration: none!important;
+    color: hsl(202, 100%, 38%)!important;
+  }
+.table>thead>tr>th {
+    border-style: none;
+    border-bottom: none!important;
+}
+.row{
+  margin-top: 10%!important;
+}
+.nobordes{
+  border-style: none!important;
+}
+td{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+</style>
+<body>
+
+  <div id="page-loader" class="page-loader fade in"><span class="spinner">Loading...</span></div>
+  <!-- end #page-loader -->
+
+  <!-- begin #page-container -->
+  <div id="page-container" class="fade page-container page-header-fixed page-sidebar-fixed page-with-two-sidebar page-with-footer">
+    <!-- begin #header -->
+    <div id="header" class="header navbar navbar-default navbar-fixed-top">
+      <!-- begin container-fluid -->
+      <div class="container-fluid">
+        <!-- begin mobile sidebar expand / collapse button -->
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
+          <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <!-- end mobile sidebar expand / collapse button -->
+        
+        <!-- begin navbar-right -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown navbar-user">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="hidden-xs"><%= current_sistema.email %></span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu pull-right">
+              <li><a href="/users/edit">Seguridad</a></li>
+              <li class="divider"></li>
+              <li><%= link_to "Cerrar sesión", destroy_sistema_session_path, method: :delete  %></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- end navbar-right -->
+      </div>
+      <!-- end container-fluid -->
+    </div>
+    <!-- end #header -->
+    
+    <!-- begin #content -->
+  <div id="content" class="content">  
+
+      <% if @usuario == 0  %> 
+   <div class="row">
+                    <!-- begin col-2 -->
+      <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <!-- begin widget -->
+          <h1>Usuarios</h1>
+       
+                        <!-- end widget -->
+                        <!-- begin widget -->
+          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera </p>
+                        <!-- end widget -->
+        </div>
+        <div class="col-md-6">
+                        <!-- begin widget -->
+
+          <a  id="agencias" href="/nuevo_usuario?group_id=" class="widget widget-stat bg-primary text-white alinear button">Continuar</a>
+                        <!-- end widget -->
+        </div>
+                    <!-- end col-4 -->
+      </div>
+                
+  <% end %>
+  <% if @usuario >= 1  %> 
+
+   <h1>Usuarios</h1>
+   <div class="panel">
+                 <div class="panel-heading">
+                    <%= link_to '/panel',:class=>"link"  do %>
+                      <i class="fa fa-reply"></i> Regresar
+                      <% end %>
+                      
+                      <%= link_to  '/nueva_agencia?group_id=' ,id: "agencias",:class=>"link" do %>
+                      <i class="fa fa-male"></i> Nuevo usuario
+                      <% end %>
+                  </div>
+                  <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped table-td-valign-middle">
+                               <thead>
+                                <tr>
+                                <th>Correo electronico del usuario</th>
+                                <th colspan="3"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% @usuarios.each do |usuarios| %>
+                                <tr>
+                                  <td><strong><%= usuarios.email %></strong></td>
+                                  <td><%= link_to "Eliminar", admin_destroy_user_path(usuarios.id), method: :delete, data: { confirm: "Estas seguro de que quieres eliminar este usuario" } %></td>
+
+                                </tr>
+
+                              <% end %>
+                            </tbody>
+                          </table> 
+            </div>
+        </div>
+
+
+     <br>
+
+    <!--<%= link_to 'Crear grupo', group_new_path ,:class=>"btn btn-success m-r-5 m-b-5" %>--> 
+    <!-- begin #page-loader -->   
+    <% end %>
+  
+      </div>    
+</div>
+
+            <div id="footer" class="footer">
+                <span class="pull-right">
+                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
+                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
+                    </a>
+                </span>
+                &copy; 2015 <b>vianse</b> All Right Reserved
+            </div>
+            <!-- end #footer -->
+    </div>
+  </div>
+  <!-- end page container -->
+
+<!-- ================== BEGIN BASE JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732895/jquery-1.9.1.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733033/jquery-migrate-1.1.0.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733159/jquery-ui.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733251/bootstrap.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733386/jquery.slimscroll.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733489/jquery.cookie.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733913/bootstrap_calendar.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733996/jquery.sparkline.min.js"></script>
+  <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734296/jquery.gritter.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
+    <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+  
+  <script>
+    $(document).ready(function() {
+        App.init();
+
+    });
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+        var grupo = getUrlParameter('group_id');
+
+
+        var url = "/nuevo_usuario?group_id=" + grupo;
+        var element = document.getElementById('agencias');
+        element.setAttribute("href",url)
+
+
+  </script>
+</body data-no-turbolink data-no-transition-cache>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
+<script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+
+
+
+
+

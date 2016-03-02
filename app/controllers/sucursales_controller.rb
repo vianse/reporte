@@ -17,7 +17,7 @@ class SucursalesController < ApplicationController
      end
 end
 if params[:type] == "HYP"
-@grupo = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
+    @grupo = Acceso.where(:user_id => current_user.id).pluck(:group_id).first
      if @grupo.blank?
         @agencia_h = Acceso.where(:user_id => current_user.id).pluck(:app_id_h).first
                   if @agencia_h.blank?
@@ -31,6 +31,16 @@ if params[:type] == "HYP"
         
     end
   end
-
+if params[:type] == "Garantias"
+  
+            @agencia = Acceso.where(:user_id => current_user.id).pluck(:garantias)
+            logger.debug "Agencia #{@agencia}"
+          if @agencia.blank?
+              
+            else
+            @apps = App.where(:api_key => @agencia).where(:type_app => "Servicio")
+         
+         end
+      end
   end
 end

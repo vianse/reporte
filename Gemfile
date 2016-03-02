@@ -21,11 +21,16 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
+gem 'rest-client'
+gem 'mailgun-ruby'
+gem 'multimap', '~> 1.1', '>= 1.1.3'
 gem 'devise'
+gem 'sinch_sms'
+gem 'resque-scheduler'
+gem 'resque'
 
 group :development, :test do
-	gem 'pg'
+  gem 'pg'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'

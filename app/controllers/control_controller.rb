@@ -7,7 +7,18 @@ class ControlController < ApplicationController
         if @app_id_s.blank?
           @app_id_h = Acceso.select("app_id_h").where(:user_id => current_user.id).pluck(:app_id_h).first
           if @app_id_h.blank?
+            @asesor = Acceso.select("asesor").where(:user_id => current_user.id).pluck(:asesor).first
+             if @asesor.blank?
+              @garantias = Acceso.select("garantias").where(:user_id => current_user.id).pluck(:garantias).first
+             if @garantias.blank?
              redirect_to "/errors/sucursal"
+             else
+              redirect_to "/garantias?app_id=" + @garantias
+             end
+
+             else
+              redirect_to "/asesores?app_id=" + @asesor
+             end
           else
              redirect_to "/home_hyp?app_id=" + @app_id_h + "&type=HYP"
           end
@@ -19,7 +30,7 @@ class ControlController < ApplicationController
       end
     else
       if sistema_signed_in?
-        redirect_to "/groups"
+        redirect_to "/panel"
       else
         redirect_to "/inicio"
       end

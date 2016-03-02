@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202225419) do
+ActiveRecord::Schema.define(version: 20160216000251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20160202225419) do
     t.string   "group_id"
     t.string   "app_id_s"
     t.string   "app_id_h"
+    t.string   "asesor"
+    t.string   "garantias"
+    t.string   "usuario"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -32,8 +35,10 @@ ActiveRecord::Schema.define(version: 20160202225419) do
     t.string   "api_key"
     t.string   "group_id"
     t.string   "type_app"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "subgroup_id"
+    t.string   "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "asesors", force: :cascade do |t|
@@ -61,11 +66,13 @@ ActiveRecord::Schema.define(version: 20160202225419) do
   create_table "configuracions", force: :cascade do |t|
     t.string   "internas"
     t.string   "dias"
+    t.string   "garantias"
+    t.string   "dias_garantias"
     t.string   "app_id"
     t.string   "group_id"
     t.string   "tipo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "facturadas", force: :cascade do |t|
@@ -86,9 +93,27 @@ ActiveRecord::Schema.define(version: 20160202225419) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "garantia", force: :cascade do |t|
+    t.string   "orden"
+    t.string   "app_id"
+    t.string   "sucursal_id"
+    t.string   "group_id"
+    t.string   "asesor_id"
+    t.string   "fecha"
+    t.string   "fecha_salida"
+    t.string   "key"
+    t.string   "mes"
+    t.string   "año"
+    t.string   "tipo"
+    t.integer  "dias"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "group_id"
+    t.string   "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -125,6 +150,7 @@ ActiveRecord::Schema.define(version: 20160202225419) do
     t.string   "group_id"
     t.string   "sucursal_tipo"
     t.string   "asesor_id"
+    t.string   "key"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -146,6 +172,14 @@ ActiveRecord::Schema.define(version: 20160202225419) do
 
   add_index "sistemas", ["email"], name: "index_sistemas_on_email", unique: true, using: :btree
   add_index "sistemas", ["reset_password_token"], name: "index_sistemas_on_reset_password_token", unique: true, using: :btree
+
+  create_table "subgroups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "group_id"
+    t.string   "subgroup_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "supers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -169,6 +203,11 @@ ActiveRecord::Schema.define(version: 20160202225419) do
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
+    t.string   "app_id"
+    t.string   "sucursal_id"
+    t.string   "group_id"
+    t.string   "subgroup_id"
+    t.string   "sistemas_id"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",          default: 0,  null: false

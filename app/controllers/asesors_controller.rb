@@ -4,7 +4,8 @@ class AsesorsController < ApplicationController
   # GET /asesors
   # GET /asesors.json
   def index
-    @asesors = Asesor.all
+    @asesors = Asesor.where(:app_id => params[:app_id])
+    @parametro = params[:app_id]
   end
 
   # GET /asesors/1
@@ -14,6 +15,8 @@ class AsesorsController < ApplicationController
 
   # GET /asesors/new
   def new
+    acceso = Acceso.where(:asesor => params[:app_id]).pluck(:user_id)
+    @user = User.where(:id => acceso)
     @asesor = Asesor.new
   end
 
@@ -24,11 +27,16 @@ class AsesorsController < ApplicationController
   # POST /asesors
   # POST /asesors.json
   def create
-    @asesor = Asesor.new(asesor_params)
+    @asesor = Asesor.new({
+      :nombre => params[:nombre],
+      :asesor_id => params[:asesor_id],
+      :user_id => params[:usuario],
+      :app_id => params[:app_id]
+      })
 
     respond_to do |format|
       if @asesor.save
-        format.html { redirect_to @asesor, notice: 'Asesor was successfully created.' }
+        format.html { redirect_to "/" }
         format.json { render :show, status: :created, location: @asesor }
       else
         format.html { render :new }
@@ -42,7 +50,7 @@ class AsesorsController < ApplicationController
   def update
     respond_to do |format|
       if @asesor.update(asesor_params)
-        format.html { redirect_to @asesor, notice: 'Asesor was successfully updated.' }
+        format.html { redirect_to "/", notice: 'Asesor was successfully updated.' }
         format.json { render :show, status: :ok, location: @asesor }
       else
         format.html { render :edit }

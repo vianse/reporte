@@ -203,7 +203,7 @@
                                     <div class="widget-stat-btn"><a href="#" data-click="widget-reload"><i class="fa fa-repeat"></i></a></div>
                                    
                                     <div class="widget-stat-text">TIENES</div>
-                                     <div class="widget-stat-number">50</div>
+                                     <div class="widget-stat-number"><div id="ordenes"></div></div>
                                      <div class="widget-stat-text">ORDENES ABIERTAS</div>
                                 </div>
                             </div>
@@ -212,16 +212,14 @@
                                     <div class="widget-stat-btn"><a href="#" data-click="widget-reload"><i class="fa fa-repeat"></i></a></div>
                                    
                                     <div class="widget-stat-text">FACTURACION AL DÍA</div>
-                                     <div class="widget-stat-number">120,000 MNX</div>
+                                     <div class="widget-stat-number"><span id="facturadas"></span> MNX</div>
                                      <div class="widget-stat-text">MES ACTUAL</div>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="widget widget-stat bg-primary text-white">
-                                    <div class="widget-stat-btn"><a href="#" data-click="widget-reload"><i class="fa fa-repeat"></i></a></div>
-                                    <div class="widget-stat-text">TU COMPETENCIA MAS CERCANA LLEVA</div>
-                                    <div class="widget-stat-number">50%</div>
-                                    <div class="widget-stat-text">MAS QUE TU</div>
+                                <div class="widget-stat-btn"><a href="#" data-click="widget-reload"><i class="fa fa-repeat"></i></a></div>
+                                    <div id="competencia"></div>
                                 </div>
                             </div>
                         </div>
@@ -232,77 +230,10 @@
                                 <div class="row"> 
                                     <div class="panel">
                                         <div class="panel-heading">
-                                            <div class="panel-heading-btn">
-                                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-grey" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-                                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-grey" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-                                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-grey" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-                                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-grey" data-click="panel-remove"><i class="fa fa-times"></i></a>
-                                            </div>
-                                            <h4 class="panel-title">Hover, Striped &amp; Bordered Table</h4>
+                                            <h4 class="panel-title">Detalles de Ordenes Viejas</h4>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-striped table-td-valign-middle">
-                                                <thead>
-                                                    <tr class="inverse">
-                                                        <th>Product code</th>
-                                                        <th class="text-center">Delivery</th>
-                                                        <th class="text-center">Admin</th>
-                                                        <th class="text-center">Status</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>43902112</td>
-                                                        <td class="text-center">28/9/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_1.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>29012923</td>
-                                                        <td class="text-center">27/9/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_2.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>38291034</td>
-                                                        <td class="text-center">25/8/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_3.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>44399212</td>
-                                                        <td class="text-center">25/8/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_4.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>44399212</td>
-                                                        <td class="text-center">25/8/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_5.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>82918102</td>
-                                                        <td class="text-center">25/8/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_6.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>82918102</td>
-                                                        <td class="text-center">22/8/2015</td>
-                                                        <td class="text-center"><img src="assets/img/user_7.jpg" width="20" class="rounded-corner" alt=""></td>
-                                                        <td class="text-center">RECEIVED</td>
-                                                        <td class="text-center"><a href="#" class="btn btn-default btn-xs btn-rounded p-l-10 p-r-10"><i class="fa fa-cog"></i> Edit</a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                           <span id="viejas"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -410,8 +341,12 @@
 
 
         var empresa = getUrlParameter('app_id');
-        var url = "api/v1/obtener_nombre_asesor?app_id=" + empresa
-     
+        var id = getUrlParameter('id');
+        var url = "api/v1/obtener_nombre_asesor?app_id=" + empresa 
+        var url1 = "api/v1/obtener_ordenes_asesor?app_id=" + empresa + "&id=" + id
+        var url2 = "api/v1/obtener_facturadas_asesor?app_id=" + empresa + "&id=" + id
+        var url3 = "api/v1/obtener_competencias?app_id=" + empresa + "&id=" + id
+        var url4 = "api/v1/obtener_viejas?app_id=" + empresa + "&id=" + id
 
 		var Nombre = React.createClass({
 		       getInitialState: function() {
@@ -486,4 +421,221 @@
 		    <Fecha source="api/v1/fecha" />,
 		      document.getElementById('fecha')
 		 );
+
+        var Ordenes = React.createClass({
+               getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                consulta: function(){
+                var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                },
+                render: function() {   
+                  return (
+                    <span>
+                     {this.state.data}     
+                    </span>
+                  );
+                }
+              });
+
+             React.render(
+            <Ordenes source={url1} />,
+              document.getElementById('ordenes')
+         );    
+
+    var Facturadas = React.createClass({
+               getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+              
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                consulta: function(){
+                    var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+              },
+                render: function() {   
+                  return (
+                    <span>
+                     {this.state.data}     
+                    </span>
+                  );
+                }
+              });
+
+             React.render(
+            <Facturadas source={url2} />,
+              document.getElementById('facturadas')
+         );
+
+        var Competencia = React.createClass({
+               getInitialState: function() {
+                  return {
+                    data: ""
+                  };
+                },
+              
+                componentDidMount: function() {
+                  var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));
+                  setInterval(this.consulta, 10000);
+                },
+                consulta: function(){
+                var self = this;
+                  $.get(this.props.source, function(result) {
+                    var collection = result;
+                    if (this.isMounted()) {
+                      this.setState({
+                        data: collection
+                      });
+                    }
+                  }.bind(this));        
+                },
+                render: function() {  
+                    var parametro = this.state.data.costo
+                    
+                if (parametro == 1){ 
+                  return (
+                        
+                        <span>
+                            <div className="widget-stat-text">
+                            ¡FELICIDADES LLEVAS EL 1er LUGAR EN FACTURACIÓN!
+                            </div>
+                         </span>             
+                         
+                     );
+                }
+               else
+                {
+                    return (
+                       <span>
+                        <div className="widget-stat-text">TU COMPETENCIA LLEVA</div>
+                        <div className="widget-stat-number">{this.state.data} MXN </div>
+                        <div className="widget-stat-text">AL DÍA DE HOY</div>
+                        </span>
+                     );
+
+                    }
+                }
+              });
+
+             React.render(
+            <Competencia source={url3} />,
+              document.getElementById('competencia')
+         );
+
+/* 
+ *  Ordenes Viejas 
+ */
+    
+    var OrdenesViejas  = React.createClass({
+        componentDidMount: function() {
+            $.ajax({
+                url: url4 ,
+                dataType: 'json',
+                success: function(data) {
+                  this.setState({data: data});
+                }.bind(this)
+            });
+            
+        },
+        
+        getInitialState: function() {
+                  return {
+                    data: [],
+                    tabla: ""
+          
+                    };         
+                },
+        
+        render: function() { 
+                        var items    = this.state.data.map(function(object){
+                    
+                            return <tr>
+                                            <td><strong>{object.orden}</strong></td>
+                                            <td className="text-center">{object.tipo}</td>
+                                            <td className="text-center">{object.importe}</td>
+                                            <td className="text-center">{object.fecha}</td>
+                                            <td className="text-center">{object.dias}</td>
+                                    </tr>
+
+                            });
+
+
+      
+                        return   <span>
+                                <div>
+                                <table className="table table-bordered table-hover table-striped table-td-valign-middle">
+                                    <thead>
+                                        <tr className="inverse">
+                                            <th>No de Orden</th>
+                                            <th className="text-center">Tipo</th>
+                                            <th className="text-center">Importe</th>
+                                            <th className="text-center">Fecha</th>
+                                            <th className="text-center">Días Totales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {items}
+                                    </tbody>
+                                </table>
+                                </div>
+                            </span>
+
+
+                    }
+        });
+        
+        React.render(
+                <OrdenesViejas  />,
+         document.getElementById('viejas')
+         );
 </script>

@@ -41,44 +41,88 @@ if  @validar.blank?
          }
      else
  Pendiente.delete_all(:app_id => params[:app_id])
- @crear_ordenes = Pendiente.create(ordenes_params)
- render json: {
-           message: "Datos guardados satisfactoriamente."
-         }
+   @tipo = Configuracion.where(:app_id => params[:app_id]).pluck(:garantias).first
+     ordenes_params.map do |a|
+     if a[:tipo] == @tipo
+       app = a[:app_id].to_s
+       sucursal = a[:sucursal_id].to_s
+       grupo = a[:group_id].to_s
+       asesor = a[:asesor_id].to_s
+       tipo = a[:tipo]
+       clave = app + sucursal + grupo + asesor + a[:orden]
+       @crear_ordenes = Pendiente.create({
+        :orden => a[:orden], 
+        :tipo => a[:tipo], 
+        :importe => a[:importe], 
+        :fecha => a[:fecha], 
+        :estatus => a[:estatus], 
+        :app_id => a[:app_id], 
+        :sucursal_id => a[:sucursal_id],
+        :group_id => a[:group_id],
+        :sucursal_tipo => a[:sucursal_tipo],
+        :asesor_id => a[:asesor_id].to_s,
+        :key => clave
+        })
+       #@crear_ordenes.save
+       clave1 = app + sucursal + grupo + asesor + a[:orden]
+       @garantias     = Garantium.new({
+        :orden => a[:orden],
+        :app_id => a[:app_id].to_s,
+        :sucursal_id => sucursal,
+        :group_id => grupo,
+        :asesor_id => asesor,
+        :fecha => a[:fecha],
+        :key => clave1,
+        :mes => Date.today.month,
+        :año => Date.today.year,
+        })
+       
+       @garantias.save
+      @claves = Pendiente.where(:app_id => app).where(:sucursal_id => sucursal).where(:group_id => grupo).where(:asesor_id => asesor).where(:tipo => "G").pluck(:key)
+      else
+       @crear_ordenes = Pendiente.create(a)
+      end   
+     end
+     verifica    = Garantium.select(:key,:orden,:fecha).where.not(:key => @claves)
+     verifica.map do |b|
+       @dias = distance_of_time_in_days(b.fecha)
+       logger.debug "Dias #{@dias}"
+       actualiza = Garantium.find_by_key(b.key)
+       actualiza.update({:fecha_salida => Date.today, :dias => @dias})
+       
+       #actualiza.update(:fecha_salida => Date.today)
+       #actualiza.update(:dias => @dias)
+       #logger.debug "Prueba #{verifica}"
+     end
+    #  telefonos = ["+5215548225097","+5215548225088", "+5214425723092"]
+    #  telefonos.map do |t|
+    #   #logger.debug t
+    #    phone_number = t
+    #    SinchSms.send('1689b905-8427-4d27-88cb-20b6f3e7d746', '2+dPC6wLU0Ko7RPTeVT85w==', "Pronostic, tu opinion es muy importe para nosotros.", phone_number)
+    # end
+     render json: {
+               message: "Datos guardados satisfactoriamente."
+             }
+      
        
 end
 
-	# @importe = params[:importe].match(/(\d.+)/)[1].gsub(',','').to_f
-	# @validar = App.where(api_key: params[:app_id]).first
-	# if  @validar.blank?
- #     	 render json: {
- #     	 	message: "Cadena no valida"
- #     	 	}
- #     else
- #      @crear_ordenes    = Pendiente.new(
- #      :orden => params[:orden], 
- #      :tipo  => params[:tipo], 
- #      :importe  => @importe,
- #      :fecha => params[:fecha],
- #      :estatus => params[:estatus],
- #      :app_id => params[:app_id]
- #      )
- #      if @crear_ordenes.save
- #        render json: {
- #        	message: "Datos guardados satisfactoriamente."
- #        }
- #      else
- #        render json: {
- #        	message: "No se puedo guardar, verifica que los datos datos sean los permitidos #{@crear_ordenes.errors}", status: :unprocessable_entity
- #        } 
- #      end
- #     end
  end
 
   private
+
+def distance_of_time_in_days(from_time, to_time = Date.today, include_seconds = false)
+    from_time = from_time.to_time if from_time.respond_to?(:to_time)
+    to_time = to_time.to_time if to_time.respond_to?(:to_time)
+    distance_in_days = (((to_time - from_time).abs)/86400).round
+    return distance_in_days
+  end
+
+
   def ordenes_params
    params.require(:ordenes).map do |p|
-   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo,:asesor_id)
+   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo,:asesor_id, :key)
+   
    end
   end
   def json(value)

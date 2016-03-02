@@ -196,7 +196,7 @@ a.font{
 
         var type = getUrlParameter('type');
         var url1 = "/api/v1/sucursales?type=" + type
-
+        var url3 = "/api/v1/sucursales?type=Servicio"
 if (type == "Servicio") {
 		var Detalles = React.createClass({
 		componentDidMount: function() {
@@ -302,6 +302,60 @@ else
           <Detalles />,
      document.getElementById('sucursales')
      ); 
+}
+
+  if (type == "Garantias") {
+  var Detalles = React.createClass({
+    componentDidMount: function() {
+      $.ajax({
+            url: url3 ,
+            dataType: 'json',
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this)
+      });
+    },
+    
+    getInitialState: function() {
+              return {
+                data: []
+    
+                };         
+            },
+    
+    render: function() {   
+        var contador = this.state.contar
+        var subir = items
+        var url  = "/garantias?app_id="
+        var url2 = "/home_hyp?app_id="
+        var tipo = "&type=" + type
+        
+            var items = this.state.data.map(function(object){
+              
+                return <li>
+                              <a href={url + object.app_id + tipo} data-toggle="chat-detail">
+                                <div className="chat-info has-new">
+                                 
+                                  <h4>{object.sucursal}</h4>
+
+                                </div>
+                              </a>
+                        </li>
+             
+         
+              });
+              
+            return <div>
+                {items}
+                </div>
+      
+          }
+    });
+    
+    React.render(
+          <Detalles />,
+     document.getElementById('sucursales')
+     );
 }
   </script>
 </body>

@@ -4,7 +4,8 @@ class AccesosController < ApplicationController
   # GET /accesos
   # GET /accesos.json
   def index
-    @accesos = Acceso.all
+    @accesos = Acceso.where(:usuario => current_sistema.id)
+    @acceso = Acceso.where(:usuario => current_sistema.id).count
   end
 
   # GET /accesos/1
@@ -14,6 +15,10 @@ class AccesosController < ApplicationController
 
   # GET /accesos/new
   def new
+    @user = User.where(:group_id => params[:group_id])
+    @group = Group.where(:user_id => current_sistema.id)
+    @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
+    @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
     @acceso = Acceso.new
   end
 
@@ -24,11 +29,18 @@ class AccesosController < ApplicationController
   # POST /accesos
   # POST /accesos.json
   def create
-    @acceso = Acceso.new(acceso_params)
-
+    @acceso = Acceso.new({
+      :user_id => params[:usuario],
+      :group_id=> params[:group_id],
+      :app_id_s=> params[:servicio],
+      :app_id_h=> params[:hyp],
+      :asesor  => params[:asesor],
+      :garantias  => params[:garantias],
+      :usuario=> current_sistema.id
+      })
     respond_to do |format|
       if @acceso.save
-        format.html { redirect_to @acceso, notice: 'Acceso was successfully created.' }
+        format.html { redirect_to '/panel', notice: 'Acceso was successfully created.' }
         format.json { render :show, status: :created, location: @acceso }
       else
         format.html { render :new }

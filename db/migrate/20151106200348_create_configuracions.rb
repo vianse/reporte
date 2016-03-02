@@ -3,6 +3,8 @@ class CreateConfiguracions < ActiveRecord::Migration
     create_table :configuracions do |t|
       t.string :internas
       t.string :dias
+      t.string :garantias
+      t.string :dias_garantias
       t.string :app_id
       t.string :group_id
       t.string :tipo
