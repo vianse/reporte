@@ -38,7 +38,7 @@ end
 group :production do 
 
 	gem 'pg'
-	#gem 'unicorn'
+	gem 'unicorn'
 	gem 'mailgun-ruby'
 	gem 'rest-client'
 end 
