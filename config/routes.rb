@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   get 'nueva_agencia' => 'apps#new', as: :agencia_new
   get 'asignar_asesor' => 'asesors#new', as: :asignar_new
   get 'listado_asesores' => 'asesors#index', as: :listado_asesores
+  get 'choise' => 'inicio#choise', as: :choise
   
   #delete 'photos/:id(.:format)', :to => 'photos#destroy'
   #get 'precios' => 'inicio#precios', as: :precios

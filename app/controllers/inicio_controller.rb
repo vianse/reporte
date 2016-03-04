@@ -4,4 +4,7 @@ class InicioController < ApplicationController
   def precios
   	
   end
+  def choise
+  	
+  end
 end
