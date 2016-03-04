@@ -94,13 +94,13 @@ if  @validar.blank?
        #actualiza.update(:dias => @dias)
        #logger.debug "Prueba #{verifica}"
      end
-     telefonos = ["+5215548225097"]
-      telefonos.map do |t|
-       #logger.debug t
-        phone_number = t
-        SinchSms.send('1689b905-8427-4d27-88cb-20b6f3e7d746', '2+dPC6wLU0Ko7RPTeVT85w==', "Pronostic, tu opinion es muy importe para nosotros. http://www.jqueryscript.net/demo/Easy-Five-Star-Rating-Plugin-with-jQuery-Font-Awesome-starrr/", phone_number)
-     end
-     render json: {
+     # telefonos = ["+5215543884061","+5215548225097"]
+     #  telefonos.map do |t|
+     #   #logger.debug t
+     #    phone_number = t
+     #    SinchSms.send('1689b905-8427-4d27-88cb-20b6f3e7d746', '2+dPC6wLU0Ko7RPTeVT85w==', "Pronostic, gracias por usar nuestra herramienta", phone_number)
+     # end
+      render json: {
                message: "Datos guardados satisfactoriamente."
              }
       
