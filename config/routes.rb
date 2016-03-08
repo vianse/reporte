@@ -99,6 +99,12 @@ Rails.application.routes.draw do
   get 'nuevo_usuario' => 'registrar#create', as: :usuario_new
   match 'usuario/:id' => 'registrar#destroy', :via => :delete, :as => :admin_destroy_user
   get 'nuevo_acceso' => 'accesos#new', as: :acceso_new
+  get 'perfiles' => 'accesos#perfiles', as: :perfiles
+  get 'nuevo_perfil' => 'accesos#nuevo_perfil', as: :nuevo_perfil
+  get 'nuevo_perfil_postventa' => 'accesos#nuevo_perfil_postventa', as: :nuevo_perfil_postventa
+  get 'nuevo_perfil_hyp' => 'accesos#nuevo_perfil_hyp', as: :nuevo_perfil_hyp
+  get 'nuevo_perfil_asesores' => 'accesos#nuevo_perfil_asesores', as: :nuevo_perfil_asesores
+  get 'nuevo_perfil_garantias' => 'accesos#nuevo_perfil_garantias', as: :nuevo_perfil_garantias
   get 'nueva_agencia' => 'apps#new', as: :agencia_new
   get 'asignar_asesor' => 'asesors#new', as: :asignar_new
   get 'listado_asesores' => 'asesors#index', as: :listado_asesores

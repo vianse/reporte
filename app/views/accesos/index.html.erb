@@ -92,6 +92,9 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 td{
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+a.blanco{
+  color: white!important;
+}
 </style>
 <body>
 
@@ -136,115 +139,52 @@ td{
     
     <!-- begin #content -->
   <div id="content" class="content">  
-
-      <% if @acceso == 0  %> 
-   <div class="row">
-                    <!-- begin col-2 -->
-      <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <!-- begin widget -->
-          <h1>Accesos</h1>
-       
-                        <!-- end widget -->
-                        <!-- begin widget -->
-          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera </p>
-                        <!-- end widget -->
-        </div>
-        <div class="col-md-6">
-                        <!-- begin widget -->
-
-          <a  id="agencias" href="/nuevo_acceso?group_id=" class="widget widget-stat bg-primary text-white alinear button">Continuar</a>
-                        <!-- end widget -->
-        </div>
-                    <!-- end col-4 -->
-      </div>
-                
-  <% end %>
-  <% if @acceso >= 1  %> 
-
-   <h1>Accesos</h1>
-   <div class="panel">
-                 <div class="panel-heading">
-                    <%= link_to '/panel',:class=>"link"  do %>
-                      <i class="fa fa-reply"></i> Regresar
-                      <% end %>
-                      
-                      <%= link_to  '/nueva_agencia?group_id=' ,id: "agencias",:class=>"link" do %>
-                      <i class="fa fa-automobile"></i> Nuevo Acceso
-                      <% end %>
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped table-td-valign-middle">
-                               <thead>
-                                <tr class="inverse">
-                             <th>Usuario</th>
-                                  <th>Acceso con nivel grupo</th>
-                                  <th>Acceso con nivel servicio</th>
-                                  <th>Acceso con nivel hyp</th>
-                                  <th>Acceso con nivel asesores</th>
-                                  <th>Acceso con nivel garantias</th>
-                                  <th colspan="3"></th>
-                                </tr>
-                              </thead>
-
-                              <tbody>
-                                <% @accesos.each do |acceso| %>
-                                  <tr>
-                                    <td><%= acceso.user.email %></td>
-                                    <% if acceso.group_id.blank? %>
-                                    <td><%= acceso.group_id %></td>
-                                    <% else %>
-                                    <td><%= image_tag "plat-fbcheck.png", size: "30x30" %> -- <%= Group.where(:group_id => acceso.group_id).pluck(:name).first%></td>
-                                    <% end %> 
-                                    <% if acceso.app_id_s.blank? %>
-                                    <td><%= acceso.app_id_s %></td>
-                                    <% else %>
-                                    <td><%= image_tag "plat-fbcheck.png", size: "30x30" %>-- <%= App.where(:api_key => acceso.app_id_s).pluck(:name).first%></td>
-                                    <% end %> 
-                                    <% if acceso.app_id_h.blank? %>
-                                      <td><%= acceso.app_id_h %></td>
-                                    <% else %>
-                                   <td><%= image_tag "plat-fbcheck.png", size: "30x30" %>-- <%= App.where(:api_key => acceso.app_id_h).pluck(:name).first%></td>
-                                    <% end %> 
-                                    <% if acceso.asesor.blank? %>
-                                      <td><%= acceso.app_id_h %></td>
-                                    <% else %>
-                                   <td><%= image_tag "plat-fbcheck.png", size: "30x30" %>-- <%= App.where(:api_key => acceso.asesor).pluck(:name).first%></td>
-                                    <% end %> 
-                                      <% if acceso.garantias.blank? %>
-                                      <td><%= acceso.garantias %></td>
-                                    <% else %>
-                                   <td><%= image_tag "plat-fbcheck.png", size: "30x30" %>-- <%= App.where(:api_key => acceso.garantias).pluck(:name).first%></td>
-                                    <% end %>
-                                    <td>
-                                        <%= link_to 'Eliminar', acceso, method: :delete, data: { confirm: 'Are you sure?' } %>
-                                    </td>
-                                  </tr>
-                                <% end %>
-                              </tbody>
-                            </table>  
-            </div>
-        </div>
-
+  <h1>Accesos</h1>
+                <p>
+                <a href="/panel" class="btn btn-lg btn-danger blanco">
+                <i class="fa fa-reply pull-left"></i>Regresar al panel<br></a>
+                </p></br>
+  <p>
+                        <a href="/perfiles?tipo=gg" id="agencias" class="btn btn-lg btn-primary blanco">
+                          <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Nivel Gerente General<br>
+                          <small> Total de usuarios: <%= @acceso_gg %></small>
+                        </a>
+                    
+                        <a href="/perfiles?tipo=gp" id="agencias1" class="btn btn-lg btn-info blanco">
+                        <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Nivel Gerente Post-Venta<br>
+                        <small> Total de usuarios: <%= @acceso_gp %></small>
+                        </a>
+          
+                        <a href="/perfiles?tipo=hyp" id="agencias2" class="btn btn-lg btn-inverse blanco">
+                        <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Nivel Jefe de Hojalateria<br>
+                        <small> Total de usuarios: <%= @acceso_hyp %></small>
+                        </a>
+                        <a href="/perfiles?tipo=as" id="agencias3" class="btn btn-lg btn-success blanco">
+                            <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Nivel Asesor de Servicio<br>
+                                   <small> Total de usuarios: <%= @acceso_as %></small>
+                        </a>
+                        <a href="/perfiles?tipo=ga" id="agencias4" class="btn btn-lg btn-warning blanco">
+                            <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Nivel Garantias<br>
+                                    <small> Total de usuarios: <%= @acceso_ga %></small>
+                        </a>
+                       
+                      </p>
 
      <br>
 
     <!--<%= link_to 'Crear grupo', group_new_path ,:class=>"btn btn-success m-r-5 m-b-5" %>--> 
     <!-- begin #page-loader -->   
-    <% end %>
+ 
   
       </div>    
 </div>
 
-            <div id="footer" class="footer">
-                <span class="pull-right">
-                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
-                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
-                    </a>
-                </span>
-                &copy; 2015 <b>vianse</b> All Right Reserved
-            </div>
-            <!-- end #footer -->
+            
     </div>
   </div>
   <!-- end page container -->
@@ -291,9 +231,25 @@ var getUrlParameter = function getUrlParameter(sParam) {
         var grupo = getUrlParameter('group_id');
 
 
-        var url = "/nuevo_acceso?group_id=" + grupo;
+        var url = "/perfiles?tipo=gg&group_id=" + grupo;
         var element = document.getElementById('agencias');
         element.setAttribute("href",url)
+
+        var url1 = "/perfiles?tipo=gp&group_id=" + grupo;
+        var element = document.getElementById('agencias1');
+        element.setAttribute("href",url1)
+
+        var url2 = "/perfiles?tipo=hyp&group_id=" + grupo;
+        var element = document.getElementById('agencias2');
+        element.setAttribute("href",url2)
+
+        var url3 = "/perfiles?tipo=as&group_id=" + grupo;
+        var element = document.getElementById('agencias3');
+        element.setAttribute("href",url3)
+
+        var url4 = "/perfiles?tipo=ga&group_id=" + grupo;
+        var element = document.getElementById('agencias4');
+        element.setAttribute("href",url4)
 
 
   </script>

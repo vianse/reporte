@@ -4,8 +4,37 @@ class AccesosController < ApplicationController
   # GET /accesos
   # GET /accesos.json
   def index
+  
     @accesos = Acceso.where(:usuario => current_sistema.id)
+    @acceso_gg = Acceso.where(:usuario => current_sistema.id).where.not(:group_id => nil).count
+    @acceso_gp = Acceso.where(:usuario => current_sistema.id).where.not(:app_id_s => nil).count
+    @acceso_hyp = Acceso.where(:usuario => current_sistema.id).where.not(:app_id_h => nil).count
+    @acceso_as = Acceso.where(:usuario => current_sistema.id).where.not(:asesor => nil).count
+    @acceso_ga = Acceso.where(:usuario => current_sistema.id).where.not(:garantias => nil).count
+
+  end
+
+  def perfiles
+    if params[:tipo] == "gg"
+    @accesos = Acceso.where(:usuario => current_sistema.id).where.not(:group_id => nil)
     @acceso = Acceso.where(:usuario => current_sistema.id).count
+    end
+    if params[:tipo] == "gp"
+    @accesos = Acceso.where(:usuario => current_sistema.id).where.not(:app_id_s => nil)
+    @acceso = Acceso.where(:usuario => current_sistema.id).count
+    end
+    if params[:tipo] == "hyp"
+    @accesos = Acceso.where(:usuario => current_sistema.id).where.not(:app_id_h => nil)
+    @acceso = Acceso.where(:usuario => current_sistema.id).count
+    end
+    if params[:tipo] == "as"
+    @accesos = Acceso.where(:usuario => current_sistema.id).where.not(:asesor => nil)
+    @acceso = Acceso.where(:usuario => current_sistema.id).count
+    end
+    if params[:tipo] == "ga"
+    @accesos = Acceso.where(:usuario => current_sistema.id).where.not(:garantias => nil)
+    @acceso = Acceso.where(:usuario => current_sistema.id).count
+    end
   end
 
   # GET /accesos/1
@@ -15,6 +44,41 @@ class AccesosController < ApplicationController
 
   # GET /accesos/new
   def new
+    @user = User.where(:group_id => params[:group_id])
+    @group = Group.where(:user_id => current_sistema.id)
+    @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
+    @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
+    @acceso = Acceso.new
+  end
+  def nuevo_perfil
+    @user = User.where(:group_id => params[:group_id])
+    @group = Group.where(:user_id => current_sistema.id)
+    @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
+    @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
+    @acceso = Acceso.new
+  end
+  def nuevo_perfil_postventa
+    @user = User.where(:group_id => params[:group_id])
+    @group = Group.where(:user_id => current_sistema.id)
+    @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
+    @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
+    @acceso = Acceso.new
+  end
+  def nuevo_perfil_hyp
+    @user = User.where(:group_id => params[:group_id])
+    @group = Group.where(:user_id => current_sistema.id)
+    @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
+    @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
+    @acceso = Acceso.new
+  end
+  def nuevo_perfil_asesores
+    @user = User.where(:group_id => params[:group_id])
+    @group = Group.where(:user_id => current_sistema.id)
+    @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
+    @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
+    @acceso = Acceso.new
+  end
+  def nuevo_perfil_garantias
     @user = User.where(:group_id => params[:group_id])
     @group = Group.where(:user_id => current_sistema.id)
     @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")

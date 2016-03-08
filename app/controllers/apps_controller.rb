@@ -6,8 +6,8 @@ class AppsController < ApplicationController
   # GET /apps.json
   def index
     @apps = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id])
-    @app = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id]).count
-   
+    @app  = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id]).count
+    
   end
 
   # GET /apps/1

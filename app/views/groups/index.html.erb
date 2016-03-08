@@ -85,8 +85,25 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 .row{
   margin-top: 10%!important;
 }
+.row1{
+  margin-top: 10%!important;
+}
 .nobordes{
   border-style: none!important;
+}
+button{
+  border: 0px;
+  background-color: transparent;
+  width: auto;
+}
+.widget{
+  margin-bottom: 0px!important;
+}
+td{
+  margin-top: 0px!important;
+}
+a.blanco{
+  color: white!important;
 }
 </style>
 <body>
@@ -102,7 +119,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
       <div class="container-fluid">
         <!-- begin mobile sidebar expand / collapse button -->
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
+          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1457411162/worbe/logo_1_vsvzvq.jpg" height="35px" width="200px"></a>
           <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -157,43 +174,45 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
   <% if @grupo == 1  %> 
      <div class="panel">
         <div class="panel-heading">
-          <strong>Mi Balance $ 0 MNX</strong>
+          <strong>Mi Panel</strong>
         </div>
+
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped table-td-valign-middle">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th></th>
-                <th></th>
+        
               </tr>
             </thead>
             <tbody>
               <% @groups.each do |group| %>
              
                     <tr>
-                    <td>
+                    <td>  
+                    <strong><%= group.name %></strong>
                     
-                      <%= link_to '/agencias?group_id=' + group.group_id,:class=>"link" do %>
-                      <i class="fa fa-building"></i> Agencias
-                      <% end %>
-                      
-                      <%= link_to '/usuarios?group_id=' + group.group_id ,:class=>"link" do %>
-                      <i class="fa fa-male"></i> Usuarios
-                      <% end %>
-                      <%= link_to '/accesos?group_id=' + group.group_id,:class=>"link" do %>
-                      <i class="fa fa-unlock-alt"></i> Accesos
-                      <% end %>
                     </td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-               
-                  <tr>
-                    <td><strong><%= group.name %></strong></td>
-                    <td><strong><%= @agencia %></strong> Agencias</td>
-                    <td><strong><%= @usuario %></strong> Usuarios</td>
-
+                    <td><p>
+                        <a href="/agencias?group_id=<%= group.group_id%>" class="btn btn-lg btn-primary blanco">
+                            <i class="fa fa-building fa-2x pull-left"></i>
+                                    Sucursales<br>
+                                    <small> Total: <%= @agencia %></small>
+                                </a>
+                    
+                        <a href="/usuarios?group_id=<%= group.group_id%>" class="btn btn-lg btn-info blanco">
+                            <i class="fa fa-users fa-2x pull-left"></i>
+                                    Usuarios<br>
+                                    <small> Total: <%= @usuario %></small>
+                        </a>
+          
+                        <a href="/accesos?group_id=<%= group.group_id%>" class="btn btn-lg btn-inverse blanco">
+                            <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Configuracion de<br>
+                                    <small>Accesos</small>
+                        </a>
+                      </p>
+                  </td>
+                   
                   </tr>
               <% end %>
             </tbody>
@@ -209,15 +228,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
       </div>    
 </div>
 
-            <div id="footer" class="footer">
-                <span class="pull-right">
-                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
-                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
-                    </a>
-                </span>
-                &copy; 2015 <b>vianse</b> All Right Reserved
-            </div>
-            <!-- end #footer -->
+    
     </div>
   </div>
   <!-- end page container -->

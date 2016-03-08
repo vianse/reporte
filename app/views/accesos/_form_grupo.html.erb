@@ -67,7 +67,11 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   .row{
-    margin-top: 10%;
+    margin-top: 5%;
+  }
+
+  a.blanco{
+    color: white;
   }
 
 </style>
@@ -84,7 +88,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
       <div class="container-fluid">
         <!-- begin mobile sidebar expand / collapse button -->
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1457411162/worbe/logo_1_vsvzvq.jpg" height="35px" width="200px"></a>
+          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
           <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -119,37 +123,27 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
                     <!-- begin col-2 -->
       <div class="col-md-1"></div>
         <div class="col-md-4">
-          <h1> Crear usuarios </h1>
-          <p>Esta opción te permiete crear los usuarios que usaran la herramienta. </p>
+          <h1> Crear acceso </h1>
+          <p>Esta opción permite asignar los accesos a cada uno de tus usuarios </p>
         </div>
         <div class="col-md-6">
           <div class="panel-body">
-
-               <%= form_tag controller: "registrar", action:  "create", method: "post" do %>
-
-          <div class="field">
-            <%= label_tag 'Correo electronico empresarial' %><br />
-            <%= text_field_tag :email,nil,:required => true , :class => "form-control", :placeholder => "example@empresa.com"  %>
-          </div>
-
-          <div class="field">
-            <%= label_tag 'Ingresa una contraseña' %>
-            <% if @validatable %>
-            <em>(<%= @minimum_password_length %> characters minimum)</em>
-            <% end %><br />
-            <%= password_field_tag :password, nil,:required => true, :class => "form-control tamano", :placeholder => "La contraseña debe tener 8 caracteres como minimo" %>
-          </div>
-
-          <div class="field">
-            <%= label_tag 'Escribe nuevamente la contraseña' %><br />
-            <%= password_field_tag :password_confirmation, nil,:required => true, :class => "form-control tamano", :placeholder => "La contraseña debe tener 8 caracteres como minimo" %>
-          </div>
-          <div class="field">
-            <%= hidden_field_tag :group_id, params[:group_id], :class => "form-control tamano" %>
-          </div>
-               
+            <p><a href="/accesos?group_id=" id="back" class="btn btn-lg btn-danger blanco">
+                            <i class="fa fa-reply pull-left"></i>
+                                    Regresar<br>
+                                    
+                </a></p></br>
+             <%= form_tag( { :controller => 'accesos',:action => 'create'}, :method => "POST" ) do %>
+                    <div class="field">
+                      <%= collection_select(nil, :usuario, @user, :id, :email, {:prompt => 'Selecciona un usuario'},:required => true, :class => "form-control")%>
+                    </div>
+                    <div class="field">
+                      <p>Selecciona si quieres que el usuario tenga el accesos a nivel grupo</p>
+                        <%= collection_select(nil, :group_id, @group, :group_id, :name, {}, :class => "form-control")%>
+                    </div>
+                    
                 <div class="actions">
-                  <%= submit_tag "Crear",:class=>"widget widget-stat bg-primary text-white alinear button"  %>
+                  <%= submit_tag "Asignar",:class=>"widget widget-stat bg-primary text-white alinear button"  %>
                 </div>
               <% end %>
 
@@ -199,6 +193,26 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
         App.init();
 
     });
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+        var grupo = getUrlParameter('group_id');
+        var tipo = getUrlParameter('tipo');
+
+         var back = "/accesos?group_id=" + grupo;
+          var element = document.getElementById('back');
+          element.setAttribute("href",back)
   </script>
 </body data-no-turbolink data-no-transition-cache>
 </html>
@@ -209,7 +223,6 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 <script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
 <script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
 
 
 

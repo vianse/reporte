@@ -92,6 +92,9 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 td{
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+a.blanco{
+  color: white!important;
+}
 </style>
 <body>
 
@@ -165,13 +168,16 @@ td{
    <h1>Agencias</h1>
    <div class="panel">
                  <div class="panel-heading">
-                    <%= link_to '/panel',:class=>"link"  do %>
-                      <i class="fa fa-reply"></i> Regresar
-                      <% end %>
-                      
-                      <%= link_to  '/nueva_agencia?group_id=' ,id: "agencias",:class=>"link" do %>
-                      <i class="fa fa-automobile"></i> Nueva Agencia
-                      <% end %>
+                  <a href="/nueva_agencia?group_id=" id="agencias" class="btn btn-lg btn-info blanco">
+                            <i class="fa fa-automobile pull-left"></i>
+                                    Nueva Agencia<br>
+                                    
+                     </a>
+                    <a href="/panel" class="btn btn-lg btn-danger blanco">
+                            <i class="fa fa-reply pull-left"></i>
+                                    Regresar<br>
+                                    
+                      </a>
                   </div>
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped table-td-valign-middle">
