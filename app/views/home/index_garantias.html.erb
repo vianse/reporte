@@ -96,6 +96,15 @@
     margin-left: 50px;
    
      }
+    .oculto{
+      display: none;
+    }
+    .mostrar{
+    font-size: 21px;
+    font-weight: bold;
+    }
+
+    
 
 </style>
 <body>
@@ -222,6 +231,8 @@
 			<!-- begin page-header -->
 			<h1 class="page-header"><span class="empresa"> Garantias al dia: </span> <small id="fecha"></small></h1>
 			<!-- end page-header -->
+            <div class="" id="oculto">Aun no contamos con la información necesaria para ponernos a trabajar</div>
+
 
             <div id="panel" class="">
                             <div class="panel-heading">
@@ -234,7 +245,9 @@
                                 <div class="row"> 
                                     <div class="panel">
                                         <div id="flotante">
-                                            <div class="fa fa-circle circle-green A" id="circulo"></div><h3 class="B" id="mensaje"></h3></br>
+                                            <div class="fa fa-circle circle-green A" id="circulo">
+                                            </div>
+                                            <h3 class="B" id="mensaje"></h3></br>
                                             <div id="semaforo"></div>
                                              <div class="fa fa-circle circle-green c">
                                                 <strong id="verde"></strong>
@@ -320,7 +333,7 @@
 <script type="text/javascript">
 	function valor(value){
 		 $( "#panel" ).attr('class', value);
-        
+      
 	};	
 	function valor1(value){
 		$('#progress').attr('style', value);
@@ -329,23 +342,34 @@
 
     function valor2(value){
        $( "#mensaje" ).text(value);
-       
+        
     };
     function valor3(value){
        $( "#circulo" ).attr('class', value);
-       
+      
     };
     function valor4(value){
        $( "#verde" ).text(value);
-    
+       
     };
     function valor5(value){
        $( "#amarillo" ).text(value);
-       
+        
     };
     function valor6(value){
        $( "#rojo" ).text(value);
+      
        
+    };
+
+    function valor7(value){
+        $( "#panel" ).attr('class', value);
+        $( "#oculto" ).attr('class', "mostrar");
+    };
+
+    function valor8(value){
+       
+        $( "#oculto" ).attr('class', value);
     };
    
 
@@ -503,6 +527,7 @@
                       valor("panel panel-success");
                       valor2("Felicidades sigue por ese camino"); 
                       valor3("fa fa-circle circle-green A"); 
+                      valor8("oculto");
                     
                  }
 
@@ -511,13 +536,18 @@
                       valor("panel panel-warning"); 
                       valor2("¡Puedes mejorar...!"); 
                       valor3("fa fa-circle circle-yellow A");
-                     
+                     valor8("oculto");
                     } 
                     
                 if (variable === 2)
                     {
                           valor("panel panel-danger"); 
                           valor2("Analisa tus tiempos de cobro, tu indicador es preocupante");valor3("fa fa-circle circle-red A");
+                        valor8("oculto");
+                    }
+                if (variable == null)
+                    {
+                          valor7("oculto");
                         
                     }
 
