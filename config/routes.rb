@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
+  resources :appadmins
+  get 'adminuser/index'
+
   get 'template/template'
 
   resources :garantia
   get 'usuarios' => 'registrar#index', as: :usuarios
+  get 'administradores' => 'adminuser#index', as: :administradores
   post 'registrar/create'
+  post 'adminuser/create'
+  post 'appadmins/create'
   resources :subgroups
   resources :asesors
   get 'charges/index'
@@ -94,10 +100,13 @@ Rails.application.routes.draw do
   get 'sucursales' => 'sucursales#index', as: :sucursales
   get 'agencias' => 'apps#index', as: :agencias
   get 'agencias/new' => 'apps#new', as: :agencias_new
-  get 'panel' => 'groups#index', as: :panel
+  get 'panel' => 'apps#index_sistemas', as: :panel
+  get 'administracion' => 'groups#index_super', as: :administracion
   get 'nuevo_grupo' => 'groups#new', as: :group_new
   get 'nuevo_usuario' => 'registrar#create', as: :usuario_new
+  get 'nuevo_admin' => 'adminuser#create', as: :nuevo_admin
   match 'usuario/:id' => 'registrar#destroy', :via => :delete, :as => :admin_destroy_user
+  match 'admin/:id' => 'adminuser#destroy', :via => :delete, :as => :admin_destroy
   get 'nuevo_acceso' => 'accesos#new', as: :acceso_new
   get 'perfiles' => 'accesos#perfiles', as: :perfiles
   get 'nuevo_perfil' => 'accesos#nuevo_perfil', as: :nuevo_perfil

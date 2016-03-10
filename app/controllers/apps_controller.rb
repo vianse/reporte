@@ -1,12 +1,22 @@
 class AppsController < ApplicationController
   before_action :set_app, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_sistema! , :except => [:index]
+  #before_action :authenticate_sistema! , :except => [:index]
+  #before_action :authenticate_super! , :except => [:index,:new]
 
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id])
-    @app  = App.where(:user_id => current_sistema.id).where(:group_id => params[:group_id]).count
+    @apps = App.where(:user_id => current_super.id).where(:group_id => params[:group_id])
+    @app  = App.where(:user_id => current_super.id).where(:group_id => params[:group_id]).count
+    
+  end
+
+  def index_sistemas
+    acceso= Appadmin.where(:admin_id => current_sistema.id).pluck(:app_id)
+    @grupo= Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id).first
+    @grupo_name = Group.where(:group_id => @grupo).pluck(:name).first
+    @apps = App.where(:api_key => acceso)
+    @app  = App.where(:user_id => current_sistema.id).where(:group_id => @grupo).count
     
   end
 

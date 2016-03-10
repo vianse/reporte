@@ -5,4 +5,5 @@ class Sistema < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         scope :existe ,-> (email) {where("email = ?", email)} 
 end

@@ -97,12 +97,12 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown navbar-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs"><%= current_sistema.email %></span> <b class="caret"></b>
+              <span class="hidden-xs"><%= current_super.email %></span> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu pull-right">
               <li><a href="/users/edit">Seguridad</a></li>
               <li class="divider"></li>
-              <li><%= link_to "Cerrar sesión", destroy_sistema_session_path, method: :delete  %></li>
+              <li><%= link_to "Cerrar sesión", destroy_super_session_path, method: :delete  %></li>
             </ul>
           </li>
         </ul>
@@ -141,7 +141,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
                   <%= select_tag(:type_app, options_for_select([['Servicio', "Servicio"], ['HYP', "HYP"]]), :class => "form-control") %>
                 </div>
                  <div class="field">
-                  <%= hidden_field_tag :user_id,nil,:value => current_sistema.id %>
+                  <%= hidden_field_tag :user_id,nil,:value => current_super.id %>
                 </div>
                
                 <div class="actions">

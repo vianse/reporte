@@ -139,47 +139,15 @@ a.blanco{
     
     <!-- begin #content -->
   <div id="content" class="content">  
-
-      <% if @usuario == 0  %> 
-   <div class="row">
-                    <!-- begin col-2 -->
-      <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <!-- begin widget -->
-          <h1>Usuarios</h1>
-       
-                        <!-- end widget -->
-                        <!-- begin widget -->
-          <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera </p>
-                        <!-- end widget -->
-        </div>
-        <div class="col-md-6">
-                        <!-- begin widget -->
-
-          <a  id="agencias" href="/nuevo_usuario?group_id=" class="widget widget-stat bg-primary text-white alinear button">Continuar</a>
-                        <!-- end widget -->
-        </div>
-                    <!-- end col-4 -->
-      </div>
-                
-  <% end %>
-  <% if @usuario >= 1  %> 
-
    <h1>Usuarios</h1>
    <div class="panel">
                  <div class="panel-heading">
-                  <a href="/nueva_agencia?group_id=" id="agencias" class="btn btn-lg btn-info blanco">
-                            <i class="fa fa-automobile pull-left"></i>
-                                    Nuevo usuario<br>
-                                    
-                     </a>
+                    <a href="/nuevo_usuario?group_id=<%= @grupo %>&app_id=<%= @app %>" id="agencias" class="btn btn-lg btn-info blanco">
+                     <i class="fa fa-automobile pull-left"></i>Nuevo usuario<br>
+                    </a>
                     <a href="/panel" class="btn btn-lg btn-danger blanco">
-                            <i class="fa fa-reply pull-left"></i>
-                                    Regresar<br>
-                                    
-                      </a>
-
-                    
+                      <i class="fa fa-reply pull-left"></i>Regresar<br>
+                    </a>
                   </div>
                   <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped table-td-valign-middle">
@@ -208,7 +176,7 @@ a.blanco{
 
     <!--<%= link_to 'Crear grupo', group_new_path ,:class=>"btn btn-success m-r-5 m-b-5" %>--> 
     <!-- begin #page-loader -->   
-    <% end %>
+   
   
       </div>    
 </div>
@@ -266,9 +234,9 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     };
         var grupo = getUrlParameter('group_id');
+        var app_id = getUrlParameter('app_id');
 
-
-        var url = "/nuevo_usuario?group_id=" + grupo;
+        var url = "/nuevo_usuario?group_id=" + grupo + "&app_id=" + app_id ;
         var element = document.getElementById('agencias');
         element.setAttribute("href",url)
 

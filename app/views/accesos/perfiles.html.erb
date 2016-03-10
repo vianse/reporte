@@ -252,40 +252,41 @@ var getUrlParameter = function getUrlParameter(sParam) {
     };
         var grupo = getUrlParameter('group_id');
         var tipo = getUrlParameter('tipo');
+        var app = getUrlParameter('app_id');
 
-         var back = "/accesos?group_id=" + grupo;
+         var back = "/accesos?group_id=" + grupo + "&app_id=" + app;
           var element = document.getElementById('back');
           element.setAttribute("href",back)
 
 
         if (tipo == "gg"){
-          var url = "/nuevo_perfil?group_id=" + grupo;
+          var url = "/nuevo_perfil?group_id=" + grupo+ "&app_id=" + app;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
 
         if (tipo == "gp"){
-          var url = "/nuevo_perfil_postventa?group_id=" + grupo;
+          var url = "/nuevo_perfil_postventa?group_id=" + grupo+ "&app_id=" + app;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
 
         if (tipo == "hyp"){
-          var url = "/nuevo_perfil_hyp?group_id=" + grupo;
+          var url = "/nuevo_perfil_hyp?group_id=" + grupo+ "&app_id=" + app;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
         if (tipo == "as"){
-          var url = "/nuevo_perfil_asesores?group_id=" + grupo;
+          var url = "/nuevo_perfil_asesores?group_id=" + grupo+ "&app_id=" + app;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
         if (tipo == "ga"){
-          var url = "/nuevo_perfil_garantias?group_id=" + grupo;
+          var url = "/nuevo_perfil_garantias?group_id=" + grupo+ "&app_id=" + app;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 

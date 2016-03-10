@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216000251) do
+ActiveRecord::Schema.define(version: 20160310015339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(version: 20160216000251) do
   end
 
   add_index "accesos", ["user_id"], name: "index_accesos_on_user_id", using: :btree
+
+  create_table "appadmins", force: :cascade do |t|
+    t.string   "app_id"
+    t.string   "group_id"
+    t.string   "admin_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "apps", force: :cascade do |t|
     t.string   "name"
@@ -168,6 +176,8 @@ ActiveRecord::Schema.define(version: 20160216000251) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "group_id"
+    t.string   "app_id"
   end
 
   add_index "sistemas", ["email"], name: "index_sistemas_on_email", unique: true, using: :btree

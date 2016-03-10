@@ -34,6 +34,8 @@ body{
   height: :60px!important;
   font-size: 18px;
   border-radius: 10px;
+  margin-top: 55px;
+  margin-left: 10%;
 }
 .alinear:hover{
   opacity: .75;
@@ -57,19 +59,52 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     text-decoration: none;
     color: white;
   }
-  label {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    word-wrap: break-word;
-    font-size: 22px;
-    margin-bottom: 10px;
-  }
-  input{
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
   .row{
     margin-top: 10%;
   }
 
+  strong{
+    color: hsl(0, 0%, 33%);
+    display: inline;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  a.link {
+    font-size: 12px;
+    line-height: 14px;
+    margin-right: 20px;
+    margin-top: -5px;
+    text-decoration: none;
+    color: hsl(202, 100%, 38%)!important;
+  }
+.table>thead>tr>th {
+    border-style: none;
+    border-bottom: none!important;
+}
+.row{
+  margin-top: 10%!important;
+}
+.row1{
+  margin-top: 10%!important;
+}
+.nobordes{
+  border-style: none!important;
+}
+button{
+  border: 0px;
+  background-color: transparent;
+  width: auto;
+}
+.widget{
+  margin-bottom: 0px!important;
+}
+td{
+  margin-top: 0px!important;
+}
+a.blanco{
+  color: white!important;
+}
 </style>
 <body>
 
@@ -84,7 +119,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
       <div class="container-fluid">
         <!-- begin mobile sidebar expand / collapse button -->
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
+          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1457411162/worbe/logo_1_vsvzvq.jpg" height="35px" width="200px"></a>
           <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -97,28 +132,16 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown navbar-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs">
-                <% if sistema_signed_in? %>
-                <%= current_sistema.email %>
-                <% else %>
-                <%= current_super.email %>
-                <% end %>
-              </span> <b class="caret"></b>
+              <span class="hidden-xs"><%= current_super.email %></span> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu pull-right">
               <li><a href="/users/edit">Seguridad</a></li>
               <li class="divider"></li>
-              <li>
-                <% if sistema_signed_in? %>
-                <%= link_to "Cerrar sesión", destroy_sistema_session_path, method: :delete  %>
-                <% else %>
-                <%= link_to "Cerrar sesión", destroy_super_session_path, method: :delete  %>
-                <% end %>
-
-                </li>
+              <li><%= link_to "Cerrar sesión", destroy_super_session_path, method: :delete  %></li>
             </ul>
           </li>
         </ul>
+         
         <!-- end navbar-right -->
       </div>
       <!-- end container-fluid -->
@@ -128,63 +151,65 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     <!-- begin #content -->
   <div id="content" class="content">          
 
-   <div class="row">
-                    <!-- begin col-2 -->
-      <div class="col-md-1"></div>
-        <div class="col-md-4">
-          <h1> Crear grupo </h1>
-          <p>Esta opción permite crear el nombre del grupo de agencias </p>
+     <div class="panel">
+        <a href="/nuevo_grupo"  class="btn btn-lg btn-primary blanco">
+          <i class="fa fa-unlock-alt pull-left"></i>
+           Crear Nuevo Grupo<br>
+        </a>
+        <div class="panel-heading">
+          <strong>Mi Panel</strong>
         </div>
-        <div class="col-md-6">
-          <div class="panel-body">
-            <%= form_for(@group) do |f| %>
-              <% if @group.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-                  <ul>
-                  <% @group.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                  <% end %>
-                  </ul>
-                </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped table-td-valign-middle">
+            <thead>
+              <tr>
+        
+              </tr>
+            </thead>
+            <tbody>
+              <% @groups.each do |group| %>
+             
+                    <tr>
+                    <td>  
+                    <strong><%= group.name %></strong>
+                    
+                    </td>
+                    <td><p>
+                      
+                          <a href="/agencias?group_id=<%= group.group_id%>" class="btn btn-lg btn-primary blanco">
+                              <i class="fa fa-building fa-2x pull-left"></i>
+                                      Sucursales<br>
+                                      <small> Total: <%= App.where(:group_id => group.group_id).count %></small>
+                          </a>
+
+                           <a href="/adminuser/index?group_id=<%= group.group_id%>" class="btn btn-lg btn-info blanco">
+                               <i class="fa fa-users fa-2x pull-left"></i>
+                                    Crear Administradores<br>
+                                    <small> Total: <%= Sistema.where(:group_id => group.group_id).count %></small>
+                             </a>
+                       
+                    
+                        
+                      </p>
+                  </td>
+                   
+                  </tr>
               <% end %>
-
-              <div class="form-group">
-                <%= f.label "Escribe un nombre representativo para tu grupo de agencias" %><br>
-                <%= f.text_field :name, :class => "form-control", :placeholder => " Eje. Grupo Automotriz del Norte" %>
-              </div>
-              <div class="form-group">
-              
-                <%= f.hidden_field :group_id,:value => rand(0..100000000000), :class => "form-control" %>
-              </div>
-              <div class="form-group">
-                
-                <%= f.hidden_field :user_id,:value => current_super.id, :class => "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.submit "Guardar", :class=>"widget widget-stat bg-primary text-white alinear button" %>
-              </div>
-            <% end %>
-              <hr/>
-          </div>
+            </tbody>
+            </table>
         </div>
-        <div class="col-md-1">
-        </div>         <!-- end col-4 -->
       </div>
-                
+     <br>
+
+    <!--<%= link_to 'Crear grupo', group_new_path ,:class=>"btn btn-success m-r-5 m-b-5" %>--> 
+    <!-- begin #page-loader -->   
+
+  
       </div>    
 </div>
 
-            <div id="footer" class="footer">
-                <span class="pull-right">
-                    <a href="javascript:;" class="btn-scroll-to-top" data-click="scroll-top">
-                        <i class="fa fa-arrow-up"></i> <span class="hidden-xs">Back to Top</span>
-                    </a>
-                </span>
-                &copy; 2015 <b>vianse</b> All Right Reserved
-            </div>
-            <!-- end #footer -->
+    
     </div>
   </div>
   <!-- end page container -->
@@ -222,7 +247,3 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 <script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
 <script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-
-
-

@@ -67,7 +67,7 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   .row{
-    margin-top: 10%;
+    margin-top: 5%;
   }
 
 </style>
@@ -97,25 +97,12 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown navbar-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs">
-                <% if sistema_signed_in? %>
-                <%= current_sistema.email %>
-                <% else %>
-                <%= current_super.email %>
-                <% end %>
-              </span> <b class="caret"></b>
+              <span class="hidden-xs"><%= current_super.email %></span> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu pull-right">
               <li><a href="/users/edit">Seguridad</a></li>
               <li class="divider"></li>
-              <li>
-                <% if sistema_signed_in? %>
-                <%= link_to "Cerrar sesión", destroy_sistema_session_path, method: :delete  %>
-                <% else %>
-                <%= link_to "Cerrar sesión", destroy_super_session_path, method: :delete  %>
-                <% end %>
-
-                </li>
+              <li><%= link_to "Cerrar sesión", destroy_super_session_path, method: :delete  %></li>
             </ul>
           </li>
         </ul>
@@ -132,40 +119,28 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
                     <!-- begin col-2 -->
       <div class="col-md-1"></div>
         <div class="col-md-4">
-          <h1> Crear grupo </h1>
-          <p>Esta opción permite crear el nombre del grupo de agencias </p>
+          <h1> Crear acceso </h1>
+          <p>Esta opción permite asignar los accesos a cada uno de tus usuarios </p>
         </div>
         <div class="col-md-6">
           <div class="panel-body">
-            <%= form_for(@group) do |f| %>
-              <% if @group.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-                  <ul>
-                  <% @group.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                  <% end %>
-                  </ul>
+             <%= form_tag( { :controller => 'appadmins',:action => 'create'}, :method => "POST" ) do %>
+                    <div class="field">
+                      <%= collection_select(nil, :admin_id, @user, :id, :email, {:prompt => 'Selecciona un usuario'},:required => true, :class => "form-control")%>
+                    </div>
+                    <div class="field">
+                    
+                        <%= collection_select(nil, :app_id, @apps, :api_key, :name, {:prompt => 'Selecciona una sucursal'}, :class => "form-control")%>
+                    </div>
+                    <div class="field">
+                      <%= hidden_field_tag :group_id, nil, :value => params[:group_id]%>
+                    </div>
+                <div class="actions">
+                  <%= submit_tag "Crear",:class=>"widget widget-stat bg-primary text-white alinear button"  %>
                 </div>
               <% end %>
 
-              <div class="form-group">
-                <%= f.label "Escribe un nombre representativo para tu grupo de agencias" %><br>
-                <%= f.text_field :name, :class => "form-control", :placeholder => " Eje. Grupo Automotriz del Norte" %>
-              </div>
-              <div class="form-group">
-              
-                <%= f.hidden_field :group_id,:value => rand(0..100000000000), :class => "form-control" %>
-              </div>
-              <div class="form-group">
-                
-                <%= f.hidden_field :user_id,:value => current_super.id, :class => "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.submit "Guardar", :class=>"widget widget-stat bg-primary text-white alinear button" %>
-              </div>
-            <% end %>
               <hr/>
           </div>
         </div>
@@ -222,6 +197,10 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 <script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
 <script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+
 
 
 

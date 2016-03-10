@@ -32,7 +32,11 @@ class ControlController < ApplicationController
       if sistema_signed_in?
         redirect_to "/panel"
       else
+        if super_signed_in?
+        redirect_to "/administracion"
+        else
         redirect_to "/inicio"
+        end
       end
 
    end

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>App:</strong>
+  <%= @appadmin.app_id %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @appadmin.group_id %>
+</p>
+
+<p>
+  <strong>Admin:</strong>
+  <%= @appadmin.admin_id %>
+</p>
+
+<%= link_to 'Edit', edit_appadmin_path(@appadmin) %> |
+<%= link_to 'Back', appadmins_path %>

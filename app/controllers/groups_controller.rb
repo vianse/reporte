@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_sistema!, :except => [:index]
+  #before_action :authenticate_sistema!, :only => [:index]
+  #before_action :authenticate_super!, :except => [:index_super]
   # GET /groups
   # GET /groups.json
   def index
@@ -8,6 +9,13 @@ class GroupsController < ApplicationController
     @grupo  = Group.where(:user_id => current_sistema.id).count
     @usuario  = User.where(:sistemas_id => current_sistema.id).count
     @agencia  = App.where(:user_id => current_sistema.id).count
+  end
+
+  def index_super
+    @groups = Group.all
+    @grupo  = Group.where(:user_id => current_super.id).count
+    @usuario  = User.where(:sistemas_id => current_super.id).count
+    @agencia  = App.where(:user_id => current_super.id).count
   end
 
   # GET /groups/1
@@ -31,7 +39,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to "/panel" }
+        format.html { redirect_to "/administracion" }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

@@ -209,8 +209,9 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     };
         var grupo = getUrlParameter('group_id');
         var tipo = getUrlParameter('tipo');
+        var app = getUrlParameter('app_id');
 
-         var back = "/accesos?group_id=" + grupo;
+         var back = "/accesos?group_id=" + grupo + "&app_id=" + app;
           var element = document.getElementById('back');
           element.setAttribute("href",back)
   </script>

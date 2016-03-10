@@ -34,6 +34,8 @@ body{
   height: :60px!important;
   font-size: 18px;
   border-radius: 10px;
+  margin-top: 55px;
+  margin-left: 10%;
 }
 .alinear:hover{
   opacity: .75;
@@ -57,19 +59,42 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     text-decoration: none;
     color: white;
   }
-  label {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    word-wrap: break-word;
-    font-size: 22px;
-    margin-bottom: 10px;
-  }
-  input{
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
   .row{
     margin-top: 10%;
   }
 
+  strong{
+    color: hsl(0, 0%, 33%);
+    display: inline;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  .link {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    margin-right: 20px;
+    margin-top: -5px;
+    text-decoration: none!important;
+    color: hsl(202, 100%, 38%)!important;
+  }
+.table>thead>tr>th {
+    border-style: none;
+    border-bottom: none!important;
+}
+.row{
+  margin-top: 10%!important;
+}
+.nobordes{
+  border-style: none!important;
+}
+td{
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+a.blanco{
+  color: white!important;
+}
 </style>
 <body>
 
@@ -97,25 +122,12 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown navbar-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="hidden-xs">
-                <% if sistema_signed_in? %>
-                <%= current_sistema.email %>
-                <% else %>
-                <%= current_super.email %>
-                <% end %>
-              </span> <b class="caret"></b>
+              <span class="hidden-xs"><%= current_sistema.email %></span> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu pull-right">
               <li><a href="/users/edit">Seguridad</a></li>
               <li class="divider"></li>
-              <li>
-                <% if sistema_signed_in? %>
-                <%= link_to "Cerrar sesión", destroy_sistema_session_path, method: :delete  %>
-                <% else %>
-                <%= link_to "Cerrar sesión", destroy_super_session_path, method: :delete  %>
-                <% end %>
-
-                </li>
+              <li><%= link_to "Cerrar sesión", destroy_sistema_session_path, method: :delete  %></li>
             </ul>
           </li>
         </ul>
@@ -126,53 +138,61 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
     <!-- end #header -->
     
     <!-- begin #content -->
-  <div id="content" class="content">          
+  <div id="content" class="content">  
 
-   <div class="row">
-                    <!-- begin col-2 -->
-      <div class="col-md-1"></div>
-        <div class="col-md-4">
-          <h1> Crear grupo </h1>
-          <p>Esta opción permite crear el nombre del grupo de agencias </p>
+      
+  
+
+   <h1>Sucursales</h1>
+   <div class="panel">
+                 <div class="panel-heading">
+                  <h1><%= @grupo_name %></h1>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped table-td-valign-middle">
+                      <thead>
+                        <tr>
+                          <th>Nombre de la Sucursal</th>
+                          <th>Tipo</th>
+                          <th colspan="3"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @apps.each do |app| %>
+         
+                         <tr>
+                            <td><strong><%= app.name %></strong></td>
+                            <td><%= app.type_app %></td>
+                            <td>
+
+                             
+          
+                        <a href="/usuarios?app_id=<%= app.api_key %>&group_id=<%= app.group_id%>" class="btn btn-lg btn-inverse blanco">
+                            <i class="fa fa-user pull-left"></i>
+                                    Usuarios<br>
+                                   
+                        </a>
+                        <a href="/accesos?app_id=<%= app.api_key %>&group_id=<%= app.group_id%>" class="btn btn-lg btn-inverse blanco">
+                            <i class="fa fa-unlock-alt pull-left"></i>
+                                    Perfiles<br>
+                                 
+                        </a>
+                            </td>
+                            <td><%= link_to 'Eliminar', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>   
+            </div>
         </div>
-        <div class="col-md-6">
-          <div class="panel-body">
-            <%= form_for(@group) do |f| %>
-              <% if @group.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(@group.errors.count, "error") %> prohibited this group from being saved:</h2>
 
-                  <ul>
-                  <% @group.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                  <% end %>
-                  </ul>
-                </div>
-              <% end %>
 
-              <div class="form-group">
-                <%= f.label "Escribe un nombre representativo para tu grupo de agencias" %><br>
-                <%= f.text_field :name, :class => "form-control", :placeholder => " Eje. Grupo Automotriz del Norte" %>
-              </div>
-              <div class="form-group">
-              
-                <%= f.hidden_field :group_id,:value => rand(0..100000000000), :class => "form-control" %>
-              </div>
-              <div class="form-group">
-                
-                <%= f.hidden_field :user_id,:value => current_super.id, :class => "form-control" %>
-              </div>
-              <div class="form-group">
-                <%= f.submit "Guardar", :class=>"widget widget-stat bg-primary text-white alinear button" %>
-              </div>
-            <% end %>
-              <hr/>
-          </div>
-        </div>
-        <div class="col-md-1">
-        </div>         <!-- end col-4 -->
-      </div>
-                
+     <br>
+
+    <!--<%= link_to 'Crear grupo', group_new_path ,:class=>"btn btn-success m-r-5 m-b-5" %>--> 
+    <!-- begin #page-loader -->   
+  
+  
       </div>    
 </div>
 
@@ -212,6 +232,30 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
         App.init();
 
     });
+
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+        var grupo = getUrlParameter('group_id');
+
+
+        var url = "/nueva_agencia?group_id=" + grupo;
+        var element = document.getElementById('agencias');
+        element.setAttribute("href",url)
+
+
   </script>
 </body data-no-turbolink data-no-transition-cache>
 </html>
@@ -222,7 +266,5 @@ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", He
 <script src="https://rawgit.com/arqex/react-json/master/build/Json.js"></script>
 <script src="//cdn.jsdelivr.net/refluxjs/0.2.11/reflux.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-
 
 

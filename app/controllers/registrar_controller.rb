@@ -3,16 +3,19 @@ class RegistrarController < ApplicationController
     skip_before_action :verify_authenticity_token
 
    def index
-   	@usuarios = User.where(:group_id => params[:group_id])
-    @usuario = User.where(:group_id => params[:group_id]).count
+
+    @grupo = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id).first
+   	@usuarios = User.where(:group_id => @grupo).where(:app_id => params[:app_id])
+    @usuario = User.where(:group_id => @grupo).where(:app_id => params[:app_id]).count
    end
+
 
   def create
       @verifica = User.existe(params[:email]).count
         if @verifica == 1 
           render json: { :mensaje => "El correo " + params[:email] + " ya existe, intente con otro correo"}
         else  
-          user = User.new(:email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation], :group_id => params[:group_id], :sistemas_id => current_sistema.id)
+          user = User.new(:email => params[:email], :password => params[:password], :password_confirmation => params[:password_confirmation], :group_id => params[:group_id], :app_id => params[:app_id], :sistemas_id => current_sistema.id)
           if user.save	
              redirect_to '/panel'
             else
