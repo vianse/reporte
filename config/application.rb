@@ -28,7 +28,7 @@ module Report
     config.active_record.raise_in_transactional_callbacks = true
     #config.time_zone = 'Mexico City'
     #config.exceptions_app = self.routes
-    #config.force_ssl = true
+    config.force_ssl = true
 
   end
 end
