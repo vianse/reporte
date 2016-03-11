@@ -13,29 +13,30 @@ class AccesosController < ApplicationController
     @acceso_hyp = Acceso.where(:app_id_h => params[:app_id]).where.not(:app_id_h => nil).count
     @acceso_as = Acceso.where(:asesor => params[:app_id]).where.not(:asesor => nil).count
     @acceso_ga = Acceso.where(:garantias => params[:app_id]).where.not(:garantias => nil).count
-
+    @tipo = App.where(:api_key => servicio).pluck(:type_app).first
+    
   end
 
   def perfiles
     grupo    = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id)
     servicio = Appadmin.where(:admin_id => current_sistema.id).pluck(:app_id)
-    if params[:tipo] == "gg"
+    if params[:perfil] == "gg"
     @accesos = Acceso.where(:group_id => grupo).where.not(:group_id => nil)
     @acceso  = Acceso.where(:group_id => grupo).count
     end
-    if params[:tipo] == "gp"
+    if params[:perfil] == "gp"
     @accesos = Acceso.where(:app_id_s => params[:app_id]).where.not(:app_id_s => nil)
     @acceso = Acceso.where(:app_id_s => params[:app_id]).count
     end
-    if params[:tipo] == "hyp"
+    if params[:perfil] == "hyp"
     @accesos = Acceso.where(:app_id_h => params[:app_id]).where.not(:app_id_h => nil)
     @acceso  = Acceso.where(:app_id_h => params[:app_id]).count
     end
-    if params[:tipo] == "as"
+    if params[:perfil] == "as"
     @accesos = Acceso.where(:asesor => params[:app_id]).where.not(:asesor => nil)
     @acceso  = Acceso.where(:asesor => params[:app_id]).count
     end
-    if params[:tipo] == "ga"
+    if params[:perfil] == "ga"
     @accesos = Acceso.where(:garantias => params[:app_id]).where.not(:garantias => nil)
     @acceso  = Acceso.where(:garantias=> params[:app_id]).count
     end
@@ -56,7 +57,7 @@ class AccesosController < ApplicationController
   end
   def nuevo_perfil
 
-    @user = User.where(:group_id => params[:group_id])
+    @user = User.where(:group_id => params[:group_id]).where(:app_id => params[:app_id])
     resul = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id)
     @group = Group.where(:group_id => resul)
     @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
@@ -66,7 +67,7 @@ class AccesosController < ApplicationController
   def nuevo_perfil_postventa
     grupo    = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id)
     servicio = Appadmin.where(:admin_id => current_sistema.id).pluck(:app_id)
-    @user = User.where(:group_id => params[:group_id])
+    @user = User.where(:group_id => params[:group_id]).where(:app_id => params[:app_id])
     @group = Group.where(:user_id => current_sistema.id)
     @servicio = App.where(:api_key => servicio).where(:type_app => "Servicio")
     @hyp      = App.where(:api_key => servicio).where(:type_app => "HYP")
@@ -75,7 +76,7 @@ class AccesosController < ApplicationController
   def nuevo_perfil_hyp
     grupo    = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id)
     servicio = Appadmin.where(:admin_id => current_sistema.id).pluck(:app_id)
-    @user = User.where(:group_id => params[:group_id])
+    @user = User.where(:group_id => params[:group_id]).where(:app_id => params[:app_id])
     @group = Group.where(:user_id => current_sistema.id)
     @servicio = App.where(:user_id => current_sistema.id).where(:type_app => "Servicio")
     @hyp    = App.where(:api_key => servicio).where(:type_app => "HYP")
@@ -84,7 +85,7 @@ class AccesosController < ApplicationController
   def nuevo_perfil_asesores
     grupo    = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id)
     servicio = Appadmin.where(:admin_id => current_sistema.id).pluck(:app_id)
-    @user = User.where(:group_id => params[:group_id])
+    @user = User.where(:group_id => params[:group_id]).where(:app_id => params[:app_id])
     @group = Group.where(:user_id => current_sistema.id)
     @servicio = App.where(:api_key => servicio).where(:type_app => "Servicio")
     @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")
@@ -93,7 +94,7 @@ class AccesosController < ApplicationController
   def nuevo_perfil_garantias
     grupo    = Appadmin.where(:admin_id => current_sistema.id).pluck(:group_id)
     servicio = Appadmin.where(:admin_id => current_sistema.id).pluck(:app_id)
-    @user = User.where(:group_id => params[:group_id])
+    @user = User.where(:group_id => params[:group_id]).where(:app_id => params[:app_id])
     @group = Group.where(:user_id => current_sistema.id)
     @servicio = App.where(:api_key => servicio).where(:type_app => "Servicio")
     @hyp = App.where(:user_id => current_sistema.id).where(:type_app => "HYP")

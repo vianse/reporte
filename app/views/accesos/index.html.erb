@@ -95,6 +95,7 @@ td{
 a.blanco{
   color: white!important;
 }
+
 </style>
 <body>
 
@@ -109,7 +110,7 @@ a.blanco{
       <div class="container-fluid">
         <!-- begin mobile sidebar expand / collapse button -->
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
+          <a href="/" class="navbar-brand"><%= image_tag("logo.png", size: "150x27") %></a>
           <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -145,34 +146,38 @@ a.blanco{
                 <i class="fa fa-reply pull-left"></i>Regresar al panel<br></a>
                 </p></br>
   <p>
-                        <a href="/perfiles?tipo=gg" id="agencias" class="btn btn-lg btn-primary blanco">
+                    
+                        <a href="/perfiles?perfil=gg" id="agencias" class="btn btn-lg btn-primary blanco">
                           <i class="fa fa-unlock-alt fa-2x pull-left"></i>
                                     Nivel Gerente General<br>
                           <small> Total de usuarios: <%= @acceso_gg %></small>
                         </a>
-                    
-                        <a href="/perfiles?tipo=gp" id="agencias1" class="btn btn-lg btn-info blanco">
+                      <% if params[:tipo] == "Servicio" %>
+                        <a href="/perfiles?perfil=gp" id="agencias1" class="btn btn-lg btn-info blanco">
                         <i class="fa fa-unlock-alt fa-2x pull-left"></i>
                                     Nivel Gerente Post-Venta<br>
                         <small> Total de usuarios: <%= @acceso_gp %></small>
                         </a>
-          
-                        <a href="/perfiles?tipo=hyp" id="agencias2" class="btn btn-lg btn-inverse blanco">
-                        <i class="fa fa-unlock-alt fa-2x pull-left"></i>
-                                    Nivel Jefe de Hojalateria<br>
-                        <small> Total de usuarios: <%= @acceso_hyp %></small>
-                        </a>
-                        <a href="/perfiles?tipo=as" id="agencias3" class="btn btn-lg btn-success blanco">
+                      
+                        <a href="/perfiles?perfil=as" id="agencias3" class="btn btn-lg btn-success blanco">
                             <i class="fa fa-unlock-alt fa-2x pull-left"></i>
                                     Nivel Asesor de Servicio<br>
                                    <small> Total de usuarios: <%= @acceso_as %></small>
                         </a>
-                        <a href="/perfiles?tipo=ga" id="agencias4" class="btn btn-lg btn-warning blanco">
+                       
+                        <a href="/perfiles?perfil=ga" id="agencias4" class="btn btn-lg btn-warning blanco">
                             <i class="fa fa-unlock-alt fa-2x pull-left"></i>
-                                    Nivel Garantias<br>
+                                    Perfil Jefe de Garantias<br>
                                     <small> Total de usuarios: <%= @acceso_ga %></small>
                         </a>
-                       
+                      <% end %>
+                      <% if params[:tipo] == "HYP" %>
+                        <a href="/perfiles?perfil=hyp" id="agencias2" class="btn btn-lg btn-inverse blanco">
+                        <i class="fa fa-unlock-alt fa-2x pull-left"></i>
+                                    Nivel Jefe de Hojalateria<br>
+                        <small> Total de usuarios: <%= @acceso_hyp %></small>
+                        </a>
+                       <% end %>
                       </p>
 
      <br>
@@ -230,28 +235,30 @@ var getUrlParameter = function getUrlParameter(sParam) {
     };
         var grupo = getUrlParameter('group_id');
         var app = getUrlParameter('app_id');
+        var tipo = getUrlParameter('tipo');
 
-
-        var url = "/perfiles?tipo=gg&group_id=" + grupo + "&app_id=" + app;
-        var element = document.getElementById('agencias');
-        element.setAttribute("href",url)
-
-        var url1 = "/perfiles?tipo=gp&group_id=" + grupo+ "&app_id=" + app;
-        var element = document.getElementById('agencias1');
-        element.setAttribute("href",url1)
-
-        var url2 = "/perfiles?tipo=hyp&group_id=" + grupo+ "&app_id=" + app;
+        if (tipo == "HYP"){
+          var url2 = "/perfiles?perfil=hyp&group_id=" + grupo+ "&app_id=" + app+ "&tipo=" + tipo;
         var element = document.getElementById('agencias2');
         element.setAttribute("href",url2)
+        }
 
-        var url3 = "/perfiles?tipo=as&group_id=" + grupo+ "&app_id=" + app;
+        var url = "/perfiles?perfil=gg&group_id=" + grupo + "&app_id=" + app +"&tipo=" + tipo;
+        var element = document.getElementById('agencias');
+        element.setAttribute("href",url)
+         if (tipo == "Servicio"){
+        var url1 = "/perfiles?perfil=gp&group_id=" + grupo+ "&app_id=" + app +"&tipo=" + tipo;
+        var element = document.getElementById('agencias1');
+        element.setAttribute("href",url1)
+        
+        var url3 = "/perfiles?perfil=as&group_id=" + grupo+ "&app_id=" + app +"&tipo=" + tipo;
         var element = document.getElementById('agencias3');
         element.setAttribute("href",url3)
 
-        var url4 = "/perfiles?tipo=ga&group_id=" + grupo+ "&app_id=" + app;
+        var url4 = "/perfiles?perfil=ga&group_id=" + grupo+ "&app_id=" + app +"&tipo=" + tipo;
         var element = document.getElementById('agencias4');
         element.setAttribute("href",url4)
-
+      }
 
   </script>
 </body data-no-turbolink data-no-transition-cache>

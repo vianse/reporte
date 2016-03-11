@@ -109,7 +109,7 @@ a.blanco{
       <div class="container-fluid">
         <!-- begin mobile sidebar expand / collapse button -->
         <div class="navbar-header">
-          <a href="/" class="navbar-brand"><img src="https://res.cloudinary.com/vianse/image/upload/v1453435624/worbe/Logo_pronostic_clicnf.jpg" height="35px" width="120px"></a>
+          <a href="/" class="navbar-brand"><%= image_tag("logo.png", size: "150x27") %></a>
           <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -167,23 +167,23 @@ a.blanco{
                               <tbody>
                                 <% @accesos.each do |acceso| %>
                                   <tr>
-                                    <% if params[:tipo] == "gg" %>
+                                    <% if params[:perfil] == "gg" %>
                                     <td><%= acceso.user.email %> --| <%= Group.where(:group_id => acceso.group_id).pluck(:name).first%></td>
                                     <td>
                                     <% end %>
-                                    <% if params[:tipo] == "gp" %>
+                                    <% if params[:perfil] == "gp" %>
                                     <td><%= acceso.user.email %> --| <%= App.where(:api_key => acceso.app_id_s).pluck(:name).first%></td>
                                     <td>
                                     <% end %>
-                                    <% if params[:tipo] == "hyp" %>
+                                    <% if params[:perfil] == "hyp" %>
                                     <td><%= acceso.user.email %> --| <%= App.where(:api_key => acceso.app_id_h).pluck(:name).first%></td>
                                     <td>
                                     <% end %>
-                                    <% if params[:tipo] == "as" %>
+                                    <% if params[:perfil] == "as" %>
                                     <td><%= acceso.user.email %> --| <%= App.where(:api_key => acceso.asesor).pluck(:name).first%></td>
                                     <td>
                                     <% end %>
-                                    <% if params[:tipo] == "ga" %>
+                                    <% if params[:perfil] == "ga" %>
                                     <td><%= acceso.user.email %> --| <%= App.where(:api_key => acceso.garantias).pluck(:name).first%></td>
                                     <td>
                                     <% end %>
@@ -251,42 +251,43 @@ var getUrlParameter = function getUrlParameter(sParam) {
         }
     };
         var grupo = getUrlParameter('group_id');
+        var perfil = getUrlParameter('perfil');
         var tipo = getUrlParameter('tipo');
         var app = getUrlParameter('app_id');
 
-         var back = "/accesos?group_id=" + grupo + "&app_id=" + app;
+         var back = "/accesos?group_id=" + grupo + "&app_id=" + app+ "&tipo=" + tipo;
           var element = document.getElementById('back');
           element.setAttribute("href",back)
 
 
-        if (tipo == "gg"){
-          var url = "/nuevo_perfil?group_id=" + grupo+ "&app_id=" + app;
+        if (perfil == "gg"){
+          var url = "/nuevo_perfil?group_id=" + grupo+ "&app_id=" + app+ "&tipo=" + tipo;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
 
-        if (tipo == "gp"){
-          var url = "/nuevo_perfil_postventa?group_id=" + grupo+ "&app_id=" + app;
+        if (perfil == "gp"){
+          var url = "/nuevo_perfil_postventa?group_id=" + grupo+ "&app_id=" + app+ "&tipo=" + tipo;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
 
-        if (tipo == "hyp"){
-          var url = "/nuevo_perfil_hyp?group_id=" + grupo+ "&app_id=" + app;
+        if (perfil == "hyp"){
+          var url = "/nuevo_perfil_hyp?group_id=" + grupo+ "&app_id=" + app+ "&tipo=" + tipo;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
-        if (tipo == "as"){
-          var url = "/nuevo_perfil_asesores?group_id=" + grupo+ "&app_id=" + app;
+        if (perfil == "as"){
+          var url = "/nuevo_perfil_asesores?group_id=" + grupo+ "&app_id=" + app+ "&tipo=" + tipo;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
         }
-        if (tipo == "ga"){
-          var url = "/nuevo_perfil_garantias?group_id=" + grupo+ "&app_id=" + app;
+        if (perfil == "ga"){
+          var url = "/nuevo_perfil_garantias?group_id=" + grupo+ "&app_id=" + app+ "&tipo=" + tipo;
           var element = document.getElementById('agencias');
           element.setAttribute("href",url)
 
