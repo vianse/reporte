@@ -15,6 +15,11 @@
     <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734729/bootstrap.min.css" rel="stylesheet" />
     <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735152/animate.min.css" rel="stylesheet" />
     <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/style.min.css" rel="stylesheet" />
+    <link href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447735249/reset.min.css" rel="stylesheet" />
+   
+    
+
+
   <!-- ================== END BASE CSS STYLE ================== -->
   
   <!-- ================== BEGIN PAGE LEVEL CSS STYLE ================== -->
@@ -30,7 +35,9 @@
 	    <script src="assets/crossbrowserjs/excanvas.min.js"></script>
 	<![endif]-->
 </head>
+<%= render 'style' %> 
 <style type="text/css">
+
     .visible{
         display: none;
     }
@@ -102,7 +109,7 @@
 			<!-- end container-fluid -->
 		</div>
 		<!-- end #header -->
-		
+
 		<!-- begin #sidebar -->
 		<div id="sidebar" class="sidebar">
 			<!-- begin sidebar scrollbar -->
@@ -196,10 +203,17 @@
             <div id="alerta"></div>
                 <% if @objetivo.blank? %>
                     <div class="alert alert-danger fade in">
+                        <ul class="cd-tour-wrapper active">
+                        <li class="cd-single-step is-selected" id="paso1">
+                            <span>Step 1</span>
+                        </li> <!-- .cd-single-step -->
+                       
+                    </ul> <!-- .cd-tour-wrapper -->
                         <strong>¡Error! -- </strong>
                         Falta configurar los objetivos de este mes da <a href="objetivos?app_id=<%= @parametro %>&type=Servicio"> click aquí para configurarlos</a>
                         <span class="close" data-dismiss="alert">×</span>
                     </div>
+
                 <% else %>
                 <% end %>
           
@@ -241,6 +255,15 @@
                                             Al día de hoy tienes <strong><span id="ordenes_abiertas"></span></strong> orden(es) de servicio abierta(s), con un importe de <strong><span id="costo"></span> </strong>
                                         </p>
                                         <% if @internas.blank? %>
+                                        <ul class="cd-tour-wrapper active">
+                                            <li class="cd-single-step">
+                                                <span>Step 1</span>
+                                            </li> <!-- .cd-single-step -->
+                                            <li class="cd-single-step is-selected">
+                                                <span>Step 2</span>
+                                            </li> <!-- .cd-single-step -->
+                                           
+                                        </ul> <!-- .cd-tour-wrapper -->
                                         <a href="/settings?app_id=<%= @parametro %>&type=<%= @tipo %>">
                                         <span class="label label-danger">Falta configuración</span></a>
                                         <% else %>
@@ -451,6 +474,13 @@
     <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447734361/page-index.demo.js"></script>
     <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447733809/demo.js"></script>
     <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1447732638/apps.js"></script>
+<script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457673570/modernizr.js"></script>
+<script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457673570/main.js"></script>
+<script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457673570/jquery.mobile.min.js"></script>
+
+
+
+
   <!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>
