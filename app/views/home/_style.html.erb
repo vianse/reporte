@@ -237,6 +237,7 @@ Main Components
 }
 .active .cd-single-step {
   /* tour started */
+  visibility: hidden;
   -webkit-transform: scale(1) translateX(100%);
   -moz-transform: scale(1) translateX(100%);
   -ms-transform: scale(1) translateX(100%);
@@ -266,21 +267,14 @@ Main Components
   transition: transform 0.4s 0s;
 
 }
-@media only screen and (max-width: 768px) {
-	.active .cd-single-step.is-selected {
-  /* visible step */
-  opacity: 0;
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transform: scale(1);
-  -webkit-transition: -webkit-transform 0.4s 0s;
-  -moz-transition: -moz-transform 0.4s 0s;
-  transition: transform 0.4s 0s;
 
+@media only screen and (min-width: 1100px){
+	.cd-tour-wrapper.active {
+    visibility: hidden;
 }
-	}
+}
+
+
 @media only screen and (min-width: 1100px) {
   .cd-single-step {
     /* reset style */
