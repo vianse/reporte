@@ -80,6 +80,7 @@ Rails.application.routes.draw do
       resources :garantias_estatus_color, path: "garantias_color"
       resources :garantias_detalles, path: "garantias_detalles"
       resources :cierre_mes, path: "cierre_mes"
+      resources :encuesta, path: "enviar_encuesta"
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
@@ -120,7 +121,7 @@ Rails.application.routes.draw do
   get 'choise' => 'inicio#choise', as: :choise
   
   #delete 'photos/:id(.:format)', :to => 'photos#destroy'
-  #get 'precios' => 'inicio#precios', as: :precios
+  get 'encuesta' => 'inicio#encuesta', as: :encuesta
 
 
 

@@ -1,0 +1,67 @@
+<!doctype html>
+<head>
+  <title>Evaluación</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457744878/starrr.css">
+  <style type='text/css'>
+    img.ribbon {
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      border: 0;
+      cursor: pointer; }
+
+    .container {
+      margin-top: 60px;
+      text-align: center;
+      max-width: 450px; }
+
+    input {
+      width: 30px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p>Porque tu participación es muy importante para nosotros; ayudanos evaluando a tu asesor: </p>
+    <h3>Juan Carlos Santiago</h3>
+
+    <h5>Tomando en cuenta que una estrella es la calificacion mas baja y 5 estrellas la calificacion mas Alta.</h5>
+    <div class='starrr' id='star1'></div>
+    <div>&nbsp;
+      <span class='your-choice-was' style='display: none;'>
+        Agradecemos tu preferencia. Calificación de <span class='choice'> Estrellas</span> Estrellas.
+      </span>
+    </div>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+  <script src="http://res.cloudinary.com/dnubgpeun/raw/upload/v1457744878/starrr.js"></script>
+  <script>
+    $('#star1').starrr({
+      change: function(e, value){
+        if (value) {
+          $('.your-choice-was').show();
+          $('.choice').text(value);
+        } else {
+          $('.your-choice-was').hide();
+        }
+      }
+    });
+
+    var $s2input = $('#star2_input');
+    $('#star2').starrr({
+      max: 10,
+      rating: $s2input.val(),
+      change: function(e, value){
+        $s2input.val(value).trigger('input');
+      }
+    });
+  </script>
+  
+</body>
+</html>

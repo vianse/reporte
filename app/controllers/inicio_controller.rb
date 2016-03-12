@@ -1,7 +1,7 @@
 class InicioController < ApplicationController
   def index
   end
-  def precios
+  def encuesta
   	
   end
   def choise
