@@ -37,7 +37,8 @@
     <div>&nbsp;
       <span class='your-choice-was' style='display: none;'>
         Agradecemos tu preferencia. Calificación de <span class='choice'> Estrellas</span> Estrellas.
-      </span>
+      </span></br>
+      <button class="btn" id="close">Enviar</button>
     </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
   <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457744878/starrr.js"></script>
@@ -60,6 +61,9 @@
       change: function(e, value){
         $s2input.val(value).trigger('input');
       }
+    });
+    $('#close').click(function(){
+    window.location.href = "http://www.audi.com";
     });
   </script>
   
