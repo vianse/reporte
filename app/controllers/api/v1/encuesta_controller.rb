@@ -1,8 +1,8 @@
 class Api::V1::EncuestaController <ApplicationController
 	include ActionView::Helpers::NumberHelper
 	def index
-	   telefonos = ["+5215548225097","+5215548225088","+5214423389783","+5215543884061"]
-	   #telefonos = ["+5215548225097"]
+	   #telefonos = ["+5215548225097","+5215548225088","+5214423389783","+5215543884061"]
+	   telefonos = ["+5215548225097"]
        telefonos.map do |t|
         #logger.debug t
         #phone_number = t
