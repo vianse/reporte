@@ -98,7 +98,8 @@ end
    @group_id = App.where(:api_key => @parametro).pluck(:group_id).first
     @catalogo = Catalogo.new(catalogo_params)
       if @catalogo.save
-        redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
+       # redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
+       redirect_to "/"
       end
   end
 
@@ -107,7 +108,8 @@ end
   def update
  
       if @catalogo.update(catalogo_params)
-        redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
+        #redirect_to "/objetivos?app_id="+ @catalogo.app_id + "&type=" + @catalogo.tipo
+        redirect_to "/"
       end
   end
 

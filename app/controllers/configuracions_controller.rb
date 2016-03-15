@@ -99,7 +99,8 @@ end
 
    
       if @configuracion.save
-       redirect_to "/settings?app_id="+ @configuracion.app_id + "&type=" + @configuracion.tipo
+       #redirect_to "/settings?app_id="+ @configuracion.app_id + "&type=" + @configuracion.tipo
+        redirect_to "/"
       end
   end
 
@@ -107,8 +108,8 @@ end
   # PATCH/PUT /configuracions/1.json
   def update
       if @configuracion.update(configuracion_params)
-        redirect_to "/settings?app_id="+ @configuracion.app_id + "&type=" + @configuracion.tipo
-
+        #redirect_to "/settings?app_id="+ @configuracion.app_id + "&type=" + @configuracion.tipo
+        redirect_to "/"
       end
    
   end
