@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457744878/starrr.css">
   <style type='text/css'>
+  body{
+    background-color: hsl(204, 12%, 92%);
+  }
     img.ribbon {
       position: fixed;
       z-index: 1;
@@ -29,21 +32,54 @@
     font-size: 35px!important;
    
 }
+h5{
+  margin: 5%;
+}
+head{
+  background-color: hsl(4, 91%, 82%)!important;
+}
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h4>Tu opinión es muy valiosa, te invitamos a evaluar a nuestro instructor</h4>
-    <h3>Juan Carlos Santiago</h3>
-    <h5>Tomando en cuenta que 1 estrella es la calificación mas Baja y 5 estrellas la calificacion mas Alta.</h5>
-    <div class='starrr' id='star1'></div>
-    <div>&nbsp;
+
+
+            <div class="col-md-12">
+                        
+                        <!-- begin panel -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                              
+                                <h4 class="panel-title">Grupo Vianse</h4>
+                            </div>
+                            <div class="panel-body">
+                                <h3 class="m-t-0"></h3>
+                                <p>
+                                    Para Grupo Vianse tu opinión es muy importante; es por ello que te invita a calificar a tu asesor de servicio: 
+                                </p>
+                                <h3>Juan Carlos Santiago</h3>
+                                        <h5>Tomando en cuenta los siguientes creterios.<br>
+                                          <ul>
+                                            <li>Una estrella es la calificación mas baja.</li>
+                                            <li>5 estrellas es la calificación mas alta.</li>
+                                          </ul>
+                                          </h5>
+                                        <div class='starrr floating' id='star1'></div>
+                            </div>
+                           <div>&nbsp;
       <span class='your-choice-was' style='display: none;'>
         Agradecemos tu preferencia. Calificación de <span class='choice'> Estrellas</span> Estrellas.</br>
         <button class="btn btn-info" id="close">Enviar</button>
       </span></br>
       
     </div>
+                        </div>
+                        <!-- end panel -->
+            </div>
+    
+    
+   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
   <script src="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457744878/starrr.js"></script>
   <script>
