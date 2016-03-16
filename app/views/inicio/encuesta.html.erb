@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://res.cloudinary.com/dnubgpeun/raw/upload/v1457744878/starrr.css">
+  <%= render 'style' %> 
   <style type='text/css'>
   body{
     background-color: hsl(204, 12%, 92%);
@@ -51,6 +52,13 @@ h5{
 li{
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+.your-choice-was{
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#close{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
   </style>
 </head>
 <body>
@@ -72,11 +80,12 @@ li{
                                     Para Grupo Vianse tu opinión es muy importante; es por ello que te invita a calificar a tu asesor de servicio: 
                                 </p>
                                 <h4>Juan Carlos Santiago</h4>
+                                
                                         <h5>Tomando en cuenta los siguientes creterios.<br>
-                                          <ul>
-                                            <li>Una estrella es la calificación mas baja.</li>
-                                            <li>5 estrellas es la calificación mas alta.</li>
-                                          </ul>
+                                          <li>
+                                            Una estrella es la calificación mas baja.
+                                          </li>
+                                          <li> 5 estrellas es la calificación mas alta.</li>
                                           </h5>
                                         <div class='starrr floating' id='star1'></div>
                             </div>
