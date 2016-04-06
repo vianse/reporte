@@ -1,0 +1,73 @@
+<%= form_for(@crm) do |f| %>
+  <% if @crm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@crm.errors.count, "error") %> prohibited this crm from being saved:</h2>
+
+      <ul>
+      <% @crm.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :app_id %><br>
+    <%= f.text_field :app_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sucursal_id %><br>
+    <%= f.text_field :sucursal_id %>
+  </div>
+  <div class="field">
+    <%= f.label :group_id %><br>
+    <%= f.text_field :group_id %>
+  </div>
+  <div class="field">
+    <%= f.label :asesor_id %><br>
+    <%= f.text_field :asesor_id %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.text_field :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_salida %><br>
+    <%= f.text_field :fecha_salida %>
+  </div>
+  <div class="field">
+    <%= f.label :key %><br>
+    <%= f.text_field :key %>
+  </div>
+  <div class="field">
+    <%= f.label :mes %><br>
+    <%= f.text_field :mes %>
+  </div>
+  <div class="field">
+    <%= f.label :año %><br>
+    <%= f.text_field :año %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo %><br>
+    <%= f.text_field :tipo %>
+  </div>
+  <div class="field">
+    <%= f.label :dias %><br>
+    <%= f.number_field :dias %>
+  </div>
+  <div class="field">
+    <%= f.label :cliente %><br>
+    <%= f.text_field :cliente %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono %><br>
+    <%= f.text_field :telefono %>
+  </div>
+  <div class="field">
+    <%= f.label :verificacion %><br>
+    <%= f.text_field :verificacion %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

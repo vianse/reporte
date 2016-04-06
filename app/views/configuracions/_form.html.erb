@@ -136,6 +136,10 @@ a.font{
                   <%= f.text_field :internas,:placeholder => "Eje. I o Internas; verificar con sistemas", :class => "form-control" %>
                 </div>
               <div class="form-group">
+                  <%= f.label "Etiqueta con la que se identifican las ordenes Publicas en tu DMS" %><br>
+                  <%= f.text_field :publicas,:placeholder => "Eje. P o Publico; verificar con sistemas", :class => "form-control" %>
+                </div>
+              <div class="form-group">
                  <%= f.label "Ingresa el número de días apartir de los cuales se empezaran a realizar los pronosticos" %><br>
                  <%= f.text_field :dias,:placeholder => "Eje. 5 (Solo Números)", :class => "form-control" %>
               </div> 

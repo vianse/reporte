@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :crms
+  resources :sms
   resources :appadmins
   get 'adminuser/index'
 

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Telefono:</strong>
+  <%= @sm.telefono %>
+</p>
+
+<p>
+  <strong>Mensaje:</strong>
+  <%= @sm.mensaje %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @sm.url %>
+</p>
+
+<p>
+  <strong>Respuesta:</strong>
+  <%= @sm.respuesta %>
+</p>
+
+<p>
+  <strong>Comentario:</strong>
+  <%= @sm.comentario %>
+</p>
+
+<p>
+  <strong>App:</strong>
+  <%= @sm.app_id %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @sm.group_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sm.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_sm_path(@sm) %> |
+<%= link_to 'Back', sms_path %>

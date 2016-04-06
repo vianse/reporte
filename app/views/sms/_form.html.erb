@@ -1,0 +1,49 @@
+<%= form_for(@sm) do |f| %>
+  <% if @sm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sm.errors.count, "error") %> prohibited this sm from being saved:</h2>
+
+      <ul>
+      <% @sm.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :telefono %><br>
+    <%= f.text_field :telefono %>
+  </div>
+  <div class="field">
+    <%= f.label :mensaje %><br>
+    <%= f.text_field :mensaje %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :respuesta %><br>
+    <%= f.text_field :respuesta %>
+  </div>
+  <div class="field">
+    <%= f.label :comentario %><br>
+    <%= f.text_field :comentario %>
+  </div>
+  <div class="field">
+    <%= f.label :app_id %><br>
+    <%= f.text_field :app_id %>
+  </div>
+  <div class="field">
+    <%= f.label :group_id %><br>
+    <%= f.text_field :group_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

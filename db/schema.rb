@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310015339) do
+ActiveRecord::Schema.define(version: 20160318021448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160310015339) do
 
   create_table "configuracions", force: :cascade do |t|
     t.string   "internas"
+    t.string   "publicas"
     t.string   "dias"
     t.string   "garantias"
     t.string   "dias_garantias"
@@ -81,6 +82,45 @@ ActiveRecord::Schema.define(version: 20160310015339) do
     t.string   "tipo"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "crm", force: :cascade do |t|
+    t.string   "orden"
+    t.string   "app_id"
+    t.string   "sucursal_id"
+    t.string   "group_id"
+    t.string   "asesor_id"
+    t.string   "fecha"
+    t.string   "fecha_salida"
+    t.string   "key"
+    t.string   "mes"
+    t.string   "año"
+    t.string   "tipo"
+    t.integer  "dias"
+    t.string   "cliente"
+    t.string   "telefono"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "crms", force: :cascade do |t|
+    t.string   "orden"
+    t.string   "app_id"
+    t.string   "sucursal_id"
+    t.string   "group_id"
+    t.string   "asesor_id"
+    t.string   "fecha"
+    t.string   "fecha_salida"
+    t.string   "key"
+    t.string   "mes"
+    t.string   "año"
+    t.string   "tipo"
+    t.integer  "dias"
+    t.string   "cliente"
+    t.string   "telefono"
+    t.string   "verificacion"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "facturadas", force: :cascade do |t|
@@ -97,6 +137,7 @@ ActiveRecord::Schema.define(version: 20160310015339) do
     t.string   "group_id"
     t.string   "sucursal_tipo"
     t.string   "asesor_id"
+    t.string   "key"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -114,6 +155,8 @@ ActiveRecord::Schema.define(version: 20160310015339) do
     t.string   "año"
     t.string   "tipo"
     t.integer  "dias"
+    t.string   "cliente"
+    t.string   "telefono"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -159,6 +202,8 @@ ActiveRecord::Schema.define(version: 20160310015339) do
     t.string   "sucursal_tipo"
     t.string   "asesor_id"
     t.string   "key"
+    t.string   "cliente"
+    t.string   "telefono"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -182,6 +227,19 @@ ActiveRecord::Schema.define(version: 20160310015339) do
 
   add_index "sistemas", ["email"], name: "index_sistemas_on_email", unique: true, using: :btree
   add_index "sistemas", ["reset_password_token"], name: "index_sistemas_on_reset_password_token", unique: true, using: :btree
+
+  create_table "sms", force: :cascade do |t|
+    t.string   "telefono"
+    t.string   "mensaje"
+    t.string   "url"
+    t.string   "respuesta"
+    t.string   "comentario"
+    t.string   "app_id"
+    t.string   "group_id"
+    t.string   "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "subgroups", force: :cascade do |t|
     t.string   "name"

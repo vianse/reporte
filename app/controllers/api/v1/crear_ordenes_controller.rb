@@ -31,78 +31,131 @@ class Api::V1::CrearOrdenesController <ApplicationController
  #     end
 	end
 def create
+  @validar = App.where(api_key: params[:app_id]).first
+  if  @validar.blank?
+         render json: {
+           message: "Cadena no valida"
+           }
+  else
+   Pendiente.delete_all(:app_id => params[:app_id])
+     @tipo = Configuracion.where(:app_id => params[:app_id]).pluck(:garantias).first
+     @publicas = Configuracion.where(:app_id => params[:app_id]).pluck(:publicas).first
 
+      ordenes_params.map do |a|
+       if a[:tipo] == @tipo
+         app = a[:app_id].to_s
+         sucursal = a[:sucursal_id].to_s
+         grupo = a[:group_id].to_s
+         asesor = a[:asesor_id].to_s
+         tipo = a[:tipo]
+         clave = app + sucursal + grupo + asesor + a[:orden]
+         @crear_ordenes = Pendiente.create({
+          :orden => a[:orden], 
+          :tipo => a[:tipo], 
+          :importe => a[:importe], 
+          :fecha => a[:fecha], 
+          :estatus => a[:estatus], 
+          :app_id => a[:app_id], 
+          :sucursal_id => a[:sucursal_id],
+          :group_id => a[:group_id],
+          :sucursal_tipo => a[:sucursal_tipo],
+          :asesor_id => a[:asesor_id].to_s,
+          :key => clave
+          })
+         #@crear_ordenes.save
+         clave1 = app + sucursal + grupo + asesor + a[:orden]
+         @garantias     = Garantium.new({
+          :orden => a[:orden],
+          :app_id => a[:app_id].to_s,
+          :sucursal_id => sucursal,
+          :group_id => grupo,
+          :asesor_id => asesor,
+          :fecha => a[:fecha],
+          :key => clave1,
+          :mes => Date.today.month,
+          :año => Date.today.year,
+          :cliente => a[:cliente],
+          :telefono => a[:telefono]
+          })
+         
+         @garantias.save
+         @claves = Pendiente.where(:app_id => app).where(:sucursal_id => sucursal).where(:group_id => grupo).where(:asesor_id => asesor).where(:tipo => @tipo).pluck(:key)
+       else
+         # #@crear_ordenes = Pendiente.create(a)
+         # if a[:tipo] == @publicas
+         #    app = a[:app_id].to_s
+         #    sucursal = a[:sucursal_id].to_s
+         #    grupo = a[:group_id].to_s
+         #    asesor = a[:asesor_id].to_s
+         #    tipo = a[:tipo]
+         #    clave = app + sucursal + grupo + asesor + a[:orden]
+         #    @crear_ordenes = Pendiente.create({
+         #     :orden => a[:orden], 
+         #     :tipo => @publicas, 
+         #     :importe => a[:importe], 
+         #     :fecha => a[:fecha], 
+         #     :estatus => a[:estatus], 
+         #     :app_id => a[:app_id], 
+         #     :sucursal_id => a[:sucursal_id],
+         #     :group_id => a[:group_id],
+         #     :sucursal_tipo => a[:sucursal_tipo],
+         #     :asesor_id => a[:asesor_id].to_s,
+         #     :key => clave
+         #     })
+         #    #@crear_ordenes.save
+         #    # clave2 = app + sucursal + grupo + asesor + a[:orden]
+            
+       
+         #    #   @normales     = Crm.new({
+         #    #  :orden => a[:orden],
+         #    #  :app_id => a[:app_id].to_s,
+         #    #  :sucursal_id => sucursal,
+         #    #  :group_id => grupo,
+         #    #  :asesor_id => asesor,
+         #    #  :fecha => a[:fecha],
+         #    #  :key => clave2,
+         #    #  :mes => Date.today.month,
+         #    #  :año => Date.today.year,
+         #    #  :cliente => a[:cliente],
+         #    #  :telefono => a[:telefono]
+         #    #  }) 
+         #    # @normales.save
+         #  @claves1 = Pendiente.where(:app_id => app).where(:sucursal_id => sucursal).where(:group_id => grupo).where(:asesor_id => asesor).where(:tipo => @publicas).pluck(:key)
+         # else
+            @crear_ordenes = Pendiente.create(a)
+         end
+      end
+       verifica    = Garantium.select(:key,:orden,:fecha).where.not(:key => @claves)
+       verifica.map do |b|
+         @dias = distance_of_time_in_days(b.fecha)
+         #logger.debug "Dias #{@dias}"
+         actualiza = Garantium.find_by_key(b.key)
+         actualiza.update({:fecha_salida => Date.today, :dias => @dias})
+         
+         #actualiza.update(:fecha_salida => Date.today)
+         #actualiza.update(:dias => @dias)
+         #logger.debug "Prueba #{verifica}"
+       end
 
- # datos = params[:ordenes]
-@validar = App.where(api_key: params[:app_id]).first
-if  @validar.blank?
-       render json: {
-         message: "Cadena no valida"
-         }
-     else
- Pendiente.delete_all(:app_id => params[:app_id])
-   @tipo = Configuracion.where(:app_id => params[:app_id]).pluck(:garantias).first
-     ordenes_params.map do |a|
-     if a[:tipo] == @tipo
-       app = a[:app_id].to_s
-       sucursal = a[:sucursal_id].to_s
-       grupo = a[:group_id].to_s
-       asesor = a[:asesor_id].to_s
-       tipo = a[:tipo]
-       clave = app + sucursal + grupo + asesor + a[:orden]
-       @crear_ordenes = Pendiente.create({
-        :orden => a[:orden], 
-        :tipo => a[:tipo], 
-        :importe => a[:importe], 
-        :fecha => a[:fecha], 
-        :estatus => a[:estatus], 
-        :app_id => a[:app_id], 
-        :sucursal_id => a[:sucursal_id],
-        :group_id => a[:group_id],
-        :sucursal_tipo => a[:sucursal_tipo],
-        :asesor_id => a[:asesor_id].to_s,
-        :key => clave
-        })
-       #@crear_ordenes.save
-       clave1 = app + sucursal + grupo + asesor + a[:orden]
-       @garantias     = Garantium.new({
-        :orden => a[:orden],
-        :app_id => a[:app_id].to_s,
-        :sucursal_id => sucursal,
-        :group_id => grupo,
-        :asesor_id => asesor,
-        :fecha => a[:fecha],
-        :key => clave1,
-        :mes => Date.today.month,
-        :año => Date.today.year,
-        })
+       # verifica_crm    = Crm.select(:key,:orden,:fecha).where.not(:key => @claves1)
+       # verifica_crm.map do |c|
+       #   #actualiza = Crm.find_by_key(c.key)
+
+       #   busca = Facturada.find_by_key(c.key)
+       #   if busca.blank? 
+
+       #   else
+       #    actualiza = Crm.find_by_key(c.key)
+       #    actualiza.update({:verificacion => 1})
+       #   end
        
-       @garantias.save
-      @claves = Pendiente.where(:app_id => app).where(:sucursal_id => sucursal).where(:group_id => grupo).where(:asesor_id => asesor).where(:tipo => "G").pluck(:key)
-      else
-       @crear_ordenes = Pendiente.create(a)
-      end   
-     end
-     verifica    = Garantium.select(:key,:orden,:fecha).where.not(:key => @claves)
-     verifica.map do |b|
-       @dias = distance_of_time_in_days(b.fecha)
-       logger.debug "Dias #{@dias}"
-       actualiza = Garantium.find_by_key(b.key)
-       actualiza.update({:fecha_salida => Date.today, :dias => @dias})
-       
-       #actualiza.update(:fecha_salida => Date.today)
-       #actualiza.update(:dias => @dias)
-       #logger.debug "Prueba #{verifica}"
-     end
-      
-      render json: {
-               message: "Datos guardados satisfactoriamente."
-             }
-      
-       
+       # end
+        
+        render json: {
+                 message: "Datos guardados satisfactoriamente."
+               }      
+  end
 end
-
- end
 
   private
 
@@ -116,7 +169,7 @@ def distance_of_time_in_days(from_time, to_time = Date.today, include_seconds = 
 
   def ordenes_params
    params.require(:ordenes).map do |p|
-   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo,:asesor_id, :key)
+   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo,:asesor_id, :key,:telefono,:cliente)
    
    end
   end

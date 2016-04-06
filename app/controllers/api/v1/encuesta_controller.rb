@@ -8,7 +8,7 @@ class Api::V1::EncuestaController <ApplicationController
         #logger.debug t
         #phone_number = t
         #logger.debug t
-        SinchSms.send('1689b905-8427-4d27-88cb-20b6f3e7d746', '2+dPC6wLU0Ko7RPTeVT85w==', "Estimado Juan Carlos Santiago. La Orden de Servicio No OR0026097 a la que te has suscrito para obtener sus cambios, ya ha sido facturada. Atte: Pronostic", t)
+        SinchSms.send('1689b905-8427-4d27-88cb-20b6f3e7d746', '2+dPC6wLU0Ko7RPTeVT85w==', "Responde nuestra encuesta ingresado a pronostic.com.mx/encuesta", t)
       end
       render json: {:message => "Encuesta enviada correctamente"}
 	end

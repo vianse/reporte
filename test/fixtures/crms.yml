@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app_id: MyString
+  sucursal_id: MyString
+  group_id: MyString
+  asesor_id: MyString
+  fecha: MyString
+  fecha_salida: MyString
+  key: MyString
+  mes: MyString
+  año: MyString
+  tipo: MyString
+  dias: 1
+  cliente: MyString
+  telefono: MyString
+  verificacion: MyString
+
+two:
+  app_id: MyString
+  sucursal_id: MyString
+  group_id: MyString
+  asesor_id: MyString
+  fecha: MyString
+  fecha_salida: MyString
+  key: MyString
+  mes: MyString
+  año: MyString
+  tipo: MyString
+  dias: 1
+  cliente: MyString
+  telefono: MyString
+  verificacion: MyString

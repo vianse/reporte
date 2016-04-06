@@ -132,6 +132,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def configuracion_params
-      params.require(:configuracion).permit(:internas, :dias, :garantias, :dias_garantias, :app_id, :group_id,:tipo)
+      params.require(:configuracion).permit(:internas, :publicas,:dias, :garantias, :dias_garantias, :app_id, :group_id,:tipo)
     end
 end

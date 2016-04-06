@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Crms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App</th>
+      <th>Sucursal</th>
+      <th>Group</th>
+      <th>Asesor</th>
+      <th>Fecha</th>
+      <th>Fecha salida</th>
+      <th>Key</th>
+      <th>Mes</th>
+      <th>Año</th>
+      <th>Tipo</th>
+      <th>Dias</th>
+      <th>Cliente</th>
+      <th>Telefono</th>
+      <th>Verificacion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @crms.each do |crm| %>
+      <tr>
+        <td><%= crm.app_id %></td>
+        <td><%= crm.sucursal_id %></td>
+        <td><%= crm.group_id %></td>
+        <td><%= crm.asesor_id %></td>
+        <td><%= crm.fecha %></td>
+        <td><%= crm.fecha_salida %></td>
+        <td><%= crm.key %></td>
+        <td><%= crm.mes %></td>
+        <td><%= crm.año %></td>
+        <td><%= crm.tipo %></td>
+        <td><%= crm.dias %></td>
+        <td><%= crm.cliente %></td>
+        <td><%= crm.telefono %></td>
+        <td><%= crm.verificacion %></td>
+        <td><%= link_to 'Show', crm %></td>
+        <td><%= link_to 'Edit', edit_crm_path(crm) %></td>
+        <td><%= link_to 'Destroy', crm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Crm', new_crm_path %>
