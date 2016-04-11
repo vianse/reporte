@@ -13,7 +13,7 @@ class Api::V1::GarantiasDetallesController <ApplicationController
             {
                 :verde => "  Número de ordenes cobradas de manera eficiente #{@verde}",
                 :amarillo => "  Número de ordenes cobradas a tiempo #{@amarillo}",
-                :rojo => "  Número de ordenes cobradas en el limite del tiempo #{@rojo}"
+                :rojo => "  Número de ordenes cobradas en el límite del tiempo #{@rojo}"
   
             }
        

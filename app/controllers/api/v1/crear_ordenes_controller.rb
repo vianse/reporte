@@ -77,23 +77,28 @@ def create
           :cliente => a[:cliente],
           :telefono => a[:telefono]
           })
-         
          @garantias.save
-         @claves = Pendiente.where(:app_id => a[:app_id].to_s).where(:sucursal_id => a[:sucursal_id].to_s).where(:group_id => a[:group_id]).where(:asesor_id => a[:asesor_id].to_s).where(:tipo => @tipo).pluck(:key)
+          
+          
          
        else
          @crear_ordenes = Pendiente.create(a)
        end
-         
+
       end
-       verifica    = Garantium.select(:key,:orden,:fecha).where.not(:key => @claves)
-         logger.debug "Dias #{verifica}"
-          verifica.map do |b|
-           @dias = distance_of_time_in_days(b.fecha)
-           actualiza = Garantium.find_by_key(b.key)
-           logger.debug "Dias #{actualiza.key}"
-           #actualiza.update({:fecha_salida => Date.today, :dias => @dias})
-          end 
+
+        @claves   = Pendiente.where(:app_id => params[:app_id]).pluck(:key)
+        @verifica = Garantium.where.not(:key => @claves)
+            #select(:key,:orden,:fecha)
+            #logger.debug "Claves #{@claves}"
+            #logger.debug "Dias #{@verifica}"
+            @verifica.map do |b|
+             @dias = distance_of_time_in_days(b.fecha)
+             actualiza = Garantium.find_by_key(b.key)
+             logger.debug "Actualiza #{actualiza.key}"
+             actualiza.update({:fecha_salida => Date.today, :dias => @dias})
+            end 
+ 
         render json: {
                  message: "Datos guardados satisfactoriamente."
                }      
