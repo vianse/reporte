@@ -23,7 +23,7 @@ facturas_params.map do |a|
        grupo = a[:group_id].to_s
        asesor = a[:asesor_id].to_s
        tipo = a[:tipo]
-       clave = app.to_i + sucursal.to_i + grupo.to_i + asesor.to_i + a[:orden]
+       #clave = app.to_i + sucursal.to_i + grupo.to_i + asesor.to_i + a[:orden]
        @crear_facturas = Facturada.create({
         :orden => a[:orden], 
         :tipo => a[:tipo], 
@@ -38,7 +38,7 @@ facturas_params.map do |a|
         :group_id => a[:group_id],
         :sucursal_tipo => a[:sucursal_tipo],
         :asesor_id => a[:asesor_id].to_s,
-        :key => clave.to_s
+       # :key => clave.to_s
         })
 end
  render json: {
