@@ -73,9 +73,9 @@ def create
           :fecha => a[:fecha],
           :key => clave,
           :mes => Date.today.month,
-          :año => Date.today.year,
-          :cliente => a[:cliente],
-          :telefono => a[:telefono]
+          :año => Date.today.year#,
+          #:cliente => a[:cliente],
+          #:telefono => a[:telefono]
           })
          @garantias.save
           
@@ -117,7 +117,7 @@ def distance_of_time_in_days(from_time, to_time = Date.today, include_seconds = 
 
   def ordenes_params
    params.require(:ordenes).map do |p|
-   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo,:asesor_id, :key,:telefono,:cliente)
+   ActionController::Parameters.new(p.to_hash).permit(:orden, :tipo, :importe, :fecha, :estatus, :app_id, :sucursal_id,:group_id,:sucursal_tipo,:asesor_id, :key)
    
    end
   end
